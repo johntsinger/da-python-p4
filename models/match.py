@@ -1,0 +1,44 @@
+from models.player import PlayerInTournament
+
+
+class Match:
+    def __init__(self, player_1, player_2, winner=None):
+        self.player_1 = player_1
+        self.player_2 = player_2
+        self.winner = winner
+
+    @property
+    def cleaned_data(self):
+        dictionary = {}
+        for key, value in vars(self).items():
+            if isinstance(value, PlayerInTournament):
+                dictionary[key] = value.cleaned_data
+            else:
+                dictionary[key] = value
+        return dictionary
+
+    @classmethod
+    def from_dict(cls, dictionary):
+        for key, value in dictionary.items():
+            if key != 'winner':
+                if not isinstance(value, str):
+                    dictionary[key] = PlayerInTournament.from_dict(value)
+        return Match(**dictionary)
+
+    @property
+    def as_tuple(self):
+        return ([self.player_1, self.player_1.score],
+                [self.player_2, self.player_2.score] 
+                if not isinstance(self.player_2, str) else [self.player_2])
+
+    def __repr__(self):
+        player_1_str = (f"{self.player_1.last_name} " 
+                        f"{self.player_1.first_name} " 
+                        f"{self.player_1.score}")
+        player_2_str = self.player_2
+        if not isinstance(self.player_2, str):
+            player_2_str = (f"{self.player_2.last_name} "
+                            f"{self.player_2.first_name} "
+                            f"{self.player_2.score}")
+
+        return f"([{player_1_str}][{player_2_str}])"
