@@ -103,6 +103,10 @@ class Storage:
             in self.db.search(lambda obj: predicate(obj, kwargs))
         ]
 
+    def get_elt_by_id(self, uuid):
+        dictionary = self.db.get(doc_id=uuid)
+        return self.CLASSES[self.name].from_dict(dictionary)
+
     def update(self, obj):
         self.db.update(obj.cleaned_data, doc_ids=[obj.uuid])
 

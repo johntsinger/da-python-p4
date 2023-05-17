@@ -27,6 +27,8 @@ class Player:
                 key = key.lstrip("_")
                 if not isinstance(value, str):
                     value = value.strftime('%d/%m/%Y')
+            if key == 'uuid':
+                key = 'Id'
             string += f"{key.capitalize().replace('_', ' ')} : {value}\n"
         return string
 

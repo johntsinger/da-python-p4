@@ -48,7 +48,7 @@ class TournamentMenu:
                 return None
             if response:
                 self.views.wait.wait()
-                return self.storage.all()[int(response) - 1]
+                return self.storage.get_elt_by_id(int(response))
         return None
 
     def manager(self):
