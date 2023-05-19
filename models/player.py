@@ -47,10 +47,10 @@ class Player:
 
 class PlayerInTournament(Player):
     def __init__(self, last_name, first_name, date_of_birth, uuid, score=0,
-                 opponents=[]):
+                 opponents=None):
         super().__init__(last_name, first_name, date_of_birth, uuid)
         self.score = score
-        self.opponents = opponents
+        self.opponents = opponents if opponents else []
 
     @property
     def cleaned_data(self): 

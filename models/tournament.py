@@ -4,16 +4,17 @@ from models.round import Round
 
 class Tournament:
     def __init__(self, name, location, start_date, end_date,
-                 description=None, number_of_rounds=4, rounds=[],
-                 players=[], curent_round=1, uuid=None):
+                 description=None, number_of_rounds=4, rounds=None,
+                 players=None, curent_round=1, uuid=None):
+
         self.uuid = uuid
         self.name = name
         self.location = location
         self._start_date = start_date
         self._end_date = end_date
         self.number_of_rounds = number_of_rounds
-        self.rounds = rounds
-        self.players = players
+        self.rounds = rounds if rounds else []  # avoid pifall mutable defaut args
+        self.players = players if players else []
         self.curent_round = curent_round
         self.description = description
 

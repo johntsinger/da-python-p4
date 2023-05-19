@@ -4,11 +4,11 @@ from models.match import Match
 
 class Round:
     def __init__(self, name, start_date=datetime.now(),
-                 end_date=None, matches=[]):
+                 end_date=None, matches=None):
         self.name = name
         self.start_date = start_date
         self.end_date = end_date
-        self.matches = matches
+        self.matches = matches if matches else []
 
     @property
     def cleaned_data(self):
