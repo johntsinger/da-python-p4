@@ -1,4 +1,6 @@
+prettytable==3.7.0
 python-dateutil==2.8.2
 six==1.16.0
 tinydb==4.7.1
 tinydb-serialization==2.1.0
+wcwidth==0.2.6
