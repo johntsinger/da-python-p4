@@ -14,3 +14,11 @@ class ErrorView:
     def all_players_added(self):
         message = "All players are already registered for this tournament"
         print(message)
+
+    def tournament_ended(self):
+        message = "All round of this tournement have already been set"
+        print(message)
+
+    def round_not_finished(self):
+        message = "You can't start next round while the previous round is not finished"
+        print(message)

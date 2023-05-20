@@ -41,6 +41,16 @@ class InterfaceView:
             "key": [
                 "1", "2", "9"
             ]
+        },
+        "round": {
+            "label": (
+                f"Select winner (1){' ' * 4}"
+                f"Next round (2){' ' * 4}"
+                "return (9)"
+            ),
+            "key": [
+                "1", "2", "9"
+            ]
         }
     }
 

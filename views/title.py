@@ -33,3 +33,6 @@ class TitleView(Frame):
 
     def tournament_menu(self):
         print(self.frame("TOURNAMENT MENU "))
+
+    def round_menu(self, round_number):
+        print(self.frame(f"ROUND {round_number} "))
