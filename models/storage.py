@@ -74,8 +74,8 @@ class Storage:
         self.serialization = SerializationMiddleware(JSONStorage)
         # self.serialization.register_serializer(MatchSerializer(), 'Match')
         # self.serialization.register_serializer(RoundSerializer(), 'Round')
-        self.serialization.register_serializer(
-            PlayerInTournamentSerializer(), 'PlayerInTournament')
+        #self.serialization.register_serializer(
+            #PlayerInTournamentSerializer(), 'PlayerInTournament')
         self.serialization.register_serializer(
             DateTimeSerializer(), 'TinyDate')
         # self.serialization.register_serializer(TournamentSerializer(), 'Tournament')

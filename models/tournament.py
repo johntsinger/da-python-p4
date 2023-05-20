@@ -86,4 +86,4 @@ class Tournament:
             return NotImplemented
         return all([self.name == other.name,
                     self.location == other.location,
-                    self.start_date == other.start_date])
+                    self._start_date == other._start_date])

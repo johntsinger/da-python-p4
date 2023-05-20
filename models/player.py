@@ -42,7 +42,7 @@ class Player:
             return NotImplemented
         return all([self.last_name == other.last_name,
                     self.first_name == other.first_name,
-                    self.date_of_birth == other.date_of_birth])
+                    self._date_of_birth == other._date_of_birth])
 
 
 class PlayerInTournament(Player):
