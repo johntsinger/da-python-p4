@@ -9,4 +9,12 @@ class RoundView:
         return response
 
     def prompt_for_winner(self, match):
-        print(f"Select the winner for match : {match}")
+        message = f"Select the winner for match : {match}"
+        print(message)
+
+    def prompt_for_next_round(self):
+        message = "Next round ? (y/n) : "
+        response = input(message)
+        if response == 'y' or not response:
+            return True
+        return False
