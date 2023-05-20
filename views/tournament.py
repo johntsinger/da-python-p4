@@ -1,8 +1,4 @@
 class TournamentMenuView:
-    def display_tournaments(self, tournaments):
-        for tournament in tournaments:
-            print(f'\n[{tournament.uuid}] Tournament \n{tournament}')
-
     def select(self, name):
         message = f"Enter the number of the desired {name} : "
         response = input(message)

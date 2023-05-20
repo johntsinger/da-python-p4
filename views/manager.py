@@ -1,11 +1,12 @@
 from views.error import ErrorView
 from views.create import CreateView
 from views.title import TitleView
-from views.home import HomeView
+from views.interface import InterfaceView
 from views.tournament import TournamentMenuView
 from views.player import PlayerMenuView
 from views.report import Report
 from views.wait import WaitUserAction
+from views.round import RoundView
 
 
 class ViewsManager:
@@ -14,7 +15,8 @@ class ViewsManager:
         self.create_view = CreateView()
         self.title_view = TitleView()
         self.tournament_menu = TournamentMenuView()
-        self.home_view = HomeView()
         self.player_menu = PlayerMenuView()
         self.report = Report()
         self.wait = WaitUserAction()
+        self.round_view = RoundView()
+        self.interface = InterfaceView()

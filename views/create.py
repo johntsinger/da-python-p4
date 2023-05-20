@@ -4,7 +4,7 @@ import inspect
 class CreateView:
     def prompt_for(self, label, empty):
         name = inspect.stack(
-            )[1][0].f_locals['self'].__class__.__name__.replace('Create', '')
+            )[1][0].f_locals['self'].__class__.__name__.replace('New', '')
         result = input(f"{label} : ")
         if not result:
             if not empty:
