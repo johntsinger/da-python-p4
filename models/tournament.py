@@ -5,7 +5,7 @@ from models.round import Round
 class Tournament:
     def __init__(self, name, location, start_date, end_date,
                  description=None, number_of_rounds=4, rounds=None,
-                 players=None, curent_round=1, uuid=None):
+                 players=None, curent_round=0, uuid=None):
 
         self.uuid = uuid
         self.name = name
