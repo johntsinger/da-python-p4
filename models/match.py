@@ -57,3 +57,12 @@ class Match:
                             f"{self.player_2.score}")
 
         return f"([{player_1_str}][{player_2_str}])"
+
+    def __eq__(self, other):
+        if not isinstance(other, Match):
+            return NotImplemented
+        return (
+            self.player_1 == other.player_1 or self.player_1 == other.player_2
+        ) and (
+            self.player_2 == other.player_1 or self.player_2 == other.player_2
+        )
