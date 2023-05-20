@@ -1,7 +1,7 @@
 from models.storage import Storage
 from models.player import PlayerInTournament
 from controllers.create import NewTournament
-from controllers.round import RoundController
+from controllers.round import NewRound, RoundController
 from utils.tools import clear_console
 
 
@@ -74,6 +74,7 @@ class TournamentMenu:
                 tournament = self.select_tournament()
                 if tournament:
                     self.storage.remove(tournament)
+                    self.create_tournament.instances = self.storage.all()
             if response == '9':
                 stay = False
 
@@ -83,7 +84,8 @@ class TournamentController:
         self.views = views
         self.storage = Storage('tournaments')
         self._tournament = None
-        self.round = None
+        self.round_controller = None
+        #self.new_round = None
         self.players_list = None
 
     @property
@@ -113,20 +115,20 @@ class TournamentController:
     @tournament.setter
     def tournament(self, value):
         self._tournament = value
-        self.round = RoundController(self.views, self._tournament)
+        self.round_controller = RoundController(self.views, self._tournament)
 
     def start(self):
+        """
         while self.tournament.curent_round < self.tournament.number_of_rounds:
             self.tournament.curent_round += 1
             self.get_rounds()
-            self.round.select_winner()
+        """
+        if not self.tournament.rounds:
+            self.round_controller.add_round()
+        self.round_controller.manager()
 
     def add_player(self, player):
         self.tournament.add_player(player)
-        self.storage.update(self.tournament)
-
-    def get_rounds(self):
-        self.round.generate()
         self.storage.update(self.tournament)
 
     def get_players_list(self):
@@ -174,6 +176,5 @@ class TournamentController:
             if response == '2':
                 clear_console()
                 self.start()
-                self.views.wait.wait()
             if response == '9':
                 stay = False
