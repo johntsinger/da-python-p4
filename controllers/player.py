@@ -11,6 +11,10 @@ class PlayerMenu:
         self.player = None
 
     @property
+    def interface(self):
+        return self.views.interface
+
+    @property
     def create_view(self):
         return self.views.create_view
 
@@ -55,21 +59,24 @@ class PlayerMenu:
                 return self.storage.get_elt_by_id(int(response))
         return None
 
+    def delete_player(self):
+        player = self.select_player()
+        if player:
+            self.storage.remove(player)
+
     def manager(self):
         stay = True
         while stay:
             clear_console()
             self.title.player_menu()
-            response = self.player_menu.display_interface()
-            if response == '0':
+            response = self.interface.display_interface('player')
+            if response == '1':
                 clear_console()
                 self.new_player()
-            if response == '1':
+            if response == '2':
                 clear_console()
                 self.display_all()
             if response == '6':
-                player = self.select_player()
-                if player:
-                    self.storage.remove(player)
+                self.delete_player()
             if response == '9':
                 stay = False

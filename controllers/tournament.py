@@ -13,6 +13,10 @@ class TournamentMenu:
         self.tournament_controller = TournamentController(self.views)
 
     @property
+    def interface(self):
+        return self.views.interface
+
+    @property
     def create_view(self):
         return self.views.create_view
 
@@ -36,7 +40,6 @@ class TournamentMenu:
                 new_tournament.uuid = self.storage.db.insert(
                     new_tournament.cleaned_data)
                 self.storage.update(new_tournament)
-                return new_tournament
 
     def select_tournament(self):
         tournaments = self.storage.all()
@@ -56,11 +59,11 @@ class TournamentMenu:
         while stay:
             clear_console()
             self.title.tournament_menu()
-            response = self.tournament_menu.display_menu_interface()
-            if response == '0':
+            response = self.interface.display_interface('tournament')
+            if response == '1':
                 clear_console()
                 self.new_tournament()
-            if response == '1':
+            if response == '2':
                 clear_console()
                 tournament = self.select_tournament()
                 if tournament:
@@ -82,6 +85,10 @@ class TournamentController:
         self._tournament = None
         self.round = None
         self.players_list = None
+
+    @property
+    def interface(self):
+        return self.views.interface
 
     @property
     def report(self):
@@ -109,7 +116,10 @@ class TournamentController:
         self.round = RoundController(self.views, self._tournament)
 
     def start(self):
-        pass
+        while self.tournament.curent_round < self.tournament.number_of_rounds:
+            self.tournament.curent_round += 1
+            self.get_rounds()
+            self.round.select_winner()
 
     def add_player(self, player):
         self.tournament.add_player(player)
@@ -148,29 +158,22 @@ class TournamentController:
                                                   player.uuid)
         self.error_view.all_players_added()
         self.views.wait.wait()
-
-    def display(self, obj):
-        for key, value in vars(obj).items():
-            print(key, value, type(value))
-            if isinstance(value, list):
-                for elt in value:
-                    self.display(elt)
-
+ 
     def manager(self):
         stay = True
         while stay:
             clear_console()
             self.title.tournament_menu()
             self.report.display_all([self.tournament])
-            response = self.tournament_menu.display_interface()
-            if response == '0':
+            response = self.interface.display_interface('tournament_menu')
+            if response == '1':
                 clear_console()
                 player = self.select_players()
                 if player:
                     self.add_player(player)
-            if response == '1':
+            if response == '2':
                 clear_console()
-                self.get_rounds()
+                self.start()
                 self.views.wait.wait()
             if response == '9':
                 stay = False

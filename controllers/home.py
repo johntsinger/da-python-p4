@@ -10,8 +10,8 @@ class Home:
         self._tournament_menu = TournamentMenu(self.views)
 
     @property
-    def home_view(self):
-        return self.views.home_view
+    def interface(self):
+        return self.views.interface
 
     @property
     def title(self):
@@ -20,10 +20,10 @@ class Home:
     def manager(self):
         clear_console()
         self.title.main_title()
-        response = self.home_view.display_interface()
-        if response == '0':
+        response = self.interface.display_interface('home')
+        if response == "1":
             self._player_menu.manager()
-        if response == '1':
+        if response == "2":
             self._tournament_menu.manager()
-        if response == '9':
+        if response == "9":
             exit()
