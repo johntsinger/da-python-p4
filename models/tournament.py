@@ -43,7 +43,7 @@ class Tournament:
             if key == "rounds":
                 dictionary[key] = [Round.from_dict(elt) for elt in value]
             if key == "players":
-                dictionary[key] = [PlayerInTournament(**elt) for elt in value]
+                dictionary[key] = [PlayerInTournament.from_dict(elt) for elt in value]
         return Tournament(**dictionary)
 
     def set_description(self, description):

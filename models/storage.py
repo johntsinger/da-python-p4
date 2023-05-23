@@ -29,7 +29,7 @@ class PlayerInTournamentSerializer(Serializer):
 
     def decode(self, s):
         dictionary = json.loads(s)
-        return PlayerInTournament(**dictionary)
+        return PlayerInTournament.from_dict(dictionary)
 
 
 class RoundSerializer(Serializer):

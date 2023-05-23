@@ -21,6 +21,7 @@ class Player:
         return Player(**dictionary)
     
     def __str__(self):
+        return f"{self.first_name} {self.last_name} {self.date_of_birth}"
         string = ""
         for key, value in vars(self).items():
             if key.startswith("_"):
@@ -46,11 +47,9 @@ class Player:
 
 
 class PlayerInTournament(Player):
-    def __init__(self, last_name, first_name, date_of_birth, uuid, score=0,
-                 opponents=None):
+    def __init__(self, last_name, first_name, date_of_birth, uuid, score=0):
         super().__init__(last_name, first_name, date_of_birth, uuid)
         self.score = score
-        self.opponents = opponents if opponents else []
 
     @property
     def cleaned_data(self): 
@@ -65,12 +64,10 @@ class PlayerInTournament(Player):
 
     @classmethod
     def from_dict(cls, dictionary):
-        for key, value in dictionary.items():
-            if key == "opponents":
-                dictionary[key] = [
-                    PlayerInTournament.from_dict(elt) for elt in value
-                ]
         return PlayerInTournament(**dictionary)
 
     def __repr__(self):
         return f"{self.last_name} {self.first_name}"
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name} {self.score}'
