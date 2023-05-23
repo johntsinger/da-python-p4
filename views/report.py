@@ -1,7 +1,7 @@
 from prettytable import PrettyTable
 from prettytable import ALL
-from textwrap import fill
 from datetime import datetime
+from models.player import PlayerInTournament
 
 
 class Report:
@@ -31,11 +31,13 @@ class Report:
 
     def wrap_list(self, value):
         if isinstance(value, list):
+            # sort players by score 
+            try:
+                value.sort(key=lambda obj: obj.score, reverse=True)
+            except AttributeError:
+                pass
             string = ''
             for elt in value:
-                if isinstance(elt, list):
-                    for elt1 in elt:
-                        string += f"{elt}\n"
                 string += f"{elt}\n"
             return string
         if isinstance(value, datetime):
@@ -62,3 +64,4 @@ class Report:
             self.table.add_row(self.get_value(item))
 
         print(self.table)
+        print()

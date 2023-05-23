@@ -5,7 +5,7 @@ class CreateView:
     def prompt_for(self, label, empty):
         name = inspect.stack(
             )[1][0].f_locals['self'].__class__.__name__.replace('New', '')
-        result = input(f"{label} : ")
+        result = input(f"{label} (type <q> to stop) : ")
         if not result:
             if not empty:
                 print(f"\nA {name} must have a {label}\n")

@@ -1,10 +1,12 @@
 class TournamentMenuView:
     def select(self, name):
-        message = f"Enter the number of the desired {name} : "
+        message = f"Enter the id of the desired {name}{' (type <q> to stop)' if name == 'player' else ''} : "
         response = input(message)
         try:
             int(response)
         except ValueError:
+            if response.lower() == 'q':
+                return response
             return None
         return response
 
@@ -23,3 +25,6 @@ class TournamentMenuView:
         if response not in ['0', '1', '9']:
             return None
         return response
+
+    def display_player(self, player):
+        print(f"\nPlayer : {player} has been added to the tournament\n")

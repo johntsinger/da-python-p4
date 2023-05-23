@@ -36,10 +36,11 @@ class InterfaceView:
             "label": (
                 f"Add players (1){' ' * 4}"
                 f"Start (2){' ' * 4}"
+                f"Display player (3){' ' * 4}"
                 "Return (9)"
             ),
             "key": [
-                "1", "2", "9"
+                "1", "2", "3", "9"
             ]
         },
         "round": {
