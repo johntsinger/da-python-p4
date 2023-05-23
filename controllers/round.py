@@ -30,21 +30,24 @@ class NewRound:
                 self.round.matches.append(match)
         else:
             players_list.sort(key=lambda obj: obj.score, reverse=True)
-            for match in self.get_pair(players_list):
+            if len(players_list) % 2:
+                number_of_matches = len(players_list + 1) / 2
+            else:
+                number_of_matches = len(players_list) / 2
+            matches = self.get_pair(players_list)
+            print('first pair matches : ', matches)
+            if len(matches) < number_of_matches:
+                players_list = list(self.tournament.players)
+                print("NUMBER OF MATCH MISS")
+                players_list.sort(key=lambda obj: obj.score)
+                matches = self.get_pair(players_list)
+                print('Second pair matches', matches)
+                self.views.wait.wait()
+            for match in matches:
                 #match = Match(*pair)
                 self.round.matches.append(match)
         self.tournament.rounds.append(self.round)
         return self.round
-
-    """
-    def get_pair(self, players_list):
-        iterator = iter(players_list)
-        for player in iterator:
-            try:
-                yield (player, next(iterator))
-            except StopIteration:
-                yield (player, 'EXEMPT')
-    """
 
     def get_pair(self, players_list):
         pair = []
@@ -112,22 +115,25 @@ class RoundController:
             self.error_view.tournament_ended()
 
     def select_winner(self):
-        for match in self.round.matches:
-            if not match.winner:
-                players = [match.player_1, match.player_2]
-                self.round_view.prompt_for_winner(match)
-                self.report.display_all([match])
-                if isinstance(match.player_2, str):
-                    match.winner = match.player_1
-                else:
-                    response = self.round_view.select('winner')
-                    if response in ["1", "2", "3"]:
-                        if response == '3':
-                            match.winner = [match.player_1, match.player_2]
-                        else:
-                            match.winner = players[int(response) - 1]
-                        self.storage.update(self.tournament)
-        self.round.end()
+        if not self.round.end_date:
+            for match in self.round.matches:
+                if not match.winner:
+                    players = [match.player_1, match.player_2]
+                    self.round_view.prompt_for_winner(match)
+                    self.report.display_all([match])
+                    if isinstance(match.player_2, str):
+                        match.winner = match.player_1
+                    else:
+                        response = self.round_view.select('winner')
+                        if response in ["1", "2", "3"]:
+                            if response == '3':
+                                match.winner = players
+                            else:
+                                match.winner = players[int(response) - 1]
+                            self.storage.update(self.tournament)
+            if all([match.winner for match in self.round.matches]):
+                self.round.end()
+            self.storage.update(self.tournament)
 
     def manager(self):
         stay = True
