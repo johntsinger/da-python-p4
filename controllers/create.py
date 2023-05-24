@@ -11,6 +11,7 @@ class NewPlayer(Validate):
 
     @Validate._exists('player')
     def create(self):
+        self.views.create_view.title('player')
         last_name = self._input('str', 'Last name')
         first_name = self._input('str', 'First name')
         date_of_birth = self._input('date', 'Date of birth')
@@ -33,8 +34,13 @@ class NewTournament(Validate):
     def tournament_menu(self):
         return self.views.tournament_menu
 
+    @property
+    def error_view(self):
+        return self.views.error_view
+
     @Validate._exists('tournament')
     def create(self):
+        self.views.create_view.title('tournament')
         name = self._input('str', 'Name')
         location = self._input('str', 'Location')
         start_date = self._input('date', 'Start date')
@@ -60,11 +66,17 @@ class NewTournament(Validate):
 
     def add_player(self, tournament):
         self.get_players_list()
-        player = -1
-        while player:
+        keep_selecting = True
+        while self.players_list and keep_selecting:
             player = self.select_players()
             if player:
-                tournament.add_player(player)
+                if player == 'q':
+                    keep_selecting = False
+                else:
+                    tournament.add_player(player)
+        if not self.players_list:
+            self.error_view.all_players_added()
+            self.views.wait.wait()
 
     def get_players_list(self):
         storage = Storage('players').all()
@@ -74,13 +86,16 @@ class NewTournament(Validate):
         if self.players_list:
             self.report.display_all(self.players_list)
             response = self.tournament_menu.select('player')
+            if response == 'q':
+                return response
             if response not in [str(player.uuid) 
                                 for player in self.players_list]:
+                self.error_view.player_not_exist(response)
                 return None
             if response:
                 for player in self.players_list:
                     if player.uuid == int(response):
-                        print(player)
+                        self.tournament_menu.display_player(player)
                         self.views.wait.wait()
                         self.players_list.remove(player)
                         return PlayerInTournament(player.last_name,
