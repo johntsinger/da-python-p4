@@ -1,7 +1,8 @@
 from models.storage import Storage
 from models.player import PlayerInTournament
+from models.exceptions import UserExitException
 from controllers.create import NewTournament
-from controllers.round import NewRound, RoundController
+from controllers.round import RoundController
 from utils.tools import clear_console
 
 
@@ -34,7 +35,12 @@ class TournamentMenu:
 
     def new_tournament(self):
         self.title.new_tournament_title()
-        new_tournament = self.create_tournament.create()
+        new_tournament = None
+        # Exception raised if user type 'q' during creation
+        try:
+            new_tournament = self.create_tournament.create()
+        except UserExitException:
+            return None
         if new_tournament:
             if self.create_view.accept("tournament", new_tournament):
                 new_tournament.uuid = self.storage.db.insert(
@@ -118,18 +124,40 @@ class TournamentController:
         self.round_controller = RoundController(self.views, self._tournament)
 
     def start(self):
-        """
-        while self.tournament.curent_round < self.tournament.number_of_rounds:
-            self.tournament.curent_round += 1
-            self.get_rounds()
-        """
         if not self.tournament.rounds:
+            self.adjust_number_of_round()
             self.round_controller.add_round()
         self.round_controller.manager()
 
-    def add_player(self, player):
-        self.tournament.add_player(player)
-        self.storage.update(self.tournament)
+    def max_round(self):
+        number_of_players = len(self.tournament.players)
+        if number_of_players % 2:
+            return number_of_players
+        return number_of_players - 1
+
+    def adjust_number_of_round(self):
+        max_round = self.max_round()
+        if self.tournament.number_of_rounds > max_round:
+            self.error_view.wrong_number_of_round(
+                self.tournament.number_of_rounds,
+                max_round
+            )
+            self.tournament.number_of_rounds = max_round
+            self.views.wait.wait()
+
+    def add_player(self):
+        keep_selecting = True
+        while self.players_list and keep_selecting:
+            player = self.select_players()
+            if player:
+                if player == 'q':
+                    keep_selecting = False
+                else:
+                    self.tournament.add_player(player)
+                    self.storage.update(self.tournament)
+        if not self.players_list:
+            self.error_view.all_players_added()
+            self.views.wait.wait()
 
     def get_players_list(self):
         storage = Storage('players').all()
@@ -142,25 +170,32 @@ class TournamentController:
         ]
 
     def select_players(self):
-        if self.players_list:
-            self.report.display_all(self.players_list)
-            response = self.tournament_menu.select('player')
-            if response not in [str(player.uuid)
-                                for player in self.players_list]:
-                return None
-            if response:
-                for player in self.players_list:
-                    if player.uuid == int(response):
-                        print(player)
-                        self.views.wait.wait()
-                        self.players_list.remove(player)
-                        return PlayerInTournament(player.last_name,
-                                                  player.first_name,
-                                                  player.date_of_birth,
-                                                  player.uuid)
-        self.error_view.all_players_added()
-        self.views.wait.wait()
- 
+        self.report.display_all(self.players_list)
+        response = self.tournament_menu.select('player')
+        if response == 'q':
+            return response
+        if response not in [str(player.uuid)
+                            for player in self.players_list]:
+            self.error_view.player_not_exist(response)
+            return None
+        if response:
+            for player in self.players_list:
+                if player.uuid == int(response):
+                    self.tournament_menu.display_player(player)
+                    self.views.wait.wait()
+                    self.players_list.remove(player)
+                    return PlayerInTournament(player.last_name,
+                                              player.first_name,
+                                              player.date_of_birth,
+                                              player.uuid)
+
+    def display_players(self):
+        players = self.tournament.players
+        if players:
+            players.sort(key=lambda obj: obj.last_name)
+            self.report.display_all(players)
+            self.views.wait.wait()
+
     def manager(self):
         stay = True
         while stay:
@@ -170,11 +205,12 @@ class TournamentController:
             response = self.interface.display_interface('tournament_menu')
             if response == '1':
                 clear_console()
-                player = self.select_players()
-                if player:
-                    self.add_player(player)
+                self.add_player()
             if response == '2':
                 clear_console()
                 self.start()
+            if response == '3':
+                clear_console()
+                self.display_players()
             if response == '9':
                 stay = False

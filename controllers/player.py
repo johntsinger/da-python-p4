@@ -1,4 +1,5 @@
 from models.storage import Storage
+from models.exceptions import UserExitException
 from controllers.create import NewPlayer
 from utils.tools import clear_console
 
@@ -32,7 +33,10 @@ class PlayerMenu:
 
     def new_player(self):
         self.title.new_player_title()
-        new_player = self.create_player.create()
+        try:
+            new_player = self.create_player.create()
+        except UserExitException:
+            return None
         if new_player:
             if self.create_view.accept("player", new_player):
                 new_player.uuid = self.storage.db.insert(
