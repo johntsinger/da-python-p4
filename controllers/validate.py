@@ -1,7 +1,8 @@
 import re
 import dateutil.parser
-from utils.tools import is_date
 from typing import TYPE_CHECKING
+from models.exceptions import UserExitException
+from utils.tools import is_date
 
 if TYPE_CHECKING:
     from views.manager import ViewsManager
@@ -40,6 +41,8 @@ class Validate:
         result = None
         while not result:
             result = self.create_view.prompt_for(label, empty)
+            if result == 'q':
+                raise UserExitException
             result = self.functions[expected_type](result)
             if empty:  # can be empty for attributes with default value
                 return result
