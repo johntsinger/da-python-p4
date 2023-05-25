@@ -106,14 +106,14 @@ class RoundController:
     def add_round(self):
         if self.round:
             if not self.round.end_date:
-                self.error_view.round_not_finished()
+                self.error_view.round_not_over()
                 return None
         if self.tournament.curent_round < self.tournament.number_of_rounds:
             self.round = self.new_round.generate()
             self.storage.update(self.tournament)
         else:
-            self.error_view.tournament_ended()
-
+            self.error_view.tournament_over()
+    """
     def select_winner(self):
         if not self.round.end_date:
             for match in self.round.matches:
@@ -133,7 +133,37 @@ class RoundController:
                             self.storage.update(self.tournament)
             if all([match.winner for match in self.round.matches]):
                 self.round.end()
-            self.storage.update(self.tournament)
+            self.storage.update(self.tournament)"""
+
+    def select_match(self):
+        matches = [match for match in self.round.matches if not match.winner]
+        self.report.display_all(matches)
+        response = self.round_view.select('match')
+        if response in [str(i + 1) for i in range(len(matches))]:
+            return matches[int(response) - 1]
+
+    def select_winner(self):
+        if not self.round.end_date:
+            match = self.select_match()
+            if match:
+                players = [match.player_1, match.player_2]
+                self.round_view.prompt_for_winner(match)
+                self.report.display_all([match])
+                if isinstance(match.player_2, str):
+                    match.winner = match.player_1
+                else:
+                    response = self.round_view.select('winner')
+                    if response in ["1", "2", "3"]:
+                        if response == '3':
+                            match.winner = players
+                        else:
+                            match.winner = players[int(response) - 1]
+                        self.storage.update(self.tournament)
+                if all([match.winner for match in self.round.matches]):
+                    self.round.end()
+                self.storage.update(self.tournament)
+        else:
+            self.error_view.round_over()
 
     def manager(self):
         stay = True
