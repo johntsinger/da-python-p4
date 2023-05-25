@@ -1,7 +1,7 @@
 from prettytable import PrettyTable
 from prettytable import ALL
 from datetime import datetime
-from models.player import PlayerInTournament
+from models.match import Match
 
 
 class Report:
@@ -28,6 +28,14 @@ class Report:
             value = self.wrap_list(value)
             values.append(value)
         return values
+
+    def match(self, items):
+        self.table.clear()
+        key = ['Id', 'Player 1', 'Player 2', 'Winner']
+        self.table.field_names = key
+        self.table.align = 'l'
+        for i, item in enumerate(items):
+            self.table.add_row([i + 1, item.player_1, item.player_2, item.winner])
 
     def wrap_list(self, value):
         if isinstance(value, list):
@@ -62,6 +70,8 @@ class Report:
                 [self.wrap_list(value) for value in vars(item).values()])
             """
             self.table.add_row(self.get_value(item))
+        if isinstance(items[0], Match):
+            self.match(items)
 
         print(self.table)
         print()

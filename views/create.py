@@ -2,10 +2,15 @@ import inspect
 
 
 class CreateView:
+    def title(self, name):
+        message = f"Informations to create a new {name} (type <q> to abort creation)"
+        print(message)
+        print()
+
     def prompt_for(self, label, empty):
         name = inspect.stack(
             )[1][0].f_locals['self'].__class__.__name__.replace('New', '')
-        result = input(f"{label} (type <q> to stop) : ")
+        result = input(f"{label} : ")
         if not result:
             if not empty:
                 print(f"\nA {name} must have a {label}\n")
