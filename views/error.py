@@ -55,3 +55,10 @@ class ErrorView:
         print()
         print(message)
         print()
+
+    def tournament_has_started(self):
+        message = ("This tournament has alredy started,"
+                   " so it's not possible to add more players !")
+        print()
+        print(message)
+        print()
