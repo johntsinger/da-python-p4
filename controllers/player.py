@@ -46,7 +46,7 @@ class PlayerMenu:
     def display_all(self):
         players = self.storage.all()
         if players:
-            players.sort(key=lambda obj: obj.last_name)
+            players.sort(key=lambda obj: (obj.last_name, obj.first_name))
             self.report.display_all(players)
             self.views.wait.wait()
 
