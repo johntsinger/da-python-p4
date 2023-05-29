@@ -146,17 +146,21 @@ class TournamentController:
             self.views.wait.wait()
 
     def add_player(self):
-        keep_selecting = True
-        while self.players_list and keep_selecting:
-            player = self.select_players()
-            if player:
-                if player == 'q':
-                    keep_selecting = False
-                else:
-                    self.tournament.add_player(player)
-                    self.storage.update(self.tournament)
-        if not self.players_list:
-            self.error_view.all_players_added()
+        if not self.tournament.rounds:
+            keep_selecting = True
+            while self.players_list and keep_selecting:
+                player = self.select_players()
+                if player:
+                    if player == 'q':
+                        keep_selecting = False
+                    else:
+                        self.tournament.add_player(player)
+                        self.storage.update(self.tournament)
+            if not self.players_list:
+                self.error_view.all_players_added()
+                self.views.wait.wait()
+        else:
+            self.error_view.tournament_has_started()
             self.views.wait.wait()
 
     def get_players_list(self):
@@ -192,7 +196,7 @@ class TournamentController:
     def display_players(self):
         players = self.tournament.players
         if players:
-            players.sort(key=lambda obj: obj.last_name)
+            players.sort(key=lambda obj: (obj.last_name, obj.first_name))
             self.report.display_all(players)
             self.views.wait.wait()
 
