@@ -12,9 +12,9 @@ class Tournament:
         self.location = location
         self._start_date = start_date
         self._end_date = end_date
+        self.players = players if players else []
         self.number_of_rounds = number_of_rounds
         self.rounds = rounds if rounds else []  # avoid pifall mutable defaut args
-        self.players = players if players else []
         self.curent_round = curent_round
         self.description = description
 
@@ -40,10 +40,15 @@ class Tournament:
     @classmethod
     def from_dict(cls, dictionary):
         for key, value in dictionary.items():
-            if key == "rounds":
-                dictionary[key] = [Round.from_dict(elt) for elt in value]
             if key == "players":
-                dictionary[key] = [PlayerInTournament.from_dict(elt) for elt in value]
+                dictionary[key] = [
+                    PlayerInTournament.from_dict(elt) for elt in value
+                ]
+            if key == "rounds":
+                dictionary[key] = [
+                    Round.from_dict(elt, dictionary['players']) 
+                    for elt in value
+                ]
         return Tournament(**dictionary)
 
     def set_description(self, description):

@@ -2,7 +2,9 @@ from models.player import PlayerInTournament
 
 
 class Match:
-    def __init__(self, player_1, player_2, score_player_1=0, score_player_2=0, winner=None):
+    def __init__(self, uuid, player_1, player_2, 
+                 score_player_1=0, score_player_2=0, winner=None):
+        self.uuid = uuid
         self.player_1 = player_1
         self.player_2 = player_2
         self.score_player_1 = score_player_1
@@ -16,9 +18,9 @@ class Match:
     @winner.setter
     def winner(self, value):
         if isinstance(value, list):
-            self.player_1.score += 0.5
+            for player in value:
+                player.score += 0.5
             self.score_player_1 = 0.5
-            self.player_2.score += 0.5
             self.score_player_2 = 0.5
             self._winner = value
         else:
@@ -43,14 +45,25 @@ class Match:
         return dictionary
 
     @classmethod
-    def from_dict(cls, dictionary):
+    def from_dict(cls, dictionary, players):
         for key, value in dictionary.items():
             if key == 'winner':
+                players_to_add = []
                 if isinstance(value, list):
-                    dictionary[key] = [PlayerInTournament.from_dict(elt) for elt in value]
+                    for elt in value:
+                        player_from_dict = PlayerInTournament.from_dict(elt)
+                        for player in players:
+                            if player_from_dict == player:
+                                players_to_add.append(player)
+                                break
+                    dictionary[key] = players_to_add
             else:
                 if not isinstance(value, (str, int, float)):
-                    dictionary[key] = PlayerInTournament.from_dict(value)
+                    player_from_dict = PlayerInTournament.from_dict(value)
+                    for player in players:
+                        if player_from_dict == player:
+                            dictionary[key] = player
+                            break
         return Match(**dictionary)
 
     @property

@@ -22,10 +22,12 @@ class Round:
         return dictionary
 
     @classmethod
-    def from_dict(cls, dictionary):
+    def from_dict(cls, dictionary, players):
         for key, value in dictionary.items():
             if key == "matches":
-                dictionary[key] = [Match.from_dict(elt) for elt in value]
+                dictionary[key] = [
+                    Match.from_dict(elt, players) for elt in value
+                ]
         return Round(**dictionary)
 
     def end(self):
