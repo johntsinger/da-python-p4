@@ -96,7 +96,6 @@ class NewTournament(Validate):
                 for player in self.players_list:
                     if player.uuid == int(response):
                         self.tournament_menu.display_player(player)
-                        self.views.wait.wait()
                         self.players_list.remove(player)
                         return PlayerInTournament(player.last_name,
                                                   player.first_name,

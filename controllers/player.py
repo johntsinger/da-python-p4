@@ -59,7 +59,6 @@ class PlayerMenu:
                                 for player in players]:
                 return None
             if response:
-                self.views.wait.wait()
                 return self.storage.get_elt_by_id(int(response))
         return None
 

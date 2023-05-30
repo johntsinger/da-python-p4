@@ -35,7 +35,7 @@ class Report:
         self.table.field_names = key
         self.table.align = 'l'
         for i, item in enumerate(items):
-            self.table.add_row([i + 1, item.player_1, item.player_2, item.winner])
+            self.table.add_row([item.uuid, item.player_1, item.player_2, item.winner])
 
     def wrap_list(self, value):
         if isinstance(value, list):
@@ -54,21 +54,9 @@ class Report:
 
     def display_all(self, items):
         self.table.clear()
-        """
-        self.table.field_names = [
-            key.lstrip('_').capitalize().replace('_', ' ')
-            for key in vars(items[0]).keys()
-        ]
-        """
         self.table.field_names = (self.get_key(items[0]))
         self.table.align = 'l'
-        #self.table.header = False
-        #self.table.add_row(self.get_key(items[0]))
         for item in items:
-            """
-            self.table.add_row(
-                [self.wrap_list(value) for value in vars(item).values()])
-            """
             self.table.add_row(self.get_value(item))
         if isinstance(items[0], Match):
             self.match(items)
