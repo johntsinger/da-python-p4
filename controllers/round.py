@@ -9,6 +9,7 @@ class NewRound:
         self.views = views
         self.tournament = tournament
         self.round = None
+        self.match_pool = None
 
     @property
     def round_view(self):
@@ -18,6 +19,46 @@ class NewRound:
     def report(self):
         return self.views.report
 
+    def pairing(self, players_list):
+        matches = []
+        players_in_match = []
+        if len(players_list) % 2 == 1:
+            for i in reversed(range(len(players_list))):
+                if not self.already_exempt(players_list[i]):
+                    uuid = len(matches) + 1
+                    matches.append(Match(uuid, players_list[i], "EXEMPT"))
+                    players_in_match.append(players_list[i])
+                    break
+
+        i = 0
+        print(len(players_list))
+        while i < len(players_list):
+            print(players_in_match)
+            uuid = len(matches) + 1
+            if not players_list[i] in players_in_match:
+                j = i + 1
+                while players_list[j] in players_in_match:
+                    j += 1
+                match = Match(uuid, players_list[i], players_list[j])
+                print('ici : ', match)
+                while self.match_exists(match):
+                    try:
+                        j += 1
+                        if players_list[j] in players_in_match:
+                            continue
+                        match = Match(uuid, players_list[i], players_list[j])
+                    except IndexError:
+                        break
+                else:
+                    print("used : ", match)
+                    self.views.wait.wait()
+                    matches.append(match)
+                    players_in_match.append(players_list[i])
+                    players_in_match.append(players_list[j])
+                    print(matches)
+            i += 1
+        return matches
+
     def generate(self):
         players_list = list(self.tournament.players)
         self.tournament.curent_round += 1
@@ -25,53 +66,36 @@ class NewRound:
         self.round = Round(round_name)
         if self.tournament.curent_round == 1:
             shuffle(players_list)
-            for match in self.get_pair(players_list):
-                #match = Match(*pair)
+            for match in self.pairing(players_list):
                 self.round.matches.append(match)
         else:
             players_list.sort(key=lambda obj: obj.score, reverse=True)
-            if len(players_list) % 2:
-                number_of_matches = len(players_list + 1) / 2
-            else:
-                number_of_matches = len(players_list) / 2
-            matches = self.get_pair(players_list)
-            print('first pair matches : ', matches)
-            if len(matches) < number_of_matches:
-                players_list = list(self.tournament.players)
-                print("NUMBER OF MATCH MISS")
-                players_list.sort(key=lambda obj: obj.score)
-                matches = self.get_pair(players_list)
-                print('Second pair matches', matches)
-                self.views.wait.wait()
-            for match in matches:
-                #match = Match(*pair)
+            for match in self.pairing(players_list):
                 self.round.matches.append(match)
         self.tournament.rounds.append(self.round)
         return self.round
 
-    def get_pair(self, players_list):
-        pair = []
-        while players_list:
-            player_1 = players_list.pop(0)
-            if players_list:
-                for player_2 in players_list:
-                    match = Match(*(player_1, player_2))
-                    if self.match_exists(match):
-                        continue
-                    pair.append(match)
-                    break
-                players_list.remove(player_2)
-            else:
-                player_2 = "EXEMPT"
-                match = Match(*(player_1, player_2))
-                pair.append(match)
-        return pair
-
     def match_exists(self, match):
-        matches = [match for _round in self.tournament.rounds for match in _round.matches]
+        matches = [match for _round in self.tournament.rounds
+                   for match in _round.matches]
         for existing_match in matches:
             if match == existing_match:
                 return True
+        return False
+
+    def get_players_exempt(self):
+        matches = [match for _round in self.tournament.rounds
+                   for match in _round.matches]
+        players_exempt = []
+        for match in matches:
+            if match.player_2 == 'EXEMPT':
+                players_exempt.append(match.player_1)
+        return players_exempt
+
+    def already_exempt(self, player):
+        players_exempt = self.get_players_exempt()
+        if player in players_exempt:
+            return True
         return False
 
 
@@ -113,37 +137,16 @@ class RoundController:
             self.storage.update(self.tournament)
         else:
             self.error_view.tournament_over()
-    """
-    def select_winner(self):
-        if not self.round.end_date:
-            for match in self.round.matches:
-                if not match.winner:
-                    players = [match.player_1, match.player_2]
-                    self.round_view.prompt_for_winner(match)
-                    self.report.display_all([match])
-                    if isinstance(match.player_2, str):
-                        match.winner = match.player_1
-                    else:
-                        response = self.round_view.select('winner')
-                        if response in ["1", "2", "3"]:
-                            if response == '3':
-                                match.winner = players
-                            else:
-                                match.winner = players[int(response) - 1]
-                            self.storage.update(self.tournament)
-            if all([match.winner for match in self.round.matches]):
-                self.round.end()
-            self.storage.update(self.tournament)"""
 
     def select_match(self):
         matches = [match for match in self.round.matches if not match.winner]
         self.report.display_all(matches)
         response = self.round_view.select('match')
-        if response in [str(i + 1) for i in range(len(matches))]:
-            return matches[int(response) - 1]
+        if response in [str(match.uuid) for match in matches]:
+            return next(match for match in matches if match.uuid == int(response))
 
     def select_winner(self):
-        if not self.round.end_date:
+        while not self.round.end_date:
             match = self.select_match()
             if match:
                 players = [match.player_1, match.player_2]
@@ -151,14 +154,17 @@ class RoundController:
                 self.report.display_all([match])
                 if isinstance(match.player_2, str):
                     match.winner = match.player_1
+                    self.storage.update(self.tournament)
                 else:
                     response = self.round_view.select('winner')
                     if response in ["1", "2", "3"]:
                         if response == '3':
                             match.winner = players
+                            self.storage.update(self.tournament)
                         else:
                             match.winner = players[int(response) - 1]
-                        self.storage.update(self.tournament)
+                            self.storage.update(self.tournament)
+                        
                 if all([match.winner for match in self.round.matches]):
                     self.round.end()
                 self.storage.update(self.tournament)
