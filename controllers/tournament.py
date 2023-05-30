@@ -91,7 +91,6 @@ class TournamentController:
         self.storage = Storage('tournaments')
         self._tournament = None
         self.round_controller = None
-        #self.new_round = None
         self.players_list = None
 
     @property
@@ -130,10 +129,38 @@ class TournamentController:
         self.round_controller.manager()
 
     def max_round(self):
+        """Find the maximun number of round a tournament can have.
+
+        Divide the number of unique pairs by the number of matches per round
+        """
         number_of_players = len(self.tournament.players)
+        match_per_round = self.match_per_round(number_of_players)
+        number_possible_matches = self.number_possible_matches(
+            number_of_players)
+        return number_possible_matches / match_per_round
+
+    @staticmethod
+    def match_per_round(number_of_players):
+        """Find the number of matches a round can have.
+
+        If the number of players is odd, the single player is counted 
+        as a match against 'EXEMPT', and 'EXEMPT' is counted as one player
+        """
         if number_of_players % 2:
-            return number_of_players
-        return number_of_players - 1
+            number_of_matches = number_of_players + 1 / 2
+        else:
+            number_of_matches = number_of_players / 2
+        return number_of_matches
+
+    @staticmethod
+    def number_possible_matches(number_of_players):
+        """Find the number of unique pairs in a set.
+
+        formula : n!/k!(n-k)! where n is the number of items
+        and k the number of elements in each set.
+        Can be simplified to n(n-1)/2 if k=2
+        """
+        return (number_of_players * (number_of_players - 1)) / 2
 
     def adjust_number_of_round(self):
         max_round = self.max_round()
@@ -184,9 +211,11 @@ class TournamentController:
             return None
         if response:
             for player in self.players_list:
+                # not use players_list[int(response) - 1] because uuids may not 
+                # follow each other if the object is deleted 
+                # (i.e. : 1, 3 if 2 has been deleted)
                 if player.uuid == int(response):
                     self.tournament_menu.display_player(player)
-                    self.views.wait.wait()
                     self.players_list.remove(player)
                     return PlayerInTournament(player.last_name,
                                               player.first_name,
