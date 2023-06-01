@@ -2,21 +2,53 @@ from models.player import Player, PlayerInTournament
 from models.tournament import Tournament
 from controllers.validate import Validate
 from models.storage import Storage
+from models.exceptions import UserExitException
 
 
 class NewPlayer(Validate):
     def __init__(self, views, players):
         super().__init__(views)
         self.instances = players
+        self.storage = Storage('temporary/player')
+        self.storage.db.default_table_name = 'player'
 
     @Validate._exists('player')
+    def base_data(self, data):
+        try:
+            data['last_name'] = self._input('str', 'Last name') \
+                if not data['last_name'] else data['last_name']
+            data['first_name'] = self._input('str', 'First name') \
+                if not data['first_name'] else data['first_name']
+            data['date_of_birth'] = self._input('date', 'Date of birth') \
+                if not data['date_of_birth'] else data['date_of_birth']
+        except UserExitException:
+            if self.storage.db.all():  
+                self.storage.db.update(data)
+            else:
+                self.storage.db.insert(data)
+            raise UserExitException
+        else:
+            player = Player(**data)
+            return player
+
     def create(self):
         self.views.create_view.title('player')
-        last_name = self._input('str', 'Last name')
-        first_name = self._input('str', 'First name')
-        date_of_birth = self._input('date', 'Date of birth')
-        player = Player(last_name, first_name, 
-                        date_of_birth)
+        dictionary = {
+            "last_name": None,
+            "first_name": None,
+            "date_of_birth": None
+        }
+        data = self.storage.db.all(
+            )[0] if self.storage.db.all() else dictionary
+        if data['last_name']:
+            response = self.create_view.load_data('player', data)
+            if not response:
+                data = dictionary
+                self.storage.db.truncate()
+        player = self.base_data(data)
+        if not player:
+            self.views.wait.wait()
+        self.storage.db.truncate()
         return player
 
 
@@ -25,6 +57,8 @@ class NewTournament(Validate):
         super().__init__(views)
         self.instances = tournaments
         self.players_list = None
+        self.storage = Storage('temporary/tournament')
+        self.storage.db.default_table_name = 'tournament'
 
     @property
     def report(self):
@@ -39,29 +73,77 @@ class NewTournament(Validate):
         return self.views.error_view
 
     @Validate._exists('tournament')
+    def base_data(self, data):
+        try:
+            data['name'] = self._input('str', 'Name') \
+                if not data['name'] else data['name']
+            data['location'] = self._input('str', 'Location') \
+                if not data['location'] else data['location']
+            data['start_date'] = self._input('date', 'Start date') \
+                if not data['start_date'] else data['start_date']
+            data['end_date'] = self._input('date', 'End date') \
+                if not data['end_date'] else data['end_date']
+        except UserExitException:
+            if self.storage.db.all():  
+                self.storage.db.update(data)
+            else:
+                self.storage.db.insert(data)
+            raise UserExitException
+        else:
+            return Tournament(**data)
+
+    def get_additional_data(self, data):
+        try:
+            if 'number_of_rounds' not in data:
+                data['number_of_rounds'] = self._input(
+                    'int',
+                    'Number of rounds (can be left empty (default 4 rounds)',
+                    empty=True
+                )
+            data['description'] = self._input(
+                'str',
+                'Description of tournament',
+                empty=True
+            ) if 'description' not in data else data['description']
+        except UserExitException:
+            if 'number_of_rounds' in data and not data['number_of_rounds']:
+                data['number_of_rounds'] = 4
+            if self.storage.db.all(): 
+                self.storage.db.update(data)
+            else:
+                self.storage.db.insert(data)
+            raise UserExitException
+        else:
+            return data
+
     def create(self):
         self.views.create_view.title('tournament')
-        name = self._input('str', 'Name')
-        location = self._input('str', 'Location')
-        start_date = self._input('date', 'Start date')
-        end_date = self._input('date', 'End date')
-        number_of_rounds = self._input(
-            'int',
-            'Number of rounds (can be left empty (default 4 rounds)',
-            empty=True
-        )
-        description = self._input(
-            'str',
-            "Description of tournament",
-            empty=True)
-        tournament = Tournament(name, location, start_date,
-                                end_date)
-        # set args that have a default value
-        if number_of_rounds:
-            tournament.set_number_of_rounds(number_of_rounds)
-        if description:
-            tournament.set_description(description)
-        self.add_player(tournament)
+        dictionary = {
+            "name": None,
+            "location": None,
+            "start_date": None,
+            "end_date": None
+        }
+        data = self.storage.db.all(
+            )[0] if self.storage.db.all() else dictionary
+        if data['name']:
+            response = self.create_view.load_data('tournament', data)
+            if not response:
+                data = dictionary
+                self.storage.db.truncate()
+        tournament = self.base_data(data)
+
+        if tournament:
+            additional_data = self.get_additional_data(data)
+            if additional_data['number_of_rounds']:
+                tournament.set_number_of_rounds(
+                    additional_data['number_of_rounds'])
+            if additional_data['description']:
+                tournament.set_description(additional_data['description'])
+            self.add_player(tournament)
+        else:
+            self.views.wait.wait()
+        self.storage.db.truncate()
         return tournament
 
     def add_player(self, tournament):
