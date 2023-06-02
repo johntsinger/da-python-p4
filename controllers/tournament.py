@@ -8,11 +8,13 @@ from math import trunc
 
 
 class TournamentMenu:
-    def __init__(self, views):
+    def __init__(self, views, pretty_table):
         self.views = views
+        self.pretty_table = pretty_table
         self.storage = Storage('tournaments')
         self.create_tournament = NewTournament(self.views, self.storage.all())
-        self.tournament_controller = TournamentController(self.views)
+        self.tournament_controller = TournamentController(
+            self.views, self.pretty_table)
 
     @property
     def interface(self):
@@ -29,10 +31,6 @@ class TournamentMenu:
     @property
     def title(self):
         return self.views.title_view
-
-    @property
-    def report(self):
-        return self.views.report
 
     def new_tournament(self):
         self.title.new_tournament_title()
@@ -51,15 +49,29 @@ class TournamentMenu:
     def select_tournament(self):
         tournaments = self.storage.all()
         if tournaments:
-            self.report.display_all(tournaments)
+            self.pretty_table.display(tournaments)
             response = self.tournament_menu.select('tournament')
             if response not in [str(tournament.uuid)
                                 for tournament in tournaments]:
                 return None
             if response:
-                self.views.wait.wait()
                 return self.storage.get_elt_by_id(int(response))
         return None
+
+    def access_tournament(self):
+        self.title.select_tournament()
+        tournament = self.select_tournament()
+        if tournament:
+            self.tournament_controller.tournament = tournament
+            self.tournament_controller.get_players_list()
+            self.tournament_controller.manager()
+
+    def delete_tournament(self):
+        self.title.delete_tournament()
+        tournament = self.select_tournament()
+        if tournament:
+            self.storage.remove(tournament)
+            self.create_tournament.instances = self.storage.all()
 
     def manager(self):
         stay = True
@@ -70,25 +82,20 @@ class TournamentMenu:
             if response == '1':
                 clear_console()
                 self.new_tournament()
-            if response == '2':
+            elif response == '2':
                 clear_console()
-                tournament = self.select_tournament()
-                if tournament:
-                    self.tournament_controller.tournament = tournament
-                    self.tournament_controller.get_players_list()
-                    self.tournament_controller.manager()
-            if response == '6':
-                tournament = self.select_tournament()
-                if tournament:
-                    self.storage.remove(tournament)
-                    self.create_tournament.instances = self.storage.all()
-            if response == '9':
+                self.access_tournament()
+            elif response == '6':
+                clear_console()
+                self.delete_tournament()
+            elif response == '9':
                 stay = False
 
 
 class TournamentController:
-    def __init__(self, views):
+    def __init__(self, views, pretty_table):
         self.views = views
+        self.pretty_table = pretty_table
         self.storage = Storage('tournaments')
         self._tournament = None
         self.round_controller = None
@@ -97,10 +104,6 @@ class TournamentController:
     @property
     def interface(self):
         return self.views.interface
-
-    @property
-    def report(self):
-        return self.views.report
 
     @property
     def title(self):
@@ -121,7 +124,8 @@ class TournamentController:
     @tournament.setter
     def tournament(self, value):
         self._tournament = value
-        self.round_controller = RoundController(self.views, self._tournament)
+        self.round_controller = RoundController(
+            self.views, self._tournament, self.pretty_table)
 
     def start(self):
         if not self.tournament.rounds:
@@ -202,7 +206,7 @@ class TournamentController:
         ]
 
     def select_players(self):
-        self.report.display_all(self.players_list)
+        self.pretty_table.display(self.players_list)
         response = self.tournament_menu.select('player')
         if response == 'q':
             return response
@@ -227,7 +231,7 @@ class TournamentController:
         players = self.tournament.players
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
-            self.report.display_all(players)
+            self.pretty_table.display(players)
             self.views.wait.wait()
 
     def manager(self):
@@ -235,16 +239,16 @@ class TournamentController:
         while stay:
             clear_console()
             self.title.tournament_menu()
-            self.report.display_all([self.tournament])
+            self.pretty_table.display([self.tournament])
             response = self.interface.display_interface('tournament_menu')
             if response == '1':
                 clear_console()
                 self.add_player()
-            if response == '2':
+            elif response == '2':
                 clear_console()
                 self.start()
-            if response == '3':
+            elif response == '3':
                 clear_console()
                 self.display_players()
-            if response == '9':
+            elif response == '9':
                 stay = False

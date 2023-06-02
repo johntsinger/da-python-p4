@@ -15,10 +15,6 @@ class NewRound:
     def round_view(self):
         return self.views.round_view
 
-    @property
-    def report(self):
-        return self.views.report
-
     def pairing(self, players_list):
         matches = []
         players_in_match = []
@@ -107,8 +103,9 @@ class NewRound:
 
 
 class RoundController:
-    def __init__(self, views, tournament):
+    def __init__(self, views, tournament, pretty_table):
         self.views = views
+        self.pretty_table = pretty_table
         self.storage = Storage('tournaments')
         self.tournament = tournament
         self.new_round = NewRound(views, tournament)
@@ -122,10 +119,6 @@ class RoundController:
     @property
     def interface(self):
         return self.views.interface
-
-    @property
-    def report(self):
-        return self.views.report
 
     @property
     def round_view(self):
@@ -148,7 +141,7 @@ class RoundController:
 
     def select_match(self):
         matches = [match for match in self.round.matches if not match.winner]
-        self.report.display_all(matches)
+        self.pretty_table.display(matches)
         response = self.round_view.select('match')
         if response in [str(match.uuid) for match in matches]:
             return next(match for match in matches
@@ -162,7 +155,7 @@ class RoundController:
             if match:
                 players = [match.player_1, match.player_2]
                 self.round_view.prompt_for_winner(match)
-                self.report.display_all([match])
+                self.pretty_table.display([match])
                 if isinstance(match.player_2, str):
                     match.winner = match.player_1
                     self.storage.update(self.tournament)
@@ -189,7 +182,7 @@ class RoundController:
         stay = True
         while stay:
             self.title.round_menu(self.tournament.curent_round)
-            self.report.display_all([self.round])
+            self.pretty_table.display([self.round])
             response = self.interface.display_interface("round")
             if response == "1":
                 self.select_winner()

@@ -36,3 +36,15 @@ class TitleView(Frame):
 
     def round_menu(self, round_number):
         print(self.frame(f"ROUND {round_number} "))
+
+    def delete_player(self):
+        print(self.frame("DELETE PLAYER "))
+
+    def players_list(self):
+        print(self.frame("LIST OF PLAYERS "))
+
+    def delete_tournament(self):
+        print(self.frame("DELETE TOURNAMENTS"))
+
+    def select_tournament(self):
+        print(self.frame("SELECT TOURNAMENTS"))

@@ -5,8 +5,9 @@ from utils.tools import clear_console
 
 
 class PlayerMenu:
-    def __init__(self, views):
+    def __init__(self, views, pretty_table):
         self.views = views
+        self.pretty_table = pretty_table
         self.storage = Storage('players')
         self.create_player = NewPlayer(views, self.storage.all())
         self.player = None
@@ -27,10 +28,6 @@ class PlayerMenu:
     def player_menu(self):
         return self.views.player_menu
 
-    @property
-    def report(self):
-        return self.views.report
-
     def new_player(self):
         self.title.new_player_title()
         try:
@@ -44,16 +41,17 @@ class PlayerMenu:
                 self.storage.update(new_player)
 
     def display_all(self):
+        self.title.players_list()
         players = self.storage.all()
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
-            self.report.display_all(players)
+            self.pretty_table.display(players)
             self.views.wait.wait()
 
     def select_player(self):
         players = self.storage.all()
         if players:
-            self.report.display_all(players)
+            self.pretty_table.display(players)
             response = self.player_menu.select('player')
             if response not in [str(player.uuid)
                                 for player in players]:
@@ -63,6 +61,7 @@ class PlayerMenu:
         return None
 
     def delete_player(self):
+        self.title.delete_player()
         player = self.select_player()
         if player:
             self.storage.remove(player)
@@ -76,10 +75,11 @@ class PlayerMenu:
             if response == '1':
                 clear_console()
                 self.new_player()
-            if response == '2':
+            elif response == '2':
                 clear_console()
                 self.display_all()
-            if response == '6':
+            elif response == '6':
+                clear_console()
                 self.delete_player()
-            if response == '9':
+            elif response == '9':
                 stay = False

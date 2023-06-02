@@ -4,7 +4,7 @@ from views.title import TitleView
 from views.interface import InterfaceView
 from views.tournament import TournamentMenuView
 from views.player import PlayerMenuView
-from views.report import Report
+from views.prettytable import TableView
 from views.wait import WaitUserAction
 from views.round import RoundView
 
@@ -16,7 +16,7 @@ class ViewsManager:
         self.title_view = TitleView()
         self.tournament_menu = TournamentMenuView()
         self.player_menu = PlayerMenuView()
-        self.report = Report()
+        self.table_view = TableView()
         self.wait = WaitUserAction()
         self.round_view = RoundView()
         self.interface = InterfaceView()

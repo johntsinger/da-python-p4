@@ -4,9 +4,18 @@ from datetime import datetime
 from models.match import Match
 
 
-class Report:
-    def __init__(self):
+class MyPrettyTable:
+    # Color
+    R = "\033[0;31;40m"  # RED
+    G = "\033[0;32;40m"  # GREEN
+    Y = "\033[0;33;40m"  # Yellow
+    B = "\033[0;34;40m"  # Blue
+    N = "\033[0m"  # Reset
+
+    def __init__(self, views):
+        self.views = views
         self.table = PrettyTable(hrules=ALL)
+        self.table.align = 'l'
 
     def get_key(self, item):
         keys = []
@@ -14,7 +23,7 @@ class Report:
             if key == 'uuid':
                 key = 'Id'
             key = key.lstrip("_").capitalize().replace('_', ' ')
-            keys.append(key)
+            keys.append(self.G+key+self.N)
         return keys
 
     def get_value(self, item):
@@ -33,7 +42,6 @@ class Report:
         self.table.clear()
         key = ['Id', 'Player 1', 'Player 2', 'Winner']
         self.table.field_names = key
-        self.table.align = 'l'
         for i, item in enumerate(items):
             self.table.add_row([item.uuid, item.player_1, item.player_2, item.winner])
 
@@ -52,14 +60,12 @@ class Report:
             return value.strftime("%d/%m/%Y %H:%M")
         return value
 
-    def display_all(self, items):
+    def display(self, items):
         self.table.clear()
         self.table.field_names = (self.get_key(items[0]))
-        self.table.align = 'l'
         for item in items:
             self.table.add_row(self.get_value(item))
         if isinstance(items[0], Match):
             self.match(items)
 
-        print(self.table)
-        print()
+        self.views.table_view.display(self.table)
