@@ -25,7 +25,7 @@ class Home:
         response = self.interface.display_interface('home')
         if response == "1":
             self._player_menu.manager()
-        if response == "2":
+        elif response == "2":
             self._tournament_menu.manager()
-        if response == "9":
+        elif response == "9":
             exit()
