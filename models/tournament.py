@@ -71,7 +71,8 @@ class Tournament:
                 value = value.strftime('%d/%m/%Y %H:%M')
             if key == 'uuid':
                 key = 'id'
-            string += f"{' '*8}{key.capitalize().replace('_', ' ')} : {value}\n"
+            string += (f"{' '*8}{key.capitalize().replace('_', ' ')}"
+                       f" : {value}\n")
         return string
 
     def __repr__(self):
