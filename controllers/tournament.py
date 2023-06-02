@@ -4,6 +4,7 @@ from models.exceptions import UserExitException
 from controllers.create import NewTournament
 from controllers.round import RoundController
 from utils.tools import clear_console
+from math import trunc
 
 
 class TournamentMenu:
@@ -137,7 +138,7 @@ class TournamentController:
         match_per_round = self.match_per_round(number_of_players)
         number_possible_matches = self.number_possible_matches(
             number_of_players)
-        return number_possible_matches / match_per_round
+        return trunc(number_possible_matches / match_per_round)
 
     @staticmethod
     def match_per_round(number_of_players):
@@ -147,7 +148,7 @@ class TournamentController:
         as a match against 'EXEMPT', and 'EXEMPT' is counted as one player
         """
         if number_of_players % 2:
-            number_of_matches = number_of_players + 1 / 2
+            number_of_matches = (number_of_players + 1) / 2
         else:
             number_of_matches = number_of_players / 2
         return number_of_matches
