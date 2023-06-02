@@ -12,6 +12,10 @@ class NewPlayer(Validate):
         self.storage = Storage('temporary/player')
         self.storage.db.default_table_name = 'player'
 
+    @property
+    def create_view(self):
+        return self.views.create
+
     @Validate._exists('player')
     def base_data(self, data):
         try:
@@ -32,7 +36,7 @@ class NewPlayer(Validate):
             return player
 
     def create(self):
-        self.views.create_view.title('player')
+        self.create_view.info('player')
         dictionary = {
             "last_name": None,
             "first_name": None,
@@ -53,24 +57,25 @@ class NewPlayer(Validate):
 
 
 class NewTournament(Validate):
-    def __init__(self, views, tournaments):
+    def __init__(self, views, tournaments, pretty_table):
         super().__init__(views)
+        self.pretty_table = pretty_table
         self.instances = tournaments
         self.players_list = None
         self.storage = Storage('temporary/tournament')
         self.storage.db.default_table_name = 'tournament'
 
     @property
-    def report(self):
-        return self.views.report
-
-    @property
-    def tournament_menu(self):
-        return self.views.tournament_menu
+    def tournament_view(self):
+        return self.views.tournament
 
     @property
     def error_view(self):
-        return self.views.error_view
+        return self.views.error
+
+    @property
+    def create_view(self):
+        return self.views.create
 
     @Validate._exists('tournament')
     def base_data(self, data):
@@ -117,7 +122,7 @@ class NewTournament(Validate):
             return data
 
     def create(self):
-        self.views.create_view.title('tournament')
+        self.create_view.info('tournament')
         dictionary = {
             "name": None,
             "location": None,
@@ -166,8 +171,8 @@ class NewTournament(Validate):
 
     def select_players(self):
         if self.players_list:
-            self.report.display_all(self.players_list)
-            response = self.tournament_menu.select('player')
+            self.pretty_table.display(self.players_list)
+            response = self.tournament_view.select('player')
             if response == 'q':
                 return response
             if response not in [str(player.uuid) 
@@ -177,7 +182,7 @@ class NewTournament(Validate):
             if response:
                 for player in self.players_list:
                     if player.uuid == int(response):
-                        self.tournament_menu.display_player(player)
+                        self.tournament_view.display_player(player)
                         self.players_list.remove(player)
                         return PlayerInTournament(player.last_name,
                                                   player.first_name,

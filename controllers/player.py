@@ -13,23 +13,23 @@ class PlayerMenu:
         self.player = None
 
     @property
-    def interface(self):
+    def interface_view(self):
         return self.views.interface
 
     @property
     def create_view(self):
-        return self.views.create_view
+        return self.views.create
 
     @property
-    def title(self):
-        return self.views.title_view
+    def title_view(self):
+        return self.views.title
 
     @property
-    def player_menu(self):
-        return self.views.player_menu
+    def player_view(self):
+        return self.views.player
 
     def new_player(self):
-        self.title.new_player_title()
+        self.title_view.new_player()
         try:
             new_player = self.create_player.create()
         except UserExitException:
@@ -41,7 +41,7 @@ class PlayerMenu:
                 self.storage.update(new_player)
 
     def display_all(self):
-        self.title.players_list()
+        self.title_view.players_list()
         players = self.storage.all()
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
@@ -52,7 +52,7 @@ class PlayerMenu:
         players = self.storage.all()
         if players:
             self.pretty_table.display(players)
-            response = self.player_menu.select('player')
+            response = self.player_view.select('player')
             if response not in [str(player.uuid)
                                 for player in players]:
                 return None
@@ -61,7 +61,7 @@ class PlayerMenu:
         return None
 
     def delete_player(self):
-        self.title.delete_player()
+        self.title_view.delete_player()
         player = self.select_player()
         if player:
             self.storage.remove(player)
@@ -70,8 +70,8 @@ class PlayerMenu:
         stay = True
         while stay:
             clear_console()
-            self.title.player_menu()
-            response = self.interface.display_interface('player')
+            self.title_view.player_menu()
+            response = self.interface_view.display_interface('player')
             if response == '1':
                 clear_console()
                 self.new_player()

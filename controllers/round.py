@@ -11,10 +11,6 @@ class NewRound:
         self.round = None
         self.match_pool = None
 
-    @property
-    def round_view(self):
-        return self.views.round_view
-
     def pairing(self, players_list):
         matches = []
         players_in_match = []
@@ -113,20 +109,20 @@ class RoundController:
             -1] if self.tournament.rounds else None
 
     @property
-    def title(self):
-        return self.views.title_view
+    def title_view(self):
+        return self.views.title
 
     @property
-    def interface(self):
+    def interface_view(self):
         return self.views.interface
 
     @property
     def round_view(self):
-        return self.views.round_view
+        return self.views.round
 
     @property
     def error_view(self):
-        return self.views.error_view
+        return self.views.error
 
     def add_round(self):
         if self.round:
@@ -181,9 +177,9 @@ class RoundController:
     def manager(self):
         stay = True
         while stay:
-            self.title.round_menu(self.tournament.curent_round)
+            self.title_view.round_menu(self.tournament.curent_round)
             self.pretty_table.display([self.round])
-            response = self.interface.display_interface("round")
+            response = self.interface_view.display_interface("round")
             if response == "1":
                 self.select_winner()
             elif response == "2":

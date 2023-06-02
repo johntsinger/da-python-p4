@@ -17,11 +17,11 @@ class Validate:
 
     @property
     def create_view(self):
-        return self.views.create_view
+        return self.views.create
 
     @property
     def error_view(self):
-        return self.views.error_view
+        return self.views.error
 
     @staticmethod  # need to be static to use it in the child class
     def _exists(instance_type: str):

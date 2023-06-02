@@ -12,28 +12,29 @@ class TournamentMenu:
         self.views = views
         self.pretty_table = pretty_table
         self.storage = Storage('tournaments')
-        self.create_tournament = NewTournament(self.views, self.storage.all())
+        self.create_tournament = NewTournament(
+            self.views, self.storage.all(), self.pretty_table)
         self.tournament_controller = TournamentController(
             self.views, self.pretty_table)
 
     @property
-    def interface(self):
+    def interface_view(self):
         return self.views.interface
 
     @property
     def create_view(self):
-        return self.views.create_view
+        return self.views.create
 
     @property
-    def tournament_menu(self):
-        return self.views.tournament_menu
+    def tournament_view(self):
+        return self.views.tournament
 
     @property
-    def title(self):
-        return self.views.title_view
+    def title_view(self):
+        return self.views.title
 
     def new_tournament(self):
-        self.title.new_tournament_title()
+        self.title_view.new_tournament()
         new_tournament = None
         # Exception raised if user type 'q' during creation
         try:
@@ -50,7 +51,7 @@ class TournamentMenu:
         tournaments = self.storage.all()
         if tournaments:
             self.pretty_table.display(tournaments)
-            response = self.tournament_menu.select('tournament')
+            response = self.tournament_view.select('tournament')
             if response not in [str(tournament.uuid)
                                 for tournament in tournaments]:
                 return None
@@ -59,7 +60,7 @@ class TournamentMenu:
         return None
 
     def access_tournament(self):
-        self.title.select_tournament()
+        self.title_view.select_tournament()
         tournament = self.select_tournament()
         if tournament:
             self.tournament_controller.tournament = tournament
@@ -67,7 +68,7 @@ class TournamentMenu:
             self.tournament_controller.manager()
 
     def delete_tournament(self):
-        self.title.delete_tournament()
+        self.title_view.delete_tournament()
         tournament = self.select_tournament()
         if tournament:
             self.storage.remove(tournament)
@@ -77,8 +78,8 @@ class TournamentMenu:
         stay = True
         while stay:
             clear_console()
-            self.title.tournament_menu()
-            response = self.interface.display_interface('tournament')
+            self.title_view.tournament_menu()
+            response = self.interface_view.display_interface('tournament')
             if response == '1':
                 clear_console()
                 self.new_tournament()
@@ -102,20 +103,20 @@ class TournamentController:
         self.players_list = None
 
     @property
-    def interface(self):
+    def interface_view(self):
         return self.views.interface
 
     @property
-    def title(self):
-        return self.views.title_view
+    def title_view(self):
+        return self.views.title
 
     @property
-    def tournament_menu(self):
-        return self.views.tournament_menu
+    def tournament_view(self):
+        return self.views.tournament
 
     @property
     def error_view(self):
-        return self.views.error_view
+        return self.views.error
 
     @property
     def tournament(self):
@@ -207,7 +208,7 @@ class TournamentController:
 
     def select_players(self):
         self.pretty_table.display(self.players_list)
-        response = self.tournament_menu.select('player')
+        response = self.tournament_view.select('player')
         if response == 'q':
             return response
         if response not in [str(player.uuid)
@@ -220,7 +221,7 @@ class TournamentController:
                 # follow each other if the object is deleted 
                 # (i.e. : 1, 3 if 2 has been deleted)
                 if player.uuid == int(response):
-                    self.tournament_menu.display_player(player)
+                    self.tournament_view.display_player(player)
                     self.players_list.remove(player)
                     return PlayerInTournament(player.last_name,
                                               player.first_name,
@@ -228,6 +229,7 @@ class TournamentController:
                                               player.uuid)
 
     def display_players(self):
+        self.title_view.players_list()
         players = self.tournament.players
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
@@ -238,9 +240,9 @@ class TournamentController:
         stay = True
         while stay:
             clear_console()
-            self.title.tournament_menu()
+            self.title_view.tournament_menu()
             self.pretty_table.display([self.tournament])
-            response = self.interface.display_interface('tournament_menu')
+            response = self.interface_view.display_interface('tournament_menu')
             if response == '1':
                 clear_console()
                 self.add_player()

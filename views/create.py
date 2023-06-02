@@ -2,8 +2,9 @@ import inspect
 
 
 class CreateView:
-    def title(self, name):
-        message = f"Informations to create a new {name} (type <q> to abort creation)"
+    def info(self, name):
+        message = (f"Informations to create a new {name}"
+                   " (type <q> to abort creation)")
         print(message)
         print()
 

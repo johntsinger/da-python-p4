@@ -17,13 +17,17 @@ class MyPrettyTable:
         self.table = PrettyTable(hrules=ALL)
         self.table.align = 'l'
 
+    @property
+    def pretty_table_view(self):
+        return self.views.pretty_table
+
     def get_key(self, item):
         keys = []
         for key in vars(item).keys():
             if key == 'uuid':
                 key = 'Id'
             key = key.lstrip("_").capitalize().replace('_', ' ')
-            keys.append(self.G+key+self.N)
+            keys.append(self.G+key.upper()+self.N)
         return keys
 
     def get_value(self, item):
@@ -34,6 +38,8 @@ class MyPrettyTable:
                     value = value.strftime('%d/%m/%y\n%H:%M')
                 else:
                     value = value.strftime('%d/%m/%Y')
+            elif not value:
+                value = ""
             value = self.wrap_list(value)
             values.append(value)
         return values
@@ -43,7 +49,9 @@ class MyPrettyTable:
         key = ['Id', 'Player 1', 'Player 2', 'Winner']
         self.table.field_names = key
         for i, item in enumerate(items):
-            self.table.add_row([item.uuid, item.player_1, item.player_2, item.winner])
+            self.table.add_row(
+                [item.uuid, item.player_1, item.player_2, item.winner]
+            )
 
     def wrap_list(self, value):
         if isinstance(value, list):
@@ -68,4 +76,4 @@ class MyPrettyTable:
         if isinstance(items[0], Match):
             self.match(items)
 
-        self.views.table_view.display(self.table)
+        self.pretty_table_view.display(self.table)

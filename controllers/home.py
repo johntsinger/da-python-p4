@@ -12,17 +12,17 @@ class Home:
         self._tournament_menu = TournamentMenu(self.views, self.pretty_table)
 
     @property
-    def interface(self):
+    def interface_view(self):
         return self.views.interface
 
     @property
-    def title(self):
-        return self.views.title_view
+    def title_view(self):
+        return self.views.title
 
     def manager(self):
         clear_console()
-        self.title.main_title()
-        response = self.interface.display_interface('home')
+        self.title_view.main_title()
+        response = self.interface_view.display_interface('home')
         if response == "1":
             self._player_menu.manager()
         elif response == "2":

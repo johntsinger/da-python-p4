@@ -9,7 +9,7 @@ class RoundView:
                 return response.lower()
             else:
                 return None
-        return response.lower()
+        return response
 
     def prompt_for_winner(self, match):
         message = f"Select the winner for match : {match}"
