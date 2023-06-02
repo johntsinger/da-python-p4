@@ -1,12 +1,13 @@
 class TournamentMenuView:
     def select(self, name):
-        message = f"Enter the id of the desired {name}{' (type <q> to stop)' if name == 'player' else ''} : "
+        message = (f"Enter the id of the desired {name}"
+                   f"{' (type <q> to stop)' if name == 'player' else ''} : ")
         response = input(message)
         try:
             int(response)
         except ValueError:
             if response.lower() == 'q':
-                return response
+                return response.lower()
             return None
         return response
 

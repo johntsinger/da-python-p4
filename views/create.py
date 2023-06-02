@@ -23,7 +23,7 @@ class CreateView:
         print()
         message = f"Save this {name} ? (y/n)"
         response = input(message)
-        if response == "y" or not response:
+        if response.lower() == "y" or not response:
             return True
         return False
 
@@ -35,6 +35,6 @@ class CreateView:
                 print(f"{key} : {value}")
         print()
         response = input(message)
-        if response == "y" or not response:
+        if response.lower() == "y" or not response:
             return True
         return False
