@@ -5,8 +5,11 @@ class RoundView:
         try:
             int(response)
         except ValueError:
-            return None
-        return response
+            if response.lower() == 'q':
+                return response.lower()
+            else:
+                return None
+        return response.lower()
 
     def prompt_for_winner(self, match):
         message = f"Select the winner for match : {match}"
@@ -15,6 +18,6 @@ class RoundView:
     def prompt_for_next_round(self):
         message = "Next round ? (y/n) : "
         response = input(message)
-        if response == 'y' or not response:
+        if response.lower() == 'y' or not response:
             return True
         return False

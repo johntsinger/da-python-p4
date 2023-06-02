@@ -18,8 +18,22 @@ class CreateView:
         return result
 
     def accept(self, name, obj):
+        print()
         print(obj)
+        print()
         message = f"Save this {name} ? (y/n)"
+        response = input(message)
+        if response == "y" or not response:
+            return True
+        return False
+
+    def load_data(self, name, data):
+        message = f"Resume the latest {name} creation ? (y/n)"
+        print()
+        for key, value in data.items():
+            if value:
+                print(f"{key} : {value}")
+        print()
         response = input(message)
         if response == "y" or not response:
             return True
