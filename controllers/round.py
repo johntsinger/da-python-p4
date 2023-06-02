@@ -45,9 +45,16 @@ class NewRound:
                     try:
                         j += 1
                         if players_list[j] in players_in_match:
+                            print(j)
                             continue
                         match = Match(uuid, players_list[i], players_list[j])
                     except IndexError:
+                        players = [player for player in players_list if player
+                                   not in players_in_match]
+                        match = Match(uuid, players[0], players[1])
+                        matches.append(match)
+                        players_in_match.append(players[0])
+                        players_in_match.append(players[1])
                         break
                 else:
                     print("used : ", match)
@@ -105,7 +112,8 @@ class RoundController:
         self.storage = Storage('tournaments')
         self.tournament = tournament
         self.new_round = NewRound(views, tournament)
-        self.round = self.tournament.rounds[-1] if self.tournament.rounds else None
+        self.round = self.tournament.rounds[
+            -1] if self.tournament.rounds else None
 
     @property
     def title(self):
@@ -143,7 +151,10 @@ class RoundController:
         self.report.display_all(matches)
         response = self.round_view.select('match')
         if response in [str(match.uuid) for match in matches]:
-            return next(match for match in matches if match.uuid == int(response))
+            return next(match for match in matches
+                        if match.uuid == int(response))
+        elif response == 'q':
+            return None
 
     def select_winner(self):
         while not self.round.end_date:
@@ -164,10 +175,13 @@ class RoundController:
                         else:
                             match.winner = players[int(response) - 1]
                             self.storage.update(self.tournament)
-                        
+                    elif response == 'q':
+                        return None
                 if all([match.winner for match in self.round.matches]):
                     self.round.end()
                 self.storage.update(self.tournament)
+            else:
+                return None
         else:
             self.error_view.round_over()
 
@@ -179,7 +193,7 @@ class RoundController:
             response = self.interface.display_interface("round")
             if response == "1":
                 self.select_winner()
-            if response == "2":
+            elif response == "2":
                 self.add_round()
-            if response == "9":
+            elif response == "9":
                 stay = False
