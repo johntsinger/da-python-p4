@@ -11,7 +11,7 @@ class NewRound:
         self.round = None
         self.match_pool = None
 
-    def pairing(self, players_list):
+    def pairing(self, players_list, reset=False):
         matches = []
         players_in_match = []
         if len(players_list) % 2 == 1:
@@ -31,27 +31,46 @@ class NewRound:
                 j = i + 1
                 while players_list[j] in players_in_match:
                     j += 1
+                    print('première boucle j', j)
                 match = Match(uuid, players_list[i], players_list[j])
                 print('ici : ', match)
                 while self.match_exists(match):
                     try:
                         j += 1
+                        print('deuxieme boucle j', j)
                         if players_list[j] in players_in_match:
-                            print(j)
                             continue
                         match = Match(uuid, players_list[i], players_list[j])
                     except IndexError:
-                        players = [player for player in players_list if player
-                                   not in players_in_match]
-                        match = Match(uuid, players[0], players[1])
-                        matches.append(match)
-                        players_in_match.append(players[0])
-                        players_in_match.append(players[1])
-                        break
+                        print('INDEX ERROR')
+                        print(i, j)
+                        # if first time index error try revert list
+                        # and pairing again
+                        if not reset:
+                            players_list.sort(key=lambda obj: obj.score)
+                            print('PLAYER LIST : ', players_list)
+                            # list reversed iterator to get the 
+                            matches = self.pairing(players_list, reset=True)
+                            break
+                        # if it still misses a match add the match 
+                        # even if it has already been played
+                        else:
+
+                            players = [player for player in players_list 
+                                       if player not in players_in_match]
+                            match = Match(uuid, players[0], players[1])
+                            matches.append(match)
+                            players_in_match.append(players[0])
+                            players_in_match.append(players[1])
+                            break
                 else:
                     print("used : ", match)
                     self.views.wait.wait()
-                    matches.append(match)
+                    # if reset 
+                    if reset:
+                        matches.insert(0, match)
+                    else:
+                        matches.append(match)
                     players_in_match.append(players_list[i])
                     players_in_match.append(players_list[j])
                     print(matches)
