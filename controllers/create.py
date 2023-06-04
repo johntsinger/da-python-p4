@@ -102,7 +102,7 @@ class NewTournament(Validate):
             if 'number_of_rounds' not in data:
                 data['number_of_rounds'] = self._input(
                     'int',
-                    'Number of rounds (can be left empty (default 4 rounds)',
+                    'Number of rounds',
                     empty=True
                 )
             data['description'] = self._input(
@@ -155,6 +155,7 @@ class NewTournament(Validate):
         self.get_players_list()
         keep_selecting = True
         while self.players_list and keep_selecting:
+            self.create_view.add_player()
             player = self.select_players()
             if player:
                 if player == 'q':
@@ -173,6 +174,9 @@ class NewTournament(Validate):
         if self.players_list:
             self.pretty_table.display(self.players_list)
             response = self.tournament_view.select('player')
+            if not response:
+                self.error_view.no_response()
+                return None
             if response == 'q':
                 return response
             if response not in [str(player.uuid) 

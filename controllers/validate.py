@@ -49,7 +49,9 @@ class Validate:
         return result
 
     def _validate_date(self, result: str):
-        if not is_date(result):
+        if not result:
+            return None
+        elif not is_date(result):
             self.error_view.date_error(result)
             return None
         return dateutil.parser.parse(result, dayfirst=True)
@@ -64,7 +66,7 @@ class Validate:
     def _validate_digit(self, result: str):
         if not result:
             return None
-        if not result.isdigit():
+        elif not result.isdigit():
             self.error_view.digit_error(result)
             return None
         return int(result)

@@ -2,6 +2,9 @@ from models.player import PlayerInTournament
 
 
 class Match:
+    G = "\033[0;32;40m"  # GREEN
+    N = "\033[0m"  # Reset
+
     def __init__(self, uuid, player_1, player_2, 
                  score_player_1=0, score_player_2=0, winner=None):
         self.uuid = uuid
@@ -57,6 +60,12 @@ class Match:
                                 players_to_add.append(player)
                                 break
                     dictionary[key] = players_to_add
+                elif value:
+                    player_from_dict = PlayerInTournament.from_dict(value)
+                    for player in players:
+                        if player == player_from_dict:
+                            dictionary[key] = player
+                            break
             else:
                 if not isinstance(value, (str, int, float)):
                     player_from_dict = PlayerInTournament.from_dict(value)
@@ -78,11 +87,18 @@ class Match:
                         f"{self.score_player_1}")
         player_2_str = self.player_2
         if not isinstance(self.player_2, str):
-            player_2_str = (f"{self.player_2.last_name} "
-                            f"{self.player_2.first_name} "
-                            f"{self.score_player_2}")
+            player_2_str = (f"{self.score_player_2} "
+                            f"{self.player_2.last_name} "
+                            f"{self.player_2.first_name}")
+        if self.player_1 == self.winner:
+            player_1_str = self.G+player_1_str+self.N
+        elif isinstance(self.winner, list):
+            player_1_str = self.G+player_1_str+self.N
+            player_2_str = self.G+player_2_str+self.N
+        else:
+            player_2_str = self.G+player_2_str+self.N
 
-        return f"([{player_1_str}][{player_2_str}])"
+        return f"{player_1_str} - {player_2_str}"
 
     def __eq__(self, other):
         if not isinstance(other, Match):

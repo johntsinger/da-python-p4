@@ -179,6 +179,7 @@ class TournamentController:
             self.views.wait.wait()
 
     def add_player(self):
+        self.title_view.add_players()
         if not self.tournament.rounds:
             keep_selecting = True
             while self.players_list and keep_selecting:
@@ -209,6 +210,8 @@ class TournamentController:
     def select_players(self):
         self.pretty_table.display(self.players_list)
         response = self.tournament_view.select('player')
+        clear_console()
+        self.title_view.add_players()
         if response == 'q':
             return response
         if response not in [str(player.uuid)

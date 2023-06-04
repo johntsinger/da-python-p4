@@ -11,6 +11,10 @@ class CreateView:
     def prompt_for(self, label, empty):
         name = inspect.stack(
             )[1][0].f_locals['self'].__class__.__name__.replace('New', '')
+        if label == 'Number of rounds':
+            label += ' (can be left empty (default : 4 rounds))'
+        elif label == 'Description of tournament':
+            label += ' (can be left empty)'
         result = input(f"{label} : ")
         if not result:
             if not empty:
@@ -39,3 +43,9 @@ class CreateView:
         if response.lower() == "y" or not response:
             return True
         return False
+
+    def add_player(self):
+        message = "Add players in this tournement"
+        print()
+        print(message)
+        print()

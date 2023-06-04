@@ -10,6 +10,7 @@ class MyPrettyTable:
     G = "\033[0;32;40m"  # GREEN
     Y = "\033[0;33;40m"  # Yellow
     B = "\033[0;34;40m"  # Blue
+    BL = "\033[38;5;75m"
     N = "\033[0m"  # Reset
 
     def __init__(self, views):
@@ -27,19 +28,20 @@ class MyPrettyTable:
             if key == 'uuid':
                 key = 'Id'
             key = key.lstrip("_").capitalize().replace('_', ' ')
-            keys.append(self.G+key.upper()+self.N)
+            keys.append(self.BL+key.upper()+self.N)
         return keys
 
     def get_value(self, item):
         values = []
-        for value in vars(item).values():
+        for key, value in vars(item).items():
             if isinstance(value, datetime):
                 if value.hour:
                     value = value.strftime('%d/%m/%y\n%H:%M')
                 else:
                     value = value.strftime('%d/%m/%Y')
             elif not value:
-                value = ""
+                if key != 'score':
+                    value = ""
             value = self.wrap_list(value)
             values.append(value)
         return values

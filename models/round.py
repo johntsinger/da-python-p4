@@ -38,9 +38,9 @@ class Round:
 
     def __str__(self):
         matches = ""
-        for match in self.matches:
-            matches += f'{match}\n'
-        return f"{self.name} :\n{matches}"
+        for i, match in enumerate(self.matches):
+            matches += f'Match {i + 1} : {match}\n'
+        return f"{self.name:^55} \n{matches}"
 
     def __repr__(self):
         return str(self)

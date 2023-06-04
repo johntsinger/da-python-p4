@@ -3,19 +3,19 @@ class ErrorView:
     N = "\033[0m"  # Reset
 
     def date_error(self, value):
-        message = f"\n'{value}' is not a date ! Please enter a date.\n"
+        message = f"'{value}' is not a date ! Please enter a date."
         print()
         print(self.R+message+self.N)
         print()
 
     def digit_error(self, value):
-        message = f"\n'{value}' is not a number ! Please enter a number.\n"
+        message = f"'{value}' is not a number ! Please enter a number."
         print()
         print(self.R+message+self.N)
         print()
 
     def instance_exists(self, name):
-        message = f"\nThis {name} already exists in the database.\n"
+        message = f"This {name} already exists in the database."
         print()
         print(self.R+message+self.N)
         print()
@@ -47,6 +47,14 @@ class ErrorView:
 
     def player_not_exist(self, response):
         message = f"Player with id {response} does not exist"
+        print()
+        print(self.R+message+self.N)
+        print()
+
+    def no_response(self):
+        message = ("You must enter an id of a player to add him/her"
+                   " to the tournament !\nYou can quit the selection" 
+                   " by pressing 'q'")
         print()
         print(self.R+message+self.N)
         print()

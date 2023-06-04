@@ -44,5 +44,8 @@ class TitleView(Frame):
     def select_tournament(self):
         print(self.frame("SELECT TOURNAMENTS"))
 
+    def add_players(self):
+        print(self.frame("ADD PLAYER FOR THIS TOURNAMENT"))
+
     def round_menu(self, round_number):
         print(self.frame(f"ROUND {round_number} "))
