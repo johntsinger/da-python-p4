@@ -4,7 +4,8 @@ from models.exceptions import UserExitException
 from controllers.create import NewTournament
 from controllers.round import RoundController
 from utils.tools import clear_console
-from math import trunc
+import dateutil.parser
+from dateutil.parser import ParserError
 
 
 class TournamentMenu:
@@ -74,6 +75,29 @@ class TournamentMenu:
             self.storage.remove(tournament)
             self.create_tournament.instances = self.storage.all()
 
+    def get_tournament(self):
+        tournaments = self.storage.all()
+        name = self.tournament_view.prompt_for('Name')
+        date = self.tournament_view.prompt_for('Start date')
+        try:  
+            date = dateutil.parser.parse(
+                date, dayfirst=True).strftime('%d/%m/%Y %H:%M')
+        except ParserError:
+            date = None
+        for tournament in tournaments:
+            if (tournament.name == name.capitalize()
+                    and tournament.start_date == date):
+                return tournament
+
+    def search_tournament(self):
+        self.title_view.search_tournament()
+        self.tournament_view.search_info()
+        tournament = self.get_tournament()
+        if tournament:
+            self.tournament_controller.tournament = tournament
+            self.tournament_controller.get_players_list()
+            self.tournament_controller.manager()
+
     def manager(self):
         stay = True
         while stay:
@@ -86,6 +110,9 @@ class TournamentMenu:
             elif response == '2':
                 clear_console()
                 self.access_tournament()
+            elif response == '3':
+                clear_console()
+                self.search_tournament()
             elif response == '6':
                 clear_console()
                 self.delete_tournament()
@@ -135,38 +162,10 @@ class TournamentController:
         self.round_controller.manager()
 
     def max_round(self):
-        """Find the maximun number of round a tournament can have.
-
-        Divide the number of unique pairs by the number of matches per round
-        """
         number_of_players = len(self.tournament.players)
-        match_per_round = self.match_per_round(number_of_players)
-        number_possible_matches = self.number_possible_matches(
-            number_of_players)
-        return trunc(number_possible_matches / match_per_round)
-
-    @staticmethod
-    def match_per_round(number_of_players):
-        """Find the number of matches a round can have.
-
-        If the number of players is odd, the single player is counted 
-        as a match against 'EXEMPT', and 'EXEMPT' is counted as one player
-        """
         if number_of_players % 2:
-            number_of_matches = (number_of_players + 1) / 2
-        else:
-            number_of_matches = number_of_players / 2
-        return number_of_matches
-
-    @staticmethod
-    def number_possible_matches(number_of_players):
-        """Find the number of unique pairs in a set.
-
-        formula : n!/k!(n-k)! where n is the number of items
-        and k the number of elements in each set.
-        Can be simplified to n(n-1)/2 if k=2
-        """
-        return (number_of_players * (number_of_players - 1)) / 2
+            return number_of_players
+        return number_of_players - 1
 
     def adjust_number_of_round(self):
         max_round = self.max_round()
@@ -239,6 +238,12 @@ class TournamentController:
             self.pretty_table.display(players)
             self.views.wait.wait()
 
+    def display_rounds(self):
+        self.title_view.rounds_list()
+        if self.tournament.rounds:
+            self.pretty_table.display(self.tournament.rounds)
+            self.views.wait.wait()
+
     def manager(self):
         stay = True
         while stay:
@@ -255,5 +260,8 @@ class TournamentController:
             elif response == '3':
                 clear_console()
                 self.display_players()
+            elif response == '4':
+                clear_console()
+                self.display_rounds()
             elif response == '9':
                 stay = False
