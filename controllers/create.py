@@ -12,10 +12,6 @@ class NewPlayer(Validate):
         self.storage = Storage('temporary/player')
         self.storage.db.default_table_name = 'player'
 
-    @property
-    def create_view(self):
-        return self.views.create
-
     @Validate._exists('player')
     def base_data(self, data):
         try:
@@ -68,14 +64,6 @@ class NewTournament(Validate):
     @property
     def tournament_view(self):
         return self.views.tournament
-
-    @property
-    def error_view(self):
-        return self.views.error
-
-    @property
-    def create_view(self):
-        return self.views.create
 
     @Validate._exists('tournament')
     def base_data(self, data):

@@ -11,21 +11,14 @@ class TournamentMenuView:
             return None
         return response
 
-    def display_menu_interface(self):
-        print("Create Tournament (0)    Select tournaments (1)    "
-              "Delete tournament (6)    Return (9)")
-        response = input()
-        if response not in ['0', '1', '6', '9']:
-            return None
-        return response
-
-    def display_interface(self):
-        print("Add players (0)    Start (1)"
-              "    Return (9)")
-        response = input()
-        if response not in ['0', '1', '9']:
-            return None
-        return response
-
     def display_player(self, player):
         print(f"\nPlayer : {player} has been added to the tournament\n")
+
+    def prompt_for(self, label):
+        result = input(f"{label} : ")
+        return result
+
+    def search_info(self):
+        message = "Search a tournament by it's name and it's start date"
+        print(message)
+        print()

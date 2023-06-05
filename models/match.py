@@ -95,7 +95,7 @@ class Match:
         elif isinstance(self.winner, list):
             player_1_str = self.G+player_1_str+self.N
             player_2_str = self.G+player_2_str+self.N
-        else:
+        elif self.player_2 == self.winner:
             player_2_str = self.G+player_2_str+self.N
 
         return f"{player_1_str} - {player_2_str}"

@@ -48,7 +48,7 @@ class MyPrettyTable:
 
     def match(self, items):
         self.table.clear()
-        key = ['Id', 'Player 1', 'Player 2', 'Winner']
+        key = ['ID', 'PLAYER 1', 'PLAYER 2', 'WINNER']
         self.table.field_names = key
         for i, item in enumerate(items):
             self.table.add_row(

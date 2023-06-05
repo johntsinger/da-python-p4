@@ -60,6 +60,7 @@ class Validate:
         if not result:
             return None
         if re.match(r'\d', result):
+            self.error_view.str_error(result)
             return None
         return result.strip().capitalize()
 

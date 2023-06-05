@@ -12,9 +12,9 @@ class InterfaceView:
         },
         "player": {
             "label": (
-                f"Create Player (1){' ' * 4}"
+                f"Create player (1){' ' * 4}"
                 f"Display all players (2){' ' * 4}"
-                f"Delete Player (6){' ' * 4}"
+                f"Delete player (6){' ' * 4}"
                 "Return (9)"
             ),
             "key": [
@@ -23,13 +23,14 @@ class InterfaceView:
         },
         "tournament": {
             "label": (
-                f"Create Tournament (1){' ' * 4}"
+                f"Create tournament (1){' ' * 4}"
                 f"Select tournaments (2){' ' * 4}"
+                f"Search tournament (3){' ' * 4}"
                 f"Delete tournament (6){' ' * 4}"
                 "Return (9)"
             ),
             "key": [
-                "1", "2", "6", "9"
+                "1", "2", "3", "6", "9"
             ]
         },
         "tournament_menu": {
@@ -37,10 +38,11 @@ class InterfaceView:
                 f"Add players (1){' ' * 4}"
                 f"Start (2){' ' * 4}"
                 f"Display player (3){' ' * 4}"
+                f"Display rounds (4){' ' * 4}"
                 "Return (9)"
             ),
             "key": [
-                "1", "2", "3", "9"
+                "1", "2", "3", "4", "9"
             ]
         },
         "round": {

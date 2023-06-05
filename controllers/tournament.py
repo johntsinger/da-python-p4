@@ -79,7 +79,7 @@ class TournamentMenu:
         tournaments = self.storage.all()
         name = self.tournament_view.prompt_for('Name')
         date = self.tournament_view.prompt_for('Start date')
-        try:  
+        try:
             date = dateutil.parser.parse(
                 date, dayfirst=True).strftime('%d/%m/%Y %H:%M')
         except ParserError:

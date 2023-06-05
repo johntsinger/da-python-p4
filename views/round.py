@@ -1,7 +1,9 @@
 class RoundView:
     def select(self, name):
-        message = f"Enter the number of the desired {name} : "
+        print()
+        message = f"Enter the id of the desired {name} (press `return` to return) : "
         response = input(message)
+        print()
         try:
             int(response)
         except ValueError:
@@ -14,8 +16,10 @@ class RoundView:
     def prompt_for_winner(self, match):
         message = f"Select the winner for match : {match}"
         print(message)
+        print()
 
     def prompt_for_next_round(self):
+        print()
         message = "Next round ? (y/n) : "
         response = input(message)
         if response.lower() == 'y' or not response:

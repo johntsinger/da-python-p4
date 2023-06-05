@@ -14,6 +14,12 @@ class ErrorView:
         print(self.R+message+self.N)
         print()
 
+    def str_error(self, value):
+        message = f"'{value}' is not a valid ! Please enter a string."
+        print()
+        print(self.R+message+self.N)
+        print()
+
     def instance_exists(self, name):
         message = f"This {name} already exists in the database."
         print()

@@ -41,8 +41,14 @@ class TitleView(Frame):
     def delete_tournament(self):
         print(self.frame("DELETE TOURNAMENTS"))
 
+    def search_tournament(self):
+        print(self.frame("SEARCH TOURNAMENT"))
+
     def select_tournament(self):
         print(self.frame("SELECT TOURNAMENTS"))
+
+    def rounds_list(self):
+        print(self.frame("LIST OF ROUNDS"))
 
     def add_players(self):
         print(self.frame("ADD PLAYER FOR THIS TOURNAMENT"))
