@@ -1,7 +1,7 @@
 from random import shuffle
 from models.round import Round
 from models.match import Match
-from models.storage import Storage
+from controllers.storage import Storage
 from utils.tools import clear_console
 
 
@@ -58,11 +58,11 @@ class NewRound:
                             if len(matches) == len(players_list) / 2:
                                 return matches
                             break
-                        # if it still misses a match add the match 
+                        # if it still misses a match add the match
                         # even if it has already been played
                         else:
                             print("Not working")
-                            players = [player for player in players_list 
+                            players = [player for player in players_list
                                        if player not in players_in_match]
                             print(players)
                             match = Match(uuid, players[0], players[1])

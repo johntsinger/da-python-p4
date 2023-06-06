@@ -1,3 +1,6 @@
+import dateutil.parser
+
+
 class Player:
 
     def __init__(self, last_name, first_name, date_of_birth, uuid=None):
@@ -18,8 +21,8 @@ class Player:
 
     @classmethod
     def from_dict(cls, dictionary):
-        return Player(**dictionary)
-    
+        return cls(**dictionary)
+
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.date_of_birth}"
         string = ""
@@ -39,7 +42,7 @@ class Player:
                 f"date_of_birth={self.date_of_birth})")
 
     def __eq__(self, other):
-        if not isinstance(other, Player):
+        if not isinstance(other, (Player, PlayerInTournament)):
             return NotImplemented
         return all([self.last_name == other.last_name,
                     self.first_name == other.first_name,
@@ -50,21 +53,8 @@ class PlayerInTournament(Player):
     def __init__(self, last_name, first_name, date_of_birth, uuid, score=0):
         super().__init__(last_name, first_name, date_of_birth, uuid)
         self.score = score
-
-    @property
-    def cleaned_data(self): 
-        dictionary = {}
-        for key, value in vars(self).items():
-            key = key.lstrip('_')
-            if isinstance(value, list):
-                dictionary[key] = [elt.cleaned_data for elt in value]
-            else:
-                dictionary[key] = value
-        return dictionary
-
-    @classmethod
-    def from_dict(cls, dictionary):
-        return PlayerInTournament(**dictionary)
+        if isinstance(self._date_of_birth, str):
+            self._date_of_birth = dateutil.parser.parse(self._date_of_birth)
 
     def __repr__(self):
         return f"{self.last_name} {self.first_name}"

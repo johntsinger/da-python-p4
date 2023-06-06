@@ -1,7 +1,8 @@
 class RoundView:
     def select(self, name):
         print()
-        message = f"Enter the id of the desired {name} (press `return` to return) : "
+        message = (f"Enter the id of the desired {name}"
+                   " (press `return` to return) : ")
         response = input(message)
         print()
         try:

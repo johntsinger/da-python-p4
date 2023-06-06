@@ -1,4 +1,4 @@
-from models.storage import Storage
+from controllers.storage import Storage
 from models.exceptions import UserExitException
 from controllers.create import NewPlayer
 from utils.tools import clear_console

@@ -57,7 +57,7 @@ class MyPrettyTable:
 
     def wrap_list(self, value):
         if isinstance(value, list):
-            # sort players by score 
+            # sort players by score
             try:
                 value.sort(key=lambda obj: obj.score, reverse=True)
             except AttributeError:

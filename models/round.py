@@ -28,7 +28,7 @@ class Round:
                 dictionary[key] = [
                     Match.from_dict(elt, players) for elt in value
                 ]
-        return Round(**dictionary)
+        return cls(**dictionary)
 
     def end(self):
         self.end_date = datetime.now()

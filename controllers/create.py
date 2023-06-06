@@ -1,7 +1,7 @@
 from models.player import Player, PlayerInTournament
 from models.tournament import Tournament
 from controllers.validate import Validate
-from models.storage import Storage
+from controllers.storage import Storage
 from models.exceptions import UserExitException
 
 
@@ -22,7 +22,7 @@ class NewPlayer(Validate):
             data['date_of_birth'] = self._input('date', 'Date of birth') \
                 if not data['date_of_birth'] else data['date_of_birth']
         except UserExitException:
-            if self.storage.db.all():  
+            if self.storage.db.all():
                 self.storage.db.update(data)
             else:
                 self.storage.db.insert(data)
@@ -77,7 +77,7 @@ class NewTournament(Validate):
             data['end_date'] = self._input('date', 'End date') \
                 if not data['end_date'] else data['end_date']
         except UserExitException:
-            if self.storage.db.all():  
+            if self.storage.db.all():
                 self.storage.db.update(data)
             else:
                 self.storage.db.insert(data)
@@ -101,7 +101,7 @@ class NewTournament(Validate):
         except UserExitException:
             if 'number_of_rounds' in data and not data['number_of_rounds']:
                 data['number_of_rounds'] = 4
-            if self.storage.db.all(): 
+            if self.storage.db.all():
                 self.storage.db.update(data)
             else:
                 self.storage.db.insert(data)
@@ -167,7 +167,7 @@ class NewTournament(Validate):
                 return None
             if response == 'q':
                 return response
-            if response not in [str(player.uuid) 
+            if response not in [str(player.uuid)
                                 for player in self.players_list]:
                 self.error_view.player_not_exist(response)
                 return None

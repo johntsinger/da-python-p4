@@ -5,7 +5,7 @@ class Match:
     G = "\033[0;32;40m"  # GREEN
     N = "\033[0m"  # Reset
 
-    def __init__(self, uuid, player_1, player_2, 
+    def __init__(self, uuid, player_1, player_2,
                  score_player_1=0, score_player_2=0, winner=None):
         self.uuid = uuid
         self.player_1 = player_1
@@ -73,17 +73,17 @@ class Match:
                         if player_from_dict == player:
                             dictionary[key] = player
                             break
-        return Match(**dictionary)
+        return cls(**dictionary)
 
     @property
     def as_tuple(self):
         return ([self.player_1, self.player_1.score],
-                [self.player_2, self.player_2.score] 
+                [self.player_2, self.player_2.score]
                 if not isinstance(self.player_2, str) else [self.player_2])
 
     def __repr__(self):
-        player_1_str = (f"{self.player_1.last_name} " 
-                        f"{self.player_1.first_name} " 
+        player_1_str = (f"{self.player_1.last_name} "
+                        f"{self.player_1.first_name} "
                         f"{self.score_player_1}")
         player_2_str = self.player_2
         if not isinstance(self.player_2, str):

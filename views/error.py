@@ -59,14 +59,14 @@ class ErrorView:
 
     def no_response(self):
         message = ("You must enter an id of a player to add him/her"
-                   " to the tournament !\nYou can quit the selection" 
+                   " to the tournament !\nYou can quit the selection"
                    " by pressing 'q'")
         print()
         print(self.R+message+self.N)
         print()
 
     def wrong_number_of_round(self, number_of_rounds, new_number_of_rounds):
-        message = ("! Warning ! : The number of registered players does not" 
+        message = ("! Warning ! : The number of registered players does not"
                    f" allow you to play {number_of_rounds} rounds"
                    f"\nThe number of rounds was set to {new_number_of_rounds}")
         print()

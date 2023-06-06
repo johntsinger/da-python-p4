@@ -1,4 +1,4 @@
-from models.storage import Storage
+from controllers.storage import Storage
 from models.player import PlayerInTournament
 from models.exceptions import UserExitException
 from controllers.create import NewTournament
@@ -198,12 +198,10 @@ class TournamentController:
 
     def get_players_list(self):
         storage = Storage('players').all()
-        set1 = set(player_in_tournament.uuid for player_in_tournament 
+        set1 = set(player_in_tournament.uuid for player_in_tournament
                    in self.tournament.players)
         self.players_list = [
-            player for player 
-            in storage 
-            if player.uuid not in set1
+            player for player in storage if player.uuid not in set1
         ]
 
     def select_players(self):
@@ -219,8 +217,8 @@ class TournamentController:
             return None
         if response:
             for player in self.players_list:
-                # not use players_list[int(response) - 1] because uuids may not 
-                # follow each other if the object is deleted 
+                # not use players_list[int(response) - 1] because uuids may not
+                # follow each other if the object is deleted
                 # (i.e. : 1, 3 if 2 has been deleted)
                 if player.uuid == int(response):
                     self.tournament_view.display_player(player)

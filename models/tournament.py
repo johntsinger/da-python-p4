@@ -12,9 +12,10 @@ class Tournament:
         self.location = location
         self._start_date = start_date
         self._end_date = end_date
+        # avoid pitfall mutable defaut args
         self.players = players if players else []
         self.number_of_rounds = number_of_rounds
-        self.rounds = rounds if rounds else []  # avoid pifall mutable defaut args
+        self.rounds = rounds if rounds else []
         self.curent_round = curent_round
         self.description = description
 
@@ -46,10 +47,10 @@ class Tournament:
                 ]
             if key == "rounds":
                 dictionary[key] = [
-                    Round.from_dict(elt, dictionary['players']) 
+                    Round.from_dict(elt, dictionary['players'])
                     for elt in value
                 ]
-        return Tournament(**dictionary)
+        return cls(**dictionary)
 
     def set_description(self, description):
         self.description = description
