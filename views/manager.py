@@ -7,6 +7,7 @@ from views.player import PlayerMenuView
 from views.prettytable import PrettyTableView
 from views.wait import WaitUserAction
 from views.round import RoundView
+from views. export import ExportToHTML
 
 
 class ViewsManager:
@@ -20,3 +21,4 @@ class ViewsManager:
         self.wait = WaitUserAction()
         self.round = RoundView()
         self.interface = InterfaceView()
+        self.export = ExportToHTML()

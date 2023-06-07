@@ -98,6 +98,13 @@ class TournamentMenu:
             self.tournament_controller.get_players_list()
             self.tournament_controller.manager()
 
+    def export_to_html(self):
+        tournaments = self.storage.all()
+        if tournaments:
+            self.pretty_table.display(tournaments)
+            self.pretty_table.export_html('tournaments', tournaments)
+            self.views.wait.wait()
+
     def manager(self):
         stay = True
         while stay:
@@ -113,6 +120,9 @@ class TournamentMenu:
             elif response == '3':
                 clear_console()
                 self.search_tournament()
+            elif response == '4':
+                clear_console()
+                self.export_to_html()
             elif response == '6':
                 clear_console()
                 self.delete_tournament()
@@ -234,12 +244,14 @@ class TournamentController:
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
             self.pretty_table.display(players)
+            self.pretty_table.export_html('players_in_tournament', players)
             self.views.wait.wait()
 
     def display_rounds(self):
         self.title_view.rounds_list()
         if self.tournament.rounds:
             self.pretty_table.display(self.tournament.rounds)
+            self.pretty_table.export_html('rounds', self.tournament.rounds)
             self.views.wait.wait()
 
     def manager(self):

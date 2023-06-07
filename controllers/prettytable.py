@@ -1,3 +1,5 @@
+from pathlib import Path
+from ansi2html import Ansi2HTMLConverter
 from prettytable import PrettyTable
 from prettytable import ALL
 from datetime import datetime
@@ -15,12 +17,16 @@ class MyPrettyTable:
 
     def __init__(self, views):
         self.views = views
-        self.table = PrettyTable(hrules=ALL)
+        self.table = PrettyTable(hrules=ALL, padding_width=1)
         self.table.align = 'l'
 
     @property
     def pretty_table_view(self):
         return self.views.pretty_table
+
+    @property
+    def export_view(self):
+        return self.views.export
 
     def get_key(self, item):
         keys = []
@@ -28,7 +34,7 @@ class MyPrettyTable:
             if key == 'uuid':
                 key = 'Id'
             key = key.lstrip("_").capitalize().replace('_', ' ')
-            keys.append(self.BL+key.upper()+self.N)
+            keys.append(key.upper())
         return keys
 
     def get_value(self, item):
@@ -71,7 +77,7 @@ class MyPrettyTable:
             return value.strftime("%d/%m/%Y %H:%M")
         return value
 
-    def display(self, items):
+    def get_table(self, items):
         self.table.clear()
         self.table.field_names = (self.get_key(items[0]))
         for item in items:
@@ -79,4 +85,32 @@ class MyPrettyTable:
         if isinstance(items[0], Match):
             self.match(items)
 
+        self.table.field_names = [
+            self.BL+key+self.N for key in self.table.field_names
+        ]
+
+    def display(self, items):
+        self.get_table(items)
         self.pretty_table_view.display(self.table)
+
+    def to_html(self, items):
+        self.get_table(items)
+        table_html_string = self.table.get_html_string(
+            format=True, border=True)
+        to_html = Ansi2HTMLConverter(
+            escaped=False, font_size='18px').convert(
+            table_html_string, full=False)
+        return to_html
+
+    def write_html(self, name, to_html):
+        path = Path("data", "html")
+        path.mkdir(parents=True, exist_ok=True)
+        with open(path / (name + '.html'), 'w', encoding='utf-8') as file:
+            file.write(to_html)
+
+    def export_html(self, name, item):
+        response = self.export_view.export()
+        if response:
+            to_html = self.to_html(item)
+            self.write_html(name, to_html)
+            self.export_view.export_confirmation(name)

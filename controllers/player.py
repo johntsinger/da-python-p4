@@ -28,6 +28,14 @@ class PlayerMenu:
     def player_view(self):
         return self.views.player
 
+    @property
+    def export_view(self):
+        return self.views.export
+
+    @property
+    def error_view(self):
+        return self.views.error
+
     def new_player(self):
         self.title_view.new_player()
         try:
@@ -46,7 +54,10 @@ class PlayerMenu:
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
             self.pretty_table.display(players)
-            self.views.wait.wait()
+            self.pretty_table.export_html('players', players)
+        else:
+            self.error_view.nothing_to_display('player')
+        self.views.wait.wait()
 
     def select_player(self):
         players = self.storage.all()
@@ -78,6 +89,9 @@ class PlayerMenu:
             elif response == '2':
                 clear_console()
                 self.display_all()
+            elif response == '3':
+                clear_console()
+                self.export_html()
             elif response == '6':
                 clear_console()
                 self.delete_player()

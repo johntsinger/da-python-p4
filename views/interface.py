@@ -26,11 +26,12 @@ class InterfaceView:
                 f"Create tournament (1){' ' * 4}"
                 f"Select tournaments (2){' ' * 4}"
                 f"Search tournament (3){' ' * 4}"
+                f"Display all tournaments (4){' ' * 4}"
                 f"Delete tournament (6){' ' * 4}"
                 "Return (9)"
             ),
             "key": [
-                "1", "2", "3", "6", "9"
+                "1", "2", "3", "4", "6", "9"
             ]
         },
         "tournament_menu": {
