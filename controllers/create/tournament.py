@@ -1,6 +1,6 @@
 from models.player import PlayerInTournament
 from models.tournament import Tournament
-from controllers.validate import Validate
+from controllers.create.validate import Validate
 from controllers.storage import Storage
 from models.exceptions import UserExitException
 
