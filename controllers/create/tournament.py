@@ -1,55 +1,8 @@
-from models.player import Player, PlayerInTournament
+from models.player import PlayerInTournament
 from models.tournament import Tournament
 from controllers.validate import Validate
 from controllers.storage import Storage
 from models.exceptions import UserExitException
-
-
-class NewPlayer(Validate):
-    def __init__(self, views, players):
-        super().__init__(views)
-        self.instances = players
-        self.storage = Storage('temporary/player')
-        self.storage.db.default_table_name = 'player'
-
-    @Validate._exists('player')
-    def base_data(self, data):
-        try:
-            data['last_name'] = self._input('str', 'Last name') \
-                if not data['last_name'] else data['last_name']
-            data['first_name'] = self._input('str', 'First name') \
-                if not data['first_name'] else data['first_name']
-            data['date_of_birth'] = self._input('date', 'Date of birth') \
-                if not data['date_of_birth'] else data['date_of_birth']
-        except UserExitException:
-            if self.storage.db.all():
-                self.storage.db.update(data)
-            else:
-                self.storage.db.insert(data)
-            raise UserExitException
-        else:
-            player = Player(**data)
-            return player
-
-    def create(self):
-        self.create_view.info('player')
-        dictionary = {
-            "last_name": None,
-            "first_name": None,
-            "date_of_birth": None
-        }
-        data = self.storage.db.all(
-            )[0] if self.storage.db.all() else dictionary
-        if data['last_name']:
-            response = self.create_view.load_data('player', data)
-            if not response:
-                data = dictionary
-                self.storage.db.truncate()
-        player = self.base_data(data)
-        if not player:
-            self.views.wait.wait()
-        self.storage.db.truncate()
-        return player
 
 
 class NewTournament(Validate):

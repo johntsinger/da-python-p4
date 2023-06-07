@@ -1,7 +1,7 @@
 from controllers.storage import Storage
 from models.player import PlayerInTournament
 from models.exceptions import UserExitException
-from controllers.create import NewTournament
+from controllers.create.tournament import NewTournament
 from controllers.round import RoundController
 from utils.tools import clear_console
 import dateutil.parser
