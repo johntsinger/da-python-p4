@@ -42,7 +42,7 @@ class TitleView(Frame):
         print(self.frame("DELETE TOURNAMENTS"))
 
     def search_tournament(self):
-        print(self.frame("SEARCH TOURNAMENT"))
+        print(self.frame("SEARCH TOURNAMENT "))
 
     def select_tournament(self):
         print(self.frame("SELECT TOURNAMENTS"))

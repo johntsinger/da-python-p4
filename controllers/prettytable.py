@@ -52,7 +52,8 @@ class MyPrettyTable:
         self.table.field_names = key
         for i, item in enumerate(items):
             self.table.add_row(
-                [item.uuid, item.player_1, item.player_2, item.winner]
+                [item.uuid, item.player_1.display_in_match(),
+                 item.player_2.display_in_match(), item.winner]
             )
 
     def wrap_list(self, value):

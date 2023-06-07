@@ -81,15 +81,22 @@ class Match:
                 [self.player_2, self.player_2.score]
                 if not isinstance(self.player_2, str) else [self.player_2])
 
-    def __repr__(self):
+    def get_player_str(self):
         player_1_str = (f"{self.player_1.last_name} "
-                        f"{self.player_1.first_name} "
-                        f"{self.score_player_1}")
+                        f"{self.player_1.first_name}")
         player_2_str = self.player_2
         if not isinstance(self.player_2, str):
-            player_2_str = (f"{self.score_player_2} "
-                            f"{self.player_2.last_name} "
+            player_2_str = (f"{self.player_2.last_name} "
                             f"{self.player_2.first_name}")
+        if self.winner:
+            player_1_str += f" {self.score_player_1}"
+            if not isinstance(self.player_2, str):
+                player_2_str = f"{self.score_player_2} " + player_2_str
+
+        return player_1_str, player_2_str
+
+    def __str__(self):
+        player_1_str, player_2_str = self.get_player_str()
         if self.player_1 == self.winner:
             player_1_str = self.G+player_1_str+self.N
         elif isinstance(self.winner, list):

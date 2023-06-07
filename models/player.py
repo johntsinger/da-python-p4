@@ -56,6 +56,9 @@ class PlayerInTournament(Player):
         if isinstance(self._date_of_birth, str):
             self._date_of_birth = dateutil.parser.parse(self._date_of_birth)
 
+    def display_in_match(self):
+        return f"{self.last_name} {self.first_name}"
+
     def __repr__(self):
         return f"{self.last_name} {self.first_name}"
 

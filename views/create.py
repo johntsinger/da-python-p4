@@ -15,6 +15,14 @@ class CreateView:
             label += ' (can be left empty (default : 4 rounds))'
         elif label == 'Description of tournament':
             label += ' (can be left empty)'
+        elif label in ('Start date', 'End date', 'Date of birth'):
+            print()
+            print("Date format allowed :\n\n"
+                  f"{' ' * 4}DDMMYY without separator\n"
+                  f"{' ' * 4}or with separator DD-MM-YYYY or DD-MM-YY\n"
+                  f"{' ' * 4}where separator can be spaces ' ', hyphens '-', "
+                  " dots '.' or slash '/'")
+            print()
         result = input(f"{label} : ")
         if not result:
             if not empty:
