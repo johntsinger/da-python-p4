@@ -103,7 +103,7 @@ class MyPrettyTable:
         return to_html
 
     def write_html(self, name, to_html):
-        path = Path("data", "html")
+        path = Path('html-report')
         path.mkdir(parents=True, exist_ok=True)
         with open(path / (name + '.html'), 'w', encoding='utf-8') as file:
             file.write(to_html)
