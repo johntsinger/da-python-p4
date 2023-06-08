@@ -66,13 +66,12 @@ class Match:
                         if player == player_from_dict:
                             dictionary[key] = player
                             break
-            else:
-                if not isinstance(value, (str, int, float)):
-                    player_from_dict = PlayerInTournament.from_dict(value)
-                    for player in players:
-                        if player_from_dict == player:
-                            dictionary[key] = player
-                            break
+            elif not isinstance(value, (str, int, float)):
+                player_from_dict = PlayerInTournament.from_dict(value)
+                for player in players:
+                    if player_from_dict == player:
+                        dictionary[key] = player
+                        break
         return cls(**dictionary)
 
     @property

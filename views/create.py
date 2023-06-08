@@ -53,7 +53,7 @@ class CreateView:
         return False
 
     def add_player(self):
-        message = "Add players in this tournement"
+        message = "Add players in this tournament"
         print()
         print(message)
         print()

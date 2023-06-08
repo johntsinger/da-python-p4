@@ -20,12 +20,13 @@ class Home:
         return self.views.title
 
     def manager(self):
-        clear_console()
-        self.title_view.main_title()
-        response = self.interface_view.display_interface('home')
-        if response == "1":
-            self._player_menu.manager()
-        elif response == "2":
-            self._tournament_menu.manager()
-        elif response == "9":
-            exit()
+        while True:
+            clear_console()
+            self.title_view.main_title()
+            response = self.interface_view.display_interface('home')
+            if response == "1":
+                self._player_menu.manager()
+            elif response == "2":
+                self._tournament_menu.manager()
+            elif response == "9":
+                exit()

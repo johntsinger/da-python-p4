@@ -1,11 +1,11 @@
 from views.manager import ViewsManager
-from controllers.base import Controller
+from controllers.home import Home
 
 
 def main():
     views = ViewsManager()
-    controller = Controller(views)
-    controller.run()
+    controller = Home(views)
+    controller.manager()
 
 
 if __name__ == '__main__':
