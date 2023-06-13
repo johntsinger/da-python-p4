@@ -90,9 +90,6 @@ class PlayerMenu:
             elif response == '2':
                 clear_console()
                 self.display_all()
-            elif response == '3':
-                clear_console()
-                self.export_html()
             elif response == '6':
                 clear_console()
                 self.delete_player()
