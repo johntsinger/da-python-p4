@@ -1,16 +1,15 @@
 from models.player import PlayerInTournament
+from utils.ansi_colors import G, N
 
 
 class Match:
-    G = "\033[0;32;40m"  # GREEN
-    N = "\033[0m"  # Reset
-
+    """Model for a match"""
     def __init__(self, uuid, player_1, player_2,
                  score_player_1=0, score_player_2=0, winner=None):
         self.uuid = uuid
         self.player_1 = player_1
         self.player_2 = player_2
-        self.score_player_1 = score_player_1
+        self.score_player_1 = score_player_1  # score for this match
         self.score_player_2 = score_player_2
         self._winner = winner
 
@@ -20,6 +19,7 @@ class Match:
 
     @winner.setter
     def winner(self, value):
+        """Update players score and match score when winner is set"""
         if isinstance(value, list):
             for player in value:
                 player.score += 0.5
@@ -36,6 +36,7 @@ class Match:
 
     @property
     def cleaned_data(self):
+        """Serialize object"""
         dictionary = {}
         for key, value in vars(self).items():
             key = key.lstrip('_')
@@ -49,6 +50,7 @@ class Match:
 
     @classmethod
     def from_dict(cls, dictionary, players):
+        """Deserialize object"""
         for key, value in dictionary.items():
             if key == 'winner':
                 players_to_add = []
@@ -74,13 +76,8 @@ class Match:
                         break
         return cls(**dictionary)
 
-    @property
-    def as_tuple(self):
-        return ([self.player_1, self.player_1.score],
-                [self.player_2, self.player_2.score]
-                if not isinstance(self.player_2, str) else [self.player_2])
-
     def get_player_str(self):
+        """Stringify Match for str representation"""
         player_1_str = (f"{self.player_1.last_name} "
                         f"{self.player_1.first_name}")
         player_2_str = self.player_2
@@ -96,17 +93,25 @@ class Match:
 
     def __str__(self):
         player_1_str, player_2_str = self.get_player_str()
+        # color winner in green
         if self.player_1 == self.winner:
-            player_1_str = self.G+player_1_str+self.N
+            player_1_str = G+player_1_str+N
         elif isinstance(self.winner, list):
-            player_1_str = self.G+player_1_str+self.N
-            player_2_str = self.G+player_2_str+self.N
+            player_1_str = G+player_1_str+N
+            player_2_str = G+player_2_str+N
         elif self.player_2 == self.winner:
-            player_2_str = self.G+player_2_str+self.N
+            player_2_str = G+player_2_str+N
 
         return f"{player_1_str} - {player_2_str}"
 
     def __eq__(self, other):
+        """Compare another object to this match
+        attributes compared :
+            player_1 and player_2
+
+        return :
+            NotImplemented if wrong type or bool
+        """
         if not isinstance(other, Match):
             return NotImplemented
         return (

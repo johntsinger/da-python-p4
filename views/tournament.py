@@ -1,7 +1,10 @@
+from utils.ansi_colors import R, N
+
+
 class TournamentMenuView:
     def select(self, name):
         message = (f"Enter the id of the desired {name}"
-                   f"{' (type <q> to stop)' if name == 'player' else ''} : ")
+                   f"{' (enter <q> to stop)' if name == 'player' else ''} : ")
         response = input(message)
         try:
             int(response)
@@ -22,3 +25,14 @@ class TournamentMenuView:
         message = "Search a tournament by it's name and it's start date"
         print(message)
         print()
+
+    def accept_delete(self, name, item):
+        indent = ' ' * 4 if name == 'player' else ''
+        message = (f"Delete the {name} :\n\n{indent}{item}\n\n"
+                   "Are you sure ? (y/n) :")
+        print()
+        response = input(R+message+N)
+        print()
+        if response.lower() == "y":
+            return True
+        return False

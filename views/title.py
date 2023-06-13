@@ -1,8 +1,9 @@
-class Frame:
-    Y = "\033[0;33;40m"  # Yellow
-    N = "\033[0m"  # Reset
+from utils.ansi_colors import Y, N
 
+
+class Frame:
     def frame(self, words):
+        """Create frame for tittle"""
         size = 100
         spaces = size - len(words)
 
@@ -13,7 +14,7 @@ class Frame:
 # {" " * size} #
 {"#" * (size + 4)}\n
         """
-        return self.Y+string+self.N
+        return Y+string+N
 
 
 class TitleView(Frame):
@@ -46,6 +47,12 @@ class TitleView(Frame):
 
     def select_tournament(self):
         print(self.frame("SELECT TOURNAMENTS"))
+
+    def export_tournament(self):
+        print(self.frame("EXPORT THIS TOURNAMENT"))
+
+    def export_all_tournaments(self):
+        print(self.frame("EXPORT ALL TOURNAMENT "))
 
     def rounds_list(self):
         print(self.frame("LIST OF ROUNDS"))

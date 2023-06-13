@@ -4,7 +4,7 @@ import inspect
 class CreateView:
     def info(self, name):
         message = (f"Informations to create a new {name}"
-                   " (type <q> to abort creation)")
+                   " (enter <q> to abort creation)")
         print(message)
         print()
 
@@ -17,11 +17,11 @@ class CreateView:
             label += ' (can be left empty)'
         elif label in ('Start date', 'End date', 'Date of birth'):
             print()
-            print("Date format allowed :\n\n"
-                  f"{' ' * 4}DDMMYY without separator\n"
-                  f"{' ' * 4}or with separator DD-MM-YYYY or DD-MM-YY\n"
-                  f"{' ' * 4}where separator can be spaces ' ', hyphens '-', "
-                  " dots '.' or slash '/'")
+            print("Date format allowed (hours and minutes can be omited):\n\n"
+                  f"{' ' * 4}DDMMYY hhmm without separator\n"
+                  f"{' ' * 4}or with separator DD/MM/YYYY hh:mm "
+                  " or DD/MM/YY hh:mm\n"
+                  f"{' ' * 4}Use DD/MM/YY hh if minutes not needed")
             print()
         result = input(f"{label} : ")
         if not result:
@@ -31,6 +31,9 @@ class CreateView:
         return result
 
     def accept(self, name, obj):
+        message = f"The {name} has been created :"
+        print()
+        print(message)
         print()
         print(obj)
         print()

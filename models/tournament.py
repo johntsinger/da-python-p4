@@ -3,6 +3,7 @@ from models.round import Round
 
 
 class Tournament:
+    """Model for a tournament"""
     def __init__(self, name, location, start_date, end_date,
                  description=None, number_of_rounds=4, rounds=None,
                  players=None, curent_round=0, uuid=None):
@@ -29,6 +30,7 @@ class Tournament:
 
     @property
     def cleaned_data(self):
+        """Serialize object"""
         dictionary = {}
         for key, value in vars(self).items():
             key = key.lstrip('_')
@@ -40,6 +42,7 @@ class Tournament:
 
     @classmethod
     def from_dict(cls, dictionary):
+        """Deserialize object"""
         for key, value in dictionary.items():
             if key == "players":
                 dictionary[key] = [
@@ -52,10 +55,10 @@ class Tournament:
                 ]
         return cls(**dictionary)
 
-    def set_description(self, description):
+    def add_description(self, description):
         self.description = description
 
-    def set_number_of_rounds(self, number_of_rounds):
+    def add_number_of_rounds(self, number_of_rounds):
         self.number_of_rounds = number_of_rounds
 
     def add_player(self, player):
@@ -63,6 +66,9 @@ class Tournament:
 
     def add_round(self, round):
         self.rounds.append(round)
+
+    def remove_player(self, player):
+        self.players.remove(player)
 
     def __str__(self):
         string = ""
@@ -77,18 +83,16 @@ class Tournament:
         return string
 
     def __repr__(self):
-        return (f"Tournament(id={self.uuid}, "
-                f"name={self.name}, "
-                f"location={self.location}, "
-                f"start_date={self.start_date}, "
-                f"end_date={self.end_date}, "
-                f"number_of_rounds={self.number_of_rounds}, "
-                f"rounds={self.rounds}, "
-                f"players={self.players}, "
-                f"curent_round={self.curent_round}, "
-                f"description={self.description}")
+        return str(self)
 
     def __eq__(self, other):
+        """Compare another object to this tournament
+        attributes compared :
+            name, location and _start_date
+
+        return :
+            NotImplemented if wrong type or bool
+        """
         if not isinstance(other, Tournament):
             return NotImplemented
         return all([self.name == other.name,

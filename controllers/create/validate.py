@@ -1,15 +1,12 @@
 import re
 import dateutil.parser
-from typing import TYPE_CHECKING
 from models.exceptions import UserExitException
 from utils.tools import is_date
 
-if TYPE_CHECKING:
-    from views.manager import ViewsManager
-
 
 class Validate:
-    def __init__(self, views: 'ViewsManager'):
+    """Validation class"""
+    def __init__(self, views):
         self.views = views
         self.functions = {'date': self._validate_date,
                           'str': self._validate_str,
@@ -24,7 +21,15 @@ class Validate:
         return self.views.error
 
     @staticmethod  # need to be static to use it in the child class
-    def _exists(instance_type: str):
+    def _exists(instance_type):
+        """Function that return a decorator to check if instance of
+        new player or new tournament already exists.
+
+        params :
+            - instance_type (str) :
+                the type on the instance (i.e. 'tounrament').
+                Used to display error message
+        """
         def inner(function):
             def wrapper(self, *args, **kwargs):
                 new_instance = function(self, *args, **kwargs)
@@ -32,12 +37,18 @@ class Validate:
                     if instance == new_instance:
                         self.error_view.instance_exists(instance_type)
                         new_instance = None
-                        return new_instance
                 return new_instance
             return wrapper
         return inner
 
-    def _input(self, expected_type: str, label: str, empty: bool = False):
+    def _input(self, expected_type, label, empty=False):
+        """Validate user inputs.
+            params:
+                - expected_type (str) : the type expected
+                - label (str) : the label that will be asked from the user
+                - empty (bool default=False) : to allow the user's reponse
+                                               to be empty
+        """
         result = None
         while not result:
             result = self.create_view.prompt_for(label, empty)
@@ -48,7 +59,7 @@ class Validate:
                 return result
         return result
 
-    def _validate_date(self, result: str):
+    def _validate_date(self, result):
         if not result:
             return None
         elif not is_date(result):
@@ -56,7 +67,7 @@ class Validate:
             return None
         return dateutil.parser.parse(result, dayfirst=True)
 
-    def _validate_str(self, result: str):
+    def _validate_str(self, result):
         if not result:
             return None
         if re.match(r'\d', result):
@@ -64,7 +75,7 @@ class Validate:
             return None
         return result.strip().capitalize()
 
-    def _validate_digit(self, result: str):
+    def _validate_digit(self, result):
         if not result:
             return None
         elif not result.isdigit():

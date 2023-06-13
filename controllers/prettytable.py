@@ -4,17 +4,11 @@ from prettytable import PrettyTable
 from prettytable import ALL
 from datetime import datetime
 from models.match import Match
+from utils.ansi_colors import BL, N
 
 
 class MyPrettyTable:
-    # Color
-    R = "\033[0;31;40m"  # RED
-    G = "\033[0;32;40m"  # GREEN
-    Y = "\033[0;33;40m"  # Yellow
-    B = "\033[0;34;40m"  # Blue
-    BL = "\033[38;5;75m"
-    N = "\033[0m"  # Reset
-
+    """Controller to display PrettyTable"""
     def __init__(self, views):
         self.views = views
         self.table = PrettyTable(hrules=ALL, padding_width=1)
@@ -29,6 +23,7 @@ class MyPrettyTable:
         return self.views.export
 
     def get_key(self, item):
+        """Extract attributes names of the item to create headers"""
         keys = []
         for key in vars(item).keys():
             if key == 'uuid':
@@ -38,6 +33,7 @@ class MyPrettyTable:
         return keys
 
     def get_value(self, item):
+        """Extract attributes values of the item to create rows"""
         values = []
         for key, value in vars(item).items():
             if isinstance(value, datetime):
@@ -53,16 +49,19 @@ class MyPrettyTable:
         return values
 
     def match(self, items):
+        """Create PrettyTable for a Match"""
         self.table.clear()
         key = ['ID', 'PLAYER 1', 'PLAYER 2', 'WINNER']
         self.table.field_names = key
         for i, item in enumerate(items):
             self.table.add_row(
                 [item.uuid, item.player_1.display_in_match(),
-                 item.player_2.display_in_match(), item.winner]
+                 item.player_2.display_in_match(), item.winner
+                 if item.winner else '']
             )
 
     def wrap_list(self, value):
+        """Transform list value to string"""
         if isinstance(value, list):
             # sort players by score
             try:
@@ -73,20 +72,25 @@ class MyPrettyTable:
             for elt in value:
                 string += f"{elt}\n"
             return string
-        if isinstance(value, datetime):
-            return value.strftime("%d/%m/%Y %H:%M")
         return value
 
     def get_table(self, items):
+        """Add headers and rows in PrettyTable
+        Ïf items are matches set a custom PrettyTable for matches
+
+        params:
+            - items : a list of instances to add in the PrettyTable
+        """
         self.table.clear()
-        self.table.field_names = (self.get_key(items[0]))
-        for item in items:
-            self.table.add_row(self.get_value(item))
         if isinstance(items[0], Match):
             self.match(items)
+        else:
+            self.table.field_names = (self.get_key(items[0]))
+            for item in items:
+                self.table.add_row(self.get_value(item))
 
         self.table.field_names = [
-            self.BL+key+self.N for key in self.table.field_names
+            BL+key+N for key in self.table.field_names
         ]
 
     def display(self, items):
@@ -94,23 +98,30 @@ class MyPrettyTable:
         self.pretty_table_view.display(self.table)
 
     def to_html(self, items):
+        """Tranform PrettyTable to HTML string"""
         self.get_table(items)
-        table_html_string = self.table.get_html_string(
+        html_string = self.table.get_html_string(
             format=True, border=True)
-        to_html = Ansi2HTMLConverter(
-            escaped=False, font_size='18px').convert(
-            table_html_string, full=False)
-        return to_html
+        return html_string
 
-    def write_html(self, name, to_html):
+    def convert_ansi_to_html(self, html_string):
+        """Convert text with ANSI color codes to HTML"""
+        return Ansi2HTMLConverter(
+            escaped=False, font_size='18px').convert(
+            html_string, full=False)
+
+    def write_html(self, name, html_string):
+        """Write the HTML file"""
         path = Path('html-report')
         path.mkdir(parents=True, exist_ok=True)
         with open(path / (name + '.html'), 'w', encoding='utf-8') as file:
-            file.write(to_html)
+            file.write(html_string)
 
     def export_html(self, name, item):
+        """Export the report"""
         response = self.export_view.export()
         if response:
             to_html = self.to_html(item)
-            self.write_html(name, to_html)
+            to_html_converted = self.convert_ansi_to_html(to_html)
+            self.write_html(name, to_html_converted)
             self.export_view.export_confirmation(name)

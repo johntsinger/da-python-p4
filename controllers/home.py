@@ -1,15 +1,16 @@
 from controllers.player import PlayerMenu
-from controllers.tournament import TournamentMenu
+from controllers.tournament import TournamentsMenu
 from controllers.prettytable import MyPrettyTable
 from utils.tools import clear_console
 
 
 class Home:
+    """Home menu controller"""
     def __init__(self, views):
         self.views = views
         self.pretty_table = MyPrettyTable(self.views)
         self._player_menu = PlayerMenu(self.views, self.pretty_table)
-        self._tournament_menu = TournamentMenu(self.views, self.pretty_table)
+        self._tournament_menu = TournamentsMenu(self.views, self.pretty_table)
 
     @property
     def interface_view(self):

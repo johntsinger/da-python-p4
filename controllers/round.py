@@ -1,9 +1,11 @@
 from controllers.storage import Storage
 from controllers.create.round import NewRound
+from models.exceptions import UserExitException
 from utils.tools import clear_console
 
 
 class RoundController:
+    """Round menu controller"""
     def __init__(self, views, tournament, pretty_table):
         self.views = views
         self.pretty_table = pretty_table
@@ -30,6 +32,7 @@ class RoundController:
         return self.views.error
 
     def add_round(self):
+        """Add a new round if tournament is not over"""
         if self.round:
             if not self.round.end_date:
                 self.error_view.round_not_over()
@@ -50,7 +53,7 @@ class RoundController:
             return next(match for match in matches
                         if match.uuid == int(response))
         elif response == 'q':
-            return None
+            raise UserExitException
 
     def select_winner(self):
         if self.round.end_date:
@@ -59,31 +62,39 @@ class RoundController:
         while not self.round.end_date:
             clear_console()
             self.title_view.round_menu(self.tournament.curent_round)
-            match = self.select_match()
-            if match:
-                players = [match.player_1, match.player_2]
-                self.round_view.prompt_for_winner(match)
-                self.pretty_table.display([match])
-                if isinstance(match.player_2, str):
-                    match.winner = match.player_1
-                    self.storage.update(self.tournament)
-                else:
-                    response = self.round_view.select(
-                        'winner',
-                        [player.display_in_match() for player in players]
-                    )
-                    if response in ["1", "2", "3"]:
-                        if response == '3':
-                            match.winner = players
-                            self.storage.update(self.tournament)
-                        else:
-                            match.winner = players[int(response) - 1]
-                            self.storage.update(self.tournament)
-                if all([match.winner for match in self.round.matches]):
-                    self.round.end()
-                self.storage.update(self.tournament)
-            else:
+            try:
+                match = self.select_match()
+            except UserExitException:
                 return None
+            if match:
+                self.set_winner(match)
+
+    def set_winner(self, match):
+        players = [match.player_1, match.player_2]
+        self.round_view.prompt_for_winner(match)
+        self.pretty_table.display([match])
+        # if the player is exempted, he wins
+        if isinstance(match.player_2, str):
+            match.winner = match.player_1
+            self.storage.update(self.tournament)
+        else:
+            response = self.round_view.select(
+                'winner',
+                [player.display_in_match() for player in players]
+            )
+            if response in ["1", "2", "3"]:
+                # if the response is 3, it's a draw
+                if response == '3':
+                    match.winner = players
+                    self.storage.update(self.tournament)
+                # if the response is 1, player 1 win
+                # if the response is 2, player 2 win
+                else:
+                    match.winner = players[int(response) - 1]
+                    self.storage.update(self.tournament)
+        if all([match.winner for match in self.round.matches]):
+            self.round.end()
+            self.storage.update(self.tournament)
 
     def manager(self):
         stay = True

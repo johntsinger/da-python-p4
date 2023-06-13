@@ -5,6 +5,7 @@ from utils.tools import clear_console
 
 
 class PlayerMenu:
+    """Player menu controller"""
     def __init__(self, views, pretty_table):
         self.views = views
         self.pretty_table = pretty_table
@@ -64,10 +65,8 @@ class PlayerMenu:
         if players:
             self.pretty_table.display(players)
             response = self.player_view.select('player')
-            if response not in [str(player.uuid)
-                                for player in players]:
-                return None
-            if response:
+            if response in [str(player.uuid)
+                            for player in players]:
                 return self.storage.get_elt_by_id(int(response))
         return None
 
@@ -75,7 +74,9 @@ class PlayerMenu:
         self.title_view.delete_player()
         player = self.select_player()
         if player:
-            self.storage.remove(player)
+            response = self.player_view.accept_delete(player)
+            if response:
+                self.storage.remove(player)
 
     def manager(self):
         stay = True

@@ -40,10 +40,12 @@ class InterfaceView:
                 f"Start (2){' ' * 4}"
                 f"Display player (3){' ' * 4}"
                 f"Display rounds (4){' ' * 4}"
+                f"Export tournament (5){' ' * 4}"
+                f"Withdraw player (6){' ' * 4}"
                 "Return (9)"
             ),
             "key": [
-                "1", "2", "3", "4", "9"
+                "1", "2", "3", "4", "5", "6", "9"
             ]
         },
         "round": {

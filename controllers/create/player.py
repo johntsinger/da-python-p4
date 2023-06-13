@@ -5,6 +5,7 @@ from models.exceptions import UserExitException
 
 
 class NewPlayer(Validate):
+    """Controller to create a new player"""
     def __init__(self, views, players):
         super().__init__(views)
         self.instances = players
@@ -13,6 +14,7 @@ class NewPlayer(Validate):
 
     @Validate._exists('player')
     def base_data(self, data):
+        """Get the data required to create a player"""
         try:
             data['last_name'] = self._input('str', 'Last name') \
                 if not data['last_name'] else data['last_name']
@@ -31,6 +33,7 @@ class NewPlayer(Validate):
             return player
 
     def create(self):
+        """Create player object"""
         self.create_view.info('player')
         dictionary = {
             "last_name": None,

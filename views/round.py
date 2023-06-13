@@ -3,10 +3,10 @@ class RoundView:
         print()
         if name == "winner":
             message = (f"(1) {players[0]}    (2) {players[1]}    (3) draw"
-                       "\n\nSelect the winner : ")
+                       "\n\nSelect the winner (press `return` to return) : ")
         else:
             message = (f"Enter the id of the desired {name}"
-                       " (press `return` to return) : ")
+                       " (enter <q> to return) : ")
         response = input(message)
         print()
         try:

@@ -1,10 +1,10 @@
-class ErrorView:
-    R = "\033[0;31;40m"  # RED
-    N = "\033[0m"  # Reset
+from utils.ansi_colors import R, N
 
+
+class ErrorView:
     def display(self, message):
         print()
-        print(self.R+message+self.N)
+        print(R+message+N)
         print()
 
     def date_error(self, value):
@@ -41,7 +41,10 @@ class ErrorView:
         self.display(message)
 
     def player_not_exist(self, response):
-        message = f"Player with id {response} does not exist"
+        if response:
+            message = f"Player with id {response} does not exist"
+        else:
+            message = "The id must be an integer"
         self.display(message)
 
     def no_response(self):
