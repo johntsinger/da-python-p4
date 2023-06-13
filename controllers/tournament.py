@@ -8,7 +8,8 @@ import dateutil.parser
 from dateutil.parser import ParserError
 
 
-class TournamentMenu:
+class TournamentsMenu:
+    """Tournaments menu controller"""
     def __init__(self, views, pretty_table):
         self.views = views
         self.pretty_table = pretty_table
@@ -72,10 +73,16 @@ class TournamentMenu:
         self.title_view.delete_tournament()
         tournament = self.select_tournament()
         if tournament:
-            self.storage.remove(tournament)
-            self.create_tournament.instances = self.storage.all()
+            response = self.tournament_view.accept_delete(
+                'tournament', tournament)
+            if response:
+                self.storage.remove(tournament)
+                # update the list of tournament instances in the
+                # NewTournament controller
+                self.create_tournament.instances = self.storage.all()
 
     def get_tournament(self):
+        """Get the tournament corresponding to the given name and start date"""
         tournaments = self.storage.all()
         name = self.tournament_view.prompt_for('Name')
         date = self.tournament_view.prompt_for('Start date')
@@ -90,6 +97,7 @@ class TournamentMenu:
                 return tournament
 
     def search_tournament(self):
+        """Access the tournament found by it's name and start date"""
         self.title_view.search_tournament()
         self.tournament_view.search_info()
         tournament = self.get_tournament()
@@ -98,7 +106,8 @@ class TournamentMenu:
             self.tournament_controller.get_players_list()
             self.tournament_controller.manager()
 
-    def export_to_html(self):
+    def export_all_tournaments(self):
+        self.title_view.export_all_tournaments()
         tournaments = self.storage.all()
         if tournaments:
             self.pretty_table.display(tournaments)
@@ -122,7 +131,7 @@ class TournamentMenu:
                 self.search_tournament()
             elif response == '4':
                 clear_console()
-                self.export_to_html()
+                self.export_all_tournaments()
             elif response == '6':
                 clear_console()
                 self.delete_tournament()
@@ -131,6 +140,7 @@ class TournamentMenu:
 
 
 class TournamentController:
+    """Tournament menu controller"""
     def __init__(self, views, pretty_table):
         self.views = views
         self.pretty_table = pretty_table
@@ -161,17 +171,20 @@ class TournamentController:
 
     @tournament.setter
     def tournament(self, value):
+        """Set round controller when tournament is set"""
         self._tournament = value
         self.round_controller = RoundController(
             self.views, self._tournament, self.pretty_table)
 
     def start(self):
+        """Start or continue tournament"""
         if not self.tournament.rounds:
             self.adjust_number_of_round()
             self.round_controller.add_round()
         self.round_controller.manager()
 
     def max_round(self):
+        """Check the maximun number of round that can be played"""
         number_of_players = len(self.tournament.players)
         if number_of_players % 2:
             return number_of_players
@@ -188,16 +201,21 @@ class TournamentController:
             self.views.wait.wait()
 
     def add_player(self):
+        """Add player to this tournament"""
         self.title_view.add_players()
         if not self.tournament.rounds:
             keep_selecting = True
             while self.players_list and keep_selecting:
-                player = self.select_players()
+                player = self.select_player(self.players_list)
+                self.title_view.add_players()
                 if player:
                     if player == 'q':
                         keep_selecting = False
                     else:
-                        self.tournament.add_player(player)
+                        player_in_tournament = self.to_player_in_tournament(
+                            player)
+                        self.tournament_view.display_player(player)
+                        self.tournament.add_player(player_in_tournament)
                         self.storage.update(self.tournament)
             if not self.players_list:
                 self.error_view.all_players_added()
@@ -206,7 +224,25 @@ class TournamentController:
             self.error_view.tournament_has_started()
             self.views.wait.wait()
 
+    def delete_player(self):
+        self.title_view.delete_player()
+        player = self.select_player(self.tournament.players)
+        self.title_view.delete_player()
+        if player:
+            response = self.tournament_view.accept_delete('player', player)
+            if response:
+                # remove the player if match has not started
+                if not self.tournament.rounds:
+                    self.tournament.remove_player(player)
+                else:
+                    # don't remove it but set withdrawal and not play again
+                    player.withdrawal = True
+                self.storage.update(self.tournament)
+                # update self.players_list
+                self.get_players_list()
+
     def get_players_list(self):
+        """Get the list of players not registered in this tournament"""
         storage = Storage('players').all()
         set1 = set(player_in_tournament.uuid for player_in_tournament
                    in self.tournament.players)
@@ -214,29 +250,43 @@ class TournamentController:
             player for player in storage if player.uuid not in set1
         ]
 
-    def select_players(self):
-        self.pretty_table.display(self.players_list)
+    def select_player(self, players_list):
+        """Select a player in a list of players
+
+        Params:
+            - players_list (list) : a list of players
+              (can be self.players_list or self.tournament.players)
+        Return:
+            - a player (Player or PlayerInTournament)
+        """
+        self.pretty_table.display(players_list)
         response = self.tournament_view.select('player')
         clear_console()
-        self.title_view.add_players()
         if response == 'q':
             return response
-        if response not in [str(player.uuid)
-                            for player in self.players_list]:
-            self.error_view.player_not_exist(response)
-            return None
-        if response:
-            for player in self.players_list:
+        elif response in [str(player.uuid)
+                          for player in players_list]:
+            for player in players_list:
                 # not use players_list[int(response) - 1] because uuids may not
                 # follow each other if the object is deleted
                 # (i.e. : 1, 3 if 2 has been deleted)
                 if player.uuid == int(response):
-                    self.tournament_view.display_player(player)
-                    self.players_list.remove(player)
-                    return PlayerInTournament(player.last_name,
-                                              player.first_name,
-                                              player.date_of_birth,
-                                              player.uuid)
+                    return player
+        self.error_view.player_not_exist(response)
+        return None
+
+    def to_player_in_tournament(self, player):
+        """Transform Player to PlayerInTournament"""
+        self.players_list.remove(player)
+        return PlayerInTournament(player.last_name,
+                                  player.first_name,
+                                  player.date_of_birth,
+                                  player.uuid)
+
+    def date_isoformat(self):
+        """Get date in iso format"""
+        date = dateutil.parser.parse(self.tournament.start_date)
+        return date.isoformat().replace(':', '')
 
     def display_players(self):
         self.title_view.players_list()
@@ -244,15 +294,36 @@ class TournamentController:
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
             self.pretty_table.display(players)
-            self.pretty_table.export_html('players_in_tournament', players)
+            date_iso = self.date_isoformat()
+            self.pretty_table.export_html(
+                (f'players_in_tournament_{self.tournament.name}'
+                 f'_{self.tournament.location}_{date_iso}'),
+                players
+            )
             self.views.wait.wait()
 
     def display_rounds(self):
         self.title_view.rounds_list()
         if self.tournament.rounds:
             self.pretty_table.display(self.tournament.rounds)
-            self.pretty_table.export_html('rounds', self.tournament.rounds)
+            date_iso = self.date_isoformat()
+            self.pretty_table.export_html(
+                (f'rounds_{self.tournament.name}_{self.tournament.location}'
+                 f'_{date_iso}'),
+                self.tournament.rounds
+            )
             self.views.wait.wait()
+
+    def export_this_tournament(self):
+        self.title_view.export_tournament()
+        self.pretty_table.display([self.tournament])
+        date_iso = self.date_isoformat()
+        self.pretty_table.export_html(
+            (f'tournament_{self.tournament.name}_{self.tournament.location}'
+             f'_{date_iso}'),
+            [self.tournament]
+        )
+        self.views.wait.wait()
 
     def manager(self):
         stay = True
@@ -273,5 +344,11 @@ class TournamentController:
             elif response == '4':
                 clear_console()
                 self.display_rounds()
+            elif response == '5':
+                clear_console()
+                self.export_this_tournament()
+            elif response == '6':
+                clear_console()
+                self.delete_player()
             elif response == '9':
                 stay = False
