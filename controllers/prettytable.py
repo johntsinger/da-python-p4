@@ -98,30 +98,49 @@ class MyPrettyTable:
         self.pretty_table_view.display(self.table)
 
     def to_html(self, items):
-        """Tranform PrettyTable to HTML string"""
+        """Tranform PrettyTable to HTML string
+
+        params:
+            - items : a list of instances to add in the PrettyTable
+        """
         self.get_table(items)
         html_string = self.table.get_html_string(
             format=True, border=True)
         return html_string
 
     def convert_ansi_to_html(self, html_string):
-        """Convert text with ANSI color codes to HTML"""
+        """Convert text with ANSI color codes to HTML
+        params:
+            - html_string (str) : an html representation of the table
+                                  in string form
+        """
         return Ansi2HTMLConverter(
             escaped=False, font_size='18px').convert(
             html_string, full=False)
 
     def write_html(self, name, html_string):
-        """Write the HTML file"""
+        """Write the HTML file
+
+        params:
+            - name (str) : the name of the file to save
+            - html_string (str) : an html representation of the table
+                                  in string form
+        """
         path = Path('html-report')
         path.mkdir(parents=True, exist_ok=True)
         with open(path / (name + '.html'), 'w', encoding='utf-8') as file:
             file.write(html_string)
 
-    def export_html(self, name, item):
-        """Export the report"""
+    def export_html(self, name, items):
+        """Export the report
+
+        params:
+            - name (str) : the name of the file to save
+            - items (list) : a list of instances to add in the PrettyTable
+        """
         response = self.export_view.export()
         if response:
-            to_html = self.to_html(item)
+            to_html = self.to_html(items)
             to_html_converted = self.convert_ansi_to_html(to_html)
             self.write_html(name, to_html_converted)
             self.export_view.export_confirmation(name)
