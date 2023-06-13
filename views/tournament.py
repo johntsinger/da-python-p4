@@ -1,4 +1,4 @@
-from utils.ansi_colors import R, N
+from utils.ansi_colors import R, G, N
 
 
 class TournamentMenuView:
@@ -30,6 +30,8 @@ class TournamentMenuView:
         indent = ' ' * 4 if name == 'player' else ''
         message = (f"Delete the {name} :\n\n{indent}{item}\n\n"
                    "Are you sure ? (y/n) :")
+        # remove existing ansi code
+        message = message.replace(G, '').replace(N, '')
         print()
         response = input(R+message+N)
         print()

@@ -225,6 +225,10 @@ class TournamentController:
             self.views.wait.wait()
 
     def delete_player(self):
+        """Removes the player from the tournament if the tournament has not
+        started, otherwise keeps the player in the tournament and creates 
+        a player withdrawal
+        """
         self.title_view.delete_player()
         player = self.select_player(self.tournament.players)
         self.title_view.delete_player()
@@ -237,9 +241,20 @@ class TournamentController:
                 else:
                     # don't remove it but set withdrawal and not play again
                     player.withdrawal = True
+                    self.update_round()
                 self.storage.update(self.tournament)
                 # update self.players_list
                 self.get_players_list()
+
+    def update_round(self):
+        """Update round after player withdrawal"""
+        for match in self.tournament.rounds[-1].matches:
+            if not match.winner:
+                if match.player_1.withdrawal:
+                    match.winner = match.player_2
+                elif match.player_2.withdrawal:
+                    match.winner = match.player_1
+        self.storage.update(self.tournament)
 
     def get_players_list(self):
         """Get the list of players not registered in this tournament"""
