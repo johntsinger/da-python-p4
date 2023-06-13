@@ -13,7 +13,7 @@ class InterfaceView:
         "player": {
             "label": (
                 f"Create player (1){' ' * 4}"
-                f"Display all players (2){' ' * 4}"
+                f"Export all players (2){' ' * 4}"
                 f"Delete player (6){' ' * 4}"
                 "Return (9)"
             ),
@@ -26,7 +26,7 @@ class InterfaceView:
                 f"Create tournament (1){' ' * 4}"
                 f"Select tournaments (2){' ' * 4}"
                 f"Search tournament (3){' ' * 4}"
-                f"Display all tournaments (4){' ' * 4}"
+                f"Export all tournaments (4){' ' * 4}"
                 f"Delete tournament (6){' ' * 4}"
                 "Return (9)"
             ),
@@ -38,8 +38,8 @@ class InterfaceView:
             "label": (
                 f"Add players (1){' ' * 4}"
                 f"Start (2){' ' * 4}"
-                f"Display player (3){' ' * 4}"
-                f"Display rounds (4){' ' * 4}"
+                f"Export player (3){' ' * 4}"
+                f"Export rounds (4){' ' * 4}"
                 f"Export tournament (5){' ' * 4}"
                 f"Withdraw player (6){' ' * 4}"
                 "Return (9)"

@@ -49,7 +49,7 @@ class PlayerMenu:
                     new_player.cleaned_data)
                 self.storage.update(new_player)
 
-    def display_all(self):
+    def export_all_players(self):
         self.title_view.players_list()
         players = self.storage.all()
         if players:
@@ -89,7 +89,7 @@ class PlayerMenu:
                 self.new_player()
             elif response == '2':
                 clear_console()
-                self.display_all()
+                self.export_all_players()
             elif response == '6':
                 clear_console()
                 self.delete_player()

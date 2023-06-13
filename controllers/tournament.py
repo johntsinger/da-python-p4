@@ -303,7 +303,7 @@ class TournamentController:
         date = dateutil.parser.parse(self.tournament.start_date)
         return date.isoformat().replace(':', '')
 
-    def display_players(self):
+    def export_players(self):
         self.title_view.players_list()
         players = self.tournament.players
         if players:
@@ -317,7 +317,7 @@ class TournamentController:
             )
             self.views.wait.wait()
 
-    def display_rounds(self):
+    def export_rounds(self):
         self.title_view.rounds_list()
         if self.tournament.rounds:
             self.pretty_table.display(self.tournament.rounds)
@@ -355,10 +355,10 @@ class TournamentController:
                 self.start()
             elif response == '3':
                 clear_console()
-                self.display_players()
+                self.export_players()
             elif response == '4':
                 clear_console()
-                self.display_rounds()
+                self.export_rounds()
             elif response == '5':
                 clear_console()
                 self.export_this_tournament()
