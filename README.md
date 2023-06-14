@@ -50,3 +50,10 @@ Please note that `<environment name>` is a name you choose, for more convenience
 
     pip install -r requirements.txt
     
+## Flake8 report :
+
+    flake8 --format=html --htmldir=flake-report
+    
+## Menus :
+
+### Main menu :
