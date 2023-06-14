@@ -30,8 +30,8 @@ class TitleView(Frame):
     def delete_player(self):
         print(self.frame("DELETE PLAYER "))
 
-    def players_list(self):
-        print(self.frame("LIST OF PLAYERS "))
+    def export_players(self):
+        print(self.frame("EXPORT PLAYERS"))
 
     def tournament_menu(self):
         print(self.frame("TOURNAMENT MENU "))

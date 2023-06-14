@@ -50,7 +50,7 @@ class PlayerMenu:
                 self.storage.update(new_player)
 
     def export_all_players(self):
-        self.title_view.players_list()
+        self.title_view.export_players()
         players = self.storage.all()
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))

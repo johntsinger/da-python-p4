@@ -334,7 +334,7 @@ class TournamentController:
         return date.isoformat().replace(':', '')
 
     def export_players(self):
-        self.title_view.players_list()
+        self.title_view.export_players()
         players = self.tournament.players
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
