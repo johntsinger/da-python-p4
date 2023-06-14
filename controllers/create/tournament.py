@@ -127,9 +127,6 @@ class NewTournament(Validate):
         response = self.tournament_view.select('player')
         clear_console()
         self.title_view.new_tournament()
-        if not response:
-            self.error_view.no_response()
-            return None
         if response == 'q':
             return response
         if response in [str(player.uuid)

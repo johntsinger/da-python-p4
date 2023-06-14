@@ -27,17 +27,26 @@ class ErrorView:
         message = "All players are already registered for this tournament"
         self.display(message)
 
+    def round_tournament_over(self):
+        message = "All rounds of this tournement have already been set"
+        self.display(message)
+
     def tournament_over(self):
-        message = "All round of this tournement have already been set"
+        message = "This tournament is over ! You can't delete player anymore"
         self.display(message)
 
     def round_not_over(self):
         message = ("You can't start next round while the previous round"
-                   " is not finished")
+                   " is not over")
         self.display(message)
 
     def round_over(self):
         message = "This round is over !"
+        self.display(message)
+
+    def player_required(self):
+        message = ("You cannot start a tournament with fewer than 2 players\n"
+                   "Please add players first to start this tournament")
         self.display(message)
 
     def player_not_exist(self, response):
@@ -45,12 +54,6 @@ class ErrorView:
             message = f"Player with id {response} does not exist"
         else:
             message = "The id must be an integer"
-        self.display(message)
-
-    def no_response(self):
-        message = ("You must enter an id of a player to add him/her"
-                   " to the tournament !\nYou can quit the selection"
-                   " by pressing 'q'")
         self.display(message)
 
     def wrong_number_of_round(self, number_of_rounds, new_number_of_rounds):
@@ -67,4 +70,9 @@ class ErrorView:
     def nothing_to_display(self, name):
         message = (f"There is no {name} to display...\n"
                    "Please create at least one player")
+        self.display(message)
+
+    def not_enough_player(self):
+        message = ("There are not enough players left to continue"
+                   " this tournament")
         self.display(message)

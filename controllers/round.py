@@ -42,7 +42,7 @@ class RoundController:
             self.round = self.new_round.generate()
             self.storage.update(self.tournament)
         else:
-            self.error_view.tournament_over()
+            self.error_view.round_tournament_over()
             self.views.wait.wait()
 
     def select_match(self):

@@ -2,9 +2,9 @@ from utils.ansi_colors import R, G, N
 
 
 class TournamentMenuView:
-    def select(self, name):
+    def select(self, name, to_stop=False):
         message = (f"Enter the id of the desired {name}"
-                   f"{' (enter <q> to stop)' if name == 'player' else ''} : ")
+                   f"{' (enter <q> to stop)' if to_stop else ''} : ")
         response = input(message)
         try:
             int(response)
@@ -37,4 +37,5 @@ class TournamentMenuView:
         print()
         if response.lower() == "y":
             return True
-        return False
+        else:
+            return False

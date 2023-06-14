@@ -178,6 +178,11 @@ class TournamentController:
 
     def start(self):
         """Start or continue tournament"""
+        if len(self.tournament.players) < 2:
+            self.title_view.round_menu('#')
+            self.error_view.player_required()
+            self.views.wait.wait()
+            return None
         if not self.tournament.rounds:
             self.adjust_number_of_round()
             self.round_controller.add_round()
@@ -206,8 +211,7 @@ class TournamentController:
         if not self.tournament.rounds:
             keep_selecting = True
             while self.players_list and keep_selecting:
-                player = self.select_player(self.players_list)
-                self.title_view.add_players()
+                player = self.select_player(self.players_list, add_player=True)
                 if player:
                     if player == 'q':
                         keep_selecting = False
@@ -226,25 +230,45 @@ class TournamentController:
 
     def delete_player(self):
         """Removes the player from the tournament if the tournament has not
-        started, otherwise keeps the player in the tournament and creates 
+        started, otherwise keeps the player in the tournament and do
         a player withdrawal
         """
         self.title_view.delete_player()
-        player = self.select_player(self.tournament.players)
-        self.title_view.delete_player()
-        if player:
-            response = self.tournament_view.accept_delete('player', player)
-            if response:
-                # remove the player if match has not started
-                if not self.tournament.rounds:
-                    self.tournament.remove_player(player)
-                else:
-                    # don't remove it but set withdrawal and not play again
-                    player.withdrawal = True
-                    self.update_round()
-                self.storage.update(self.tournament)
-                # update self.players_list
-                self.get_players_list()
+        if self.tournament.players:
+            if self.tournament.curent_round < self.tournament.number_of_rounds:
+                players_list = [player for player in self.tournament.players
+                                if not player.withdrawal]
+                player = self.select_player(players_list)
+                self.title_view.delete_player()
+                if player:
+                    response = self.tournament_view.accept_delete(
+                        'player', player)
+                    if response:
+                        # remove the player if match has not started
+                        if not self.tournament.rounds:
+                            self.tournament.remove_player(player)
+                        else:
+                            # don't remove it but set withdrawal
+                            # and not play again
+                            player.withdrawal = True
+                            self.update_round()
+                        self.are_enough_players()
+                        self.storage.update(self.tournament)
+                        # update self.players_list
+                        self.get_players_list()
+            else:
+                self.error_view.tournament_over()
+                self.views.wait.wait()
+
+    def are_enough_players(self):
+        players_list = [player for player in self.tournament.players
+                        if not player.withdrawal]
+        if len(players_list) < 2 and self.tournament.rounds:
+            self.error_view.not_enough_player()
+            # end the tournament
+            self.tournament.number_of_rounds = self.tournament.curent_round
+            self.tournament.rounds[-1].end()
+            self.views.wait.wait()
 
     def update_round(self):
         """Update round after player withdrawal"""
@@ -265,20 +289,26 @@ class TournamentController:
             player for player in storage if player.uuid not in set1
         ]
 
-    def select_player(self, players_list):
+    def select_player(self, players_list, add_player=False):
         """Select a player in a list of players
 
         Params:
             - players_list (list) : a list of players
               (can be self.players_list or self.tournament.players)
+            - add_player (bool dafault=False) : a flag True if the caller is
+              add_player
         Return:
             - a player (Player or PlayerInTournament)
         """
         self.pretty_table.display(players_list)
-        response = self.tournament_view.select('player')
+        response = self.tournament_view.select('player', to_stop=add_player)
         clear_console()
+        # needed to display error under the title in add_player
+        if add_player:
+            self.title_view.add_players()
         if response == 'q':
-            return response
+            # don't return q to delete a player
+            return response if add_player else None
         elif response in [str(player.uuid)
                           for player in players_list]:
             for player in players_list:
