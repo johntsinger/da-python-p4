@@ -2,13 +2,15 @@
 
 ## Description
 
-A chess tournament manager for a chess club
+A chess tournament manager for a chess club :
+- tournament system : [Swiss system](https://en.wikipedia.org/wiki/Swiss-system_tournament)
+- pairing system : [Monrad system](https://en.wikipedia.org/wiki/Swiss-system_tournament#Monrad_system)
 
 ## Installation guide
 
 ### Clone repository with Git :
 
-    git clone https://github.com/johntsinger/da-python-p2.git
+    git clone https://github.com/johntsinger/da-python-p4.git
     
 or
 
