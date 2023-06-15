@@ -290,6 +290,9 @@ class TournamentController:
             self.views.wait.wait()
 
     def are_enough_players(self):
+        """Check if there are enough players to continue the tournament.
+        If not end the tournament
+        """
         players_list = [player for player in self.tournament.players
                         if not player.withdrawal]
         if len(players_list) < 2 and self.tournament.rounds:
