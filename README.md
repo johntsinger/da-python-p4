@@ -82,7 +82,7 @@ The player menu lets you :
 The tournaments menu lets you :
 - (1) Create new tournaments
 - (2) Select a tournament
-- (3) Search a tournament by it's name and strat date
+- (3) Search a tournament by it's name and start date
 - (4) View and export all tournaments
 - (6) Delete existing tournaments
 
