@@ -2,7 +2,7 @@ class RoundView:
     def select(self, name, players=None):
         print()
         if name == "winner":
-            message = (f"(1) {players[0]}    (2) {players[1]}    (3) draw"
+            message = (f"(1) {players[0]}    (2) {players[1]}    (3) Draw"
                        "\n\nSelect the winner (press `return` to return) : ")
         else:
             message = (f"Enter the id of the desired {name}"
