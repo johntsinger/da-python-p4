@@ -1,5 +1,6 @@
 import re
 import dateutil.parser
+from datetime import datetime
 from models.exceptions import UserExitException
 from utils.tools import is_date
 
@@ -65,7 +66,13 @@ class Validate:
         elif not is_date(result):
             self.error_view.date_error(result)
             return None
-        return dateutil.parser.parse(result, dayfirst=True)
+        this_year = datetime.now().year
+        date = dateutil.parser.parse(result, dayfirst=True)
+        # give +10 years to avoid convert date to 19-- if user creates
+        # a tournament for a date after this year
+        if date.year > this_year + 10:
+            date = date.replace(year=date.year-100)
+        return date
 
     def _validate_str(self, result):
         if not result:

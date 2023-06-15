@@ -54,6 +54,9 @@ class RoundController:
                         if match.uuid == int(response))
         elif response == 'q':
             raise UserExitException
+        else:
+            self.error_view.not_exist('round', response)
+            self.views.wait.wait()
 
     def select_winner(self):
         if self.round.end_date:

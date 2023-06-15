@@ -3,8 +3,11 @@ from utils.ansi_colors import R, G, N
 
 class TournamentMenuView:
     def select(self, name, to_stop=False):
-        message = (f"Enter the id of the desired {name}"
-                   f"{' (enter <q> to stop)' if to_stop else ''} : ")
+        if to_stop:
+            to_stop_message = '(enter <q> to stop)'
+        else:
+            to_stop_message = '(press `return` to return)'
+        message = f"Enter the id of the desired {name} {to_stop_message} : "
         response = input(message)
         try:
             int(response)

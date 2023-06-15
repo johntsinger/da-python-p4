@@ -3,7 +3,8 @@ from utils.ansi_colors import R, N
 
 class PlayerMenuView:
     def select(self, name):
-        message = f"Enter the id of the desired {name} : "
+        message = (f"Enter the id of the desired {name}"
+                   " (press `return` to return) : ")
         response = input(message)
         try:
             int(response)

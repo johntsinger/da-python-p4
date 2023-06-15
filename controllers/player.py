@@ -77,6 +77,10 @@ class PlayerMenu:
             response = self.player_view.accept_delete(player)
             if response:
                 self.storage.remove(player)
+        # if no player in json db
+        elif not self.storage.db.all():
+            self.error_view.nothing_to_display('player')
+            self.views.wait.wait()
 
     def manager(self):
         stay = True

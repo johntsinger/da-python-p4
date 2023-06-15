@@ -104,18 +104,22 @@ class NewTournament(Validate):
     def add_player(self, tournament):
         """Add player in this tournament"""
         self.get_players_list()
-        keep_selecting = True
-        while self.players_list and keep_selecting:
-            self.create_view.add_player()
-            player = self.select_player()
-            if player:
-                if player == 'q':
-                    keep_selecting = False
-                else:
-                    tournament.add_player(player)
         if not self.players_list:
-            self.error_view.all_players_added()
+            self.error_view.nothing_to_display('player')
             self.views.wait.wait()
+        else:
+            keep_selecting = True
+            while self.players_list and keep_selecting:
+                self.create_view.add_player()
+                player = self.select_player()
+                if player:
+                    if player == 'q':
+                        keep_selecting = False
+                    else:
+                        tournament.add_player(player)
+            if not self.players_list:
+                self.error_view.all_players_added()
+                self.views.wait.wait()
 
     def get_players_list(self):
         """Get all player registered in the system"""
@@ -139,5 +143,5 @@ class NewTournament(Validate):
                                               player.first_name,
                                               player.date_of_birth,
                                               player.uuid)
-        self.error_view.player_not_exist(response)
+        self.error_view.not_exist('player', response)
         return None

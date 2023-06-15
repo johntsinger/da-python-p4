@@ -35,6 +35,10 @@ class TournamentsMenu:
     def title_view(self):
         return self.views.title
 
+    @property
+    def error_view(self):
+        return self.views.error
+
     def new_tournament(self):
         self.title_view.new_tournament()
         new_tournament = None
@@ -68,6 +72,9 @@ class TournamentsMenu:
             self.tournament_controller.tournament = tournament
             self.tournament_controller.get_players_list()
             self.tournament_controller.manager()
+        elif not self.storage.db.all():
+            self.error_view.nothing_to_display('tournament')
+            self.views.wait.wait()
 
     def delete_tournament(self):
         self.title_view.delete_tournament()
@@ -80,21 +87,31 @@ class TournamentsMenu:
                 # update the list of tournament instances in the
                 # NewTournament controller
                 self.create_tournament.instances = self.storage.all()
+        elif not self.storage.db.all():
+            self.error_view.nothing_to_display('tournament')
+            self.views.wait.wait()
 
     def get_tournament(self):
         """Get the tournament corresponding to the given name and start date"""
         tournaments = self.storage.all()
-        name = self.tournament_view.prompt_for('Name')
-        date = self.tournament_view.prompt_for('Start date')
-        try:
-            date = dateutil.parser.parse(
-                date, dayfirst=True).strftime('%d/%m/%Y %H:%M')
-        except ParserError:
-            date = None
-        for tournament in tournaments:
-            if (tournament.name == name.capitalize()
-                    and tournament.start_date == date):
-                return tournament
+        if tournaments:
+            name = self.tournament_view.prompt_for('Name')
+            date = self.tournament_view.prompt_for('Start date')
+            try:
+                date = dateutil.parser.parse(
+                    date, dayfirst=True).strftime('%d/%m/%Y %H:%M')
+            except ParserError:
+                date = None
+            for tournament in tournaments:
+                if (tournament.name == name.capitalize()
+                        and tournament.start_date == date):
+                    return tournament
+                else:
+                    self.error_view.no_tournament_found(name, date)
+                    self.views.wait.wait()
+        else:
+            self.error_view.nothing_to_display('tournament')
+            self.views.wait.wait()
 
     def search_tournament(self):
         """Access the tournament found by it's name and start date"""
@@ -112,7 +129,9 @@ class TournamentsMenu:
         if tournaments:
             self.pretty_table.display(tournaments)
             self.pretty_table.export_html('tournaments', tournaments)
-            self.views.wait.wait()
+        else:
+            self.error_view.nothing_to_display('tournament')
+        self.views.wait.wait()
 
     def manager(self):
         stay = True
@@ -208,25 +227,32 @@ class TournamentController:
     def add_player(self):
         """Add player to this tournament"""
         self.title_view.add_players()
-        if not self.tournament.rounds:
-            keep_selecting = True
-            while self.players_list and keep_selecting:
-                player = self.select_player(self.players_list, add_player=True)
-                if player:
-                    if player == 'q':
-                        keep_selecting = False
-                    else:
-                        player_in_tournament = self.to_player_in_tournament(
-                            player)
-                        self.tournament_view.display_player(player)
-                        self.tournament.add_player(player_in_tournament)
-                        self.storage.update(self.tournament)
-            if not self.players_list:
-                self.error_view.all_players_added()
-                self.views.wait.wait()
-        else:
-            self.error_view.tournament_has_started()
+        # check if there are players in json db
+        if not Storage('players').db.all():
+            self.error_view.nothing_to_display('player')
             self.views.wait.wait()
+        else:
+            if not self.tournament.rounds:
+                keep_selecting = True
+                while self.players_list and keep_selecting:
+                    player = self.select_player(
+                        self.players_list, add_player=True)
+                    if player:
+                        if player == 'q':
+                            keep_selecting = False
+                        else:
+                            player_in_tournament = \
+                                self.to_player_in_tournament(
+                                    player)
+                            self.tournament_view.display_player(player)
+                            self.tournament.add_player(player_in_tournament)
+                            self.storage.update(self.tournament)
+                if not self.players_list:
+                    self.error_view.all_players_added()
+                    self.views.wait.wait()
+            else:
+                self.error_view.tournament_has_started()
+                self.views.wait.wait()
 
     def delete_player(self):
         """Removes the player from the tournament if the tournament has not
@@ -259,6 +285,9 @@ class TournamentController:
             else:
                 self.error_view.tournament_over()
                 self.views.wait.wait()
+        else:
+            self.error_view.nothing_to_display('player')
+            self.views.wait.wait()
 
     def are_enough_players(self):
         players_list = [player for player in self.tournament.players
@@ -317,7 +346,7 @@ class TournamentController:
                 # (i.e. : 1, 3 if 2 has been deleted)
                 if player.uuid == int(response):
                     return player
-        self.error_view.player_not_exist(response)
+        self.error_view.not_exist('player', response)
         return None
 
     def to_player_in_tournament(self, player):
@@ -345,7 +374,9 @@ class TournamentController:
                  f'_{self.tournament.location}_{date_iso}'),
                 players
             )
-            self.views.wait.wait()
+        else:
+            self.error_view.nothing_to_display('player')
+        self.views.wait.wait()
 
     def export_rounds(self):
         self.title_view.rounds_list()
@@ -357,7 +388,9 @@ class TournamentController:
                  f'_{date_iso}'),
                 self.tournament.rounds
             )
-            self.views.wait.wait()
+        else:
+            self.error_view.nothing_to_display('round')
+        self.views.wait.wait()
 
     def export_this_tournament(self):
         self.title_view.export_tournament()

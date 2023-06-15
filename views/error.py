@@ -49,9 +49,9 @@ class ErrorView:
                    "Please add players first to start this tournament")
         self.display(message)
 
-    def player_not_exist(self, response):
+    def not_exist(self, name, response):
         if response:
-            message = f"Player with id {response} does not exist"
+            message = f"{name.capitalize()} with id {response} does not exist"
         else:
             message = "The id must be an integer"
         self.display(message)
@@ -68,11 +68,16 @@ class ErrorView:
         self.display(message)
 
     def nothing_to_display(self, name):
-        message = (f"There is no {name} to display...\n"
-                   "Please create at least one player")
+        message = (f"There are no {name}s... "
+                   f"Please create at least one {name}")
         self.display(message)
 
     def not_enough_player(self):
         message = ("There are not enough players left to continue"
                    " this tournament")
+        self.display(message)
+
+    def no_tournament_found(self, name, date):
+        message = ("No tournaments found with the name :"
+                   f" {name} and stating on : {date}")
         self.display(message)
