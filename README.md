@@ -54,6 +54,61 @@ Please note that `<environment name>` is a name you choose, for more convenience
 
     flake8 --format=html --htmldir=flake-report
     
-## Menus :
+## Run the program :
 
-### Main menu :
+    python main.py
+
+### Menus :
+
+#### Main menu :
+
+The main menu ! You can access other menus from there.
+- (1) Player menu
+- (2) Tournament menu
+
+![main_menu](img/main_menu.png)
+
+#### Player menu :
+
+The player menu lets you :
+- (1) Create new players to the system
+- (2) View and export all players registered
+- (3) Delete existing players
+
+![player menu](img/player_menu.png)
+
+#### Tournaments menu :
+
+The tournaments menu lets you :
+- (1) Create new tournaments
+- (2) Select a tournament
+- (3) Search a tournament by it's name and strat date
+- (4) View and export all tournaments
+- (6) Delete existing tournaments
+
+![tournaments menu](img/tournaments_menu.png)
+
+#### Tournament menu :
+
+The tournament menu lets you :
+- (1) Add players to this tournament if it hasn't already strated
+- (2) Start or continue this tournament (access round menu)
+- (3) View and export all players in this tournament
+- (4) View and export rounds
+- (5) View and export this tournament
+- (6) Withdraw players (delete them from the tournament if it hans't already started otherwise they will be given a withdrawal)
+
+![tournament menu](img/tournament_menu.png)
+
+#### Round menu :
+The round menu lets you :
+- (1) Select a winner for a given match :
+  - To select a winner select the desired match
+  - And select the wanted winner (1) (2) or a draw (3)
+- (2) Move to the next round if all winners have been set
+
+![round menu](img/round_menu.png)
+
+## Contact :
+Jonathan Singer - john.t.singer@gmail.com\
+Project link : https://github.com/johntsinger/da-python-p2
