@@ -70,7 +70,7 @@ The main menu ! You can access other menus from there.
 
 #### Player menu :
 
-The player menu lets you :
+The player menu allows you to :
 - (1) Create new players to the system
 - (2) View and export all players registered
 - (3) Delete existing players
@@ -79,7 +79,7 @@ The player menu lets you :
 
 #### Tournaments menu :
 
-The tournaments menu lets you :
+The tournaments menu allows you to :
 - (1) Create new tournaments
 - (2) Select a tournament
 - (3) Search a tournament by it's name and start date
@@ -90,7 +90,7 @@ The tournaments menu lets you :
 
 #### Tournament menu :
 
-The tournament menu lets you :
+The tournament menu allows you to :
 - (1) Add players to this tournament if it hasn't already strated
 - (2) Start or continue this tournament (access round menu)
 - (3) View and export all players in this tournament
@@ -101,7 +101,7 @@ The tournament menu lets you :
 ![tournament menu](img/tournament_menu.png)
 
 #### Round menu :
-The round menu lets you :
+The round menu allows you to :
 - (1) Select a winner for a given match :
   - To select a winner select the desired match
   - And select the wanted winner (1) (2) or a draw (3)
