@@ -3,7 +3,7 @@ class InterfaceView:
         "home": {
             "label": (
                 f"Player menu (1){' ' * 4}"
-                f"Tournament menu (2){' ' * 4}"
+                f"Tournaments menu (2){' ' * 4}"
                 "Exit (9)"
             ),
             "key": [
@@ -24,7 +24,7 @@ class InterfaceView:
         "tournament": {
             "label": (
                 f"Create tournament (1){' ' * 4}"
-                f"Select tournaments (2){' ' * 4}"
+                f"Select tournament (2){' ' * 4}"
                 f"Search tournament (3){' ' * 4}"
                 f"Export all tournaments (4){' ' * 4}"
                 f"Delete tournament (6){' ' * 4}"
