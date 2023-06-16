@@ -58,6 +58,7 @@ Please note that `<environment name>` is a name you choose, for more convenience
 ## Flake8 report :
 
     flake8 --format=html --htmldir=flake-report
+You can find the report in the `flake-report/` folder in the `index.html` file
     
 ## Run the program :
 
@@ -116,4 +117,4 @@ The round menu allows you to :
 
 ## Contact :
 Jonathan Singer - john.t.singer@gmail.com\
-Project link : https://github.com/johntsinger/da-python-p2
+Project link : https://github.com/johntsinger/da-python-p4
