@@ -3,8 +3,13 @@
 ## Description
 
 A chess tournament manager for a chess club :
-- tournament system : [Swiss system](https://en.wikipedia.org/wiki/Swiss-system_tournament)
-- pairing system : [Monrad system](https://en.wikipedia.org/wiki/Swiss-system_tournament#Monrad_system)
+- Tournament system : [Swiss system](https://en.wikipedia.org/wiki/Swiss-system_tournament)
+- Pairing system :
+  - First round random
+  - Next rounds [Monrad system](https://en.wikipedia.org/wiki/Swiss-system_tournament#Monrad_system)
+- Tie-Breaking system :
+  - [Buchholz system](https://en.wikipedia.org/wiki/Buchholz_system)
+  - [Cumulative system](https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Cumulative)
 
 ## Installation guide
 
@@ -17,7 +22,7 @@ or
 ### Download the repository :
 
 - On the [project page](https://github.com/johntsinger/da-python-p4)
-- Click on Code
+- Click on green Code button
 - Click on download ZIP
 - Extract the file.
 
