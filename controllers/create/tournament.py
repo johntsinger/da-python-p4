@@ -26,7 +26,13 @@ class NewTournament(Validate):
 
     @Validate._exists('tournament')
     def base_data(self, data):
-        """Get the data required to create a tournament"""
+        """Get the data required to create a tournament.
+        Save the data in temporary file if user exit the creation
+
+        params:
+            - data (dict) : a dictionary with temporary data to continue
+                            an older creation if one exists
+        """
         try:
             data['name'] = self._input('str', 'Name') \
                 if not data['name'] else data['name']
@@ -46,7 +52,13 @@ class NewTournament(Validate):
             return Tournament(**data)
 
     def get_additional_data(self, data):
-        """Get additional data for the tournament"""
+        """Get additional data for the tournament.
+        Save the data in temporary file if user exit the creation
+
+        params:
+            - data (dict) : a dictionary with temporary data to continue
+                            an older creation if one exists
+        """
         try:
             if 'number_of_rounds' not in data:
                 data['number_of_rounds'] = self._input(

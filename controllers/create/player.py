@@ -14,7 +14,13 @@ class NewPlayer(Validate):
 
     @Validate._exists('player')
     def base_data(self, data):
-        """Get the data required to create a player"""
+        """Get the data required to create a player.
+        Save the data in temporary file if user exit the creation
+
+        params:
+            - data (dict) : a dictionary with temporary data to continue
+                            an older creation if one exists
+        """
         try:
             data['last_name'] = self._input('str', 'Last name') \
                 if not data['last_name'] else data['last_name']
