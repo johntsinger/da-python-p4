@@ -33,6 +33,9 @@ class TitleView(Frame):
     def export_players(self):
         print(self.frame("EXPORT PLAYERS"))
 
+    def tournaments_menu(self):
+        print(self.frame("TOURNAMENTS MENU"))
+
     def tournament_menu(self):
         print(self.frame("TOURNAMENT MENU "))
 
@@ -46,7 +49,7 @@ class TitleView(Frame):
         print(self.frame("SEARCH TOURNAMENT "))
 
     def select_tournament(self):
-        print(self.frame("SELECT TOURNAMENTS"))
+        print(self.frame("SELECT TOURNAMENT "))
 
     def export_tournament(self):
         print(self.frame("EXPORT THIS TOURNAMENT"))

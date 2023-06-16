@@ -140,7 +140,7 @@ class TournamentsMenu:
         stay = True
         while stay:
             clear_console()
-            self.title_view.tournament_menu()
+            self.title_view.tournaments_menu()
             response = self.interface_view.display_interface('tournament')
             if response == '1':
                 clear_console()
