@@ -119,3 +119,8 @@ class Match:
         ) and (
             self.player_2 == other.player_1 or self.player_2 == other.player_2
         )
+
+    def __contains__(self, other):
+        if not isinstance(other, PlayerInTournament):
+            return NotImplemented
+        return True if other in (self.player_1, self.player_2) else False

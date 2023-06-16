@@ -78,6 +78,10 @@ class Tournament:
                 value = value.strftime('%d/%m/%Y %H:%M')
             if key == 'uuid':
                 key = 'id'
+            if key == 'players':
+                if not self.rounds:
+                    value = [player.display_without_score()
+                             for player in value]
             string += (f"{' '*8}{key.capitalize().replace('_', ' ')}"
                        f" : {value}\n")
         return string

@@ -411,6 +411,7 @@ class TournamentController:
         while stay:
             clear_console()
             self.title_view.tournament_menu()
+            self.tournament_view.tie_breaking_info()
             self.pretty_table.display([self.tournament])
             response = self.interface_view.display_interface('tournament_menu')
             if response == '1':

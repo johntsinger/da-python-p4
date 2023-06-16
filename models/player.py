@@ -49,19 +49,25 @@ class Player:
 class PlayerInTournament(Player):
     """Model for player in tournament"""
     def __init__(self, last_name, first_name, date_of_birth, uuid,
-                 score=0, withdrawal=False):
+                 score=0, cumulative_list=None, cumulative_score=0,
+                 buchholz_score=0, withdrawal=False):
         super().__init__(last_name, first_name, date_of_birth, uuid)
         self.score = score
+        self.cumulative_list = cumulative_list if cumulative_list else []
+        self.cumulative_score = cumulative_score
+        self.buchholz_score = buchholz_score
         self.withdrawal = withdrawal  # if player leaves the tournament
         if isinstance(self._date_of_birth, str):
             self._date_of_birth = dateutil.parser.parse(self._date_of_birth)
 
-    def display_in_match(self):
+    def display_without_score(self):
         return f"{self.last_name} {self.first_name}"
 
     def __repr__(self):
         return str(self)
 
     def __str__(self):
-        return (f'{self.first_name} {self.last_name}'
-                f' {self.score if not self.withdrawal else "(withdrawal)"}')
+        return (f"{self.first_name} {self.last_name}"
+                f" {self.score if not self.withdrawal else '(withdrawal)'}"
+                f" (Bu. : {self.buchholz_score},"
+                f" Cu. : {self.cumulative_score})")

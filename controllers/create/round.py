@@ -37,7 +37,7 @@ class NewRound:
     def pairing(self, players_list, matches, players_in_match, reset=False):
         """Pairs players 2 by 2, with rules :
             - players sorted by score :
-                - player vs player 2, player 3 vs player 4, ...
+                - player 1 vs player 2, player 3 vs player 4, ...
             - minimal score gap
             - players cannot play twice in the same round
             - avoid identical matches
@@ -118,8 +118,14 @@ class NewRound:
             for match in self.get_matches(players_list):
                 self.round.matches.append(match)
         else:
-            # sort player by score for other rounds
-            players_list.sort(key=lambda obj: obj.score, reverse=True)
+            # sort player by score, buchholz and cumulative for other rounds
+            players_list.sort(
+                key=lambda obj: (
+                    obj.score,
+                    obj.buchholz_score,
+                    obj.cumulative_score
+                ), reverse=True
+            )
             for match in self.get_matches(players_list):
                 self.round.matches.append(match)
         self.tournament.rounds.append(self.round)

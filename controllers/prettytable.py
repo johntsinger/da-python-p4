@@ -28,6 +28,9 @@ class MyPrettyTable:
         for key in vars(item).keys():
             if key == 'uuid':
                 key = 'Id'
+            # don't display cumulative list
+            elif key == 'cumulative_list':
+                continue
             key = key.lstrip("_").capitalize().replace('_', ' ')
             keys.append(key.upper())
         return keys
@@ -36,6 +39,9 @@ class MyPrettyTable:
         """Extract attributes values of the item to create rows"""
         values = []
         for key, value in vars(item).items():
+            # don't display cumulative list
+            if key == "cumulative_list":
+                continue
             if isinstance(value, datetime):
                 if value.hour:
                     value = value.strftime('%d/%m/%y\n%H:%M')
@@ -55,17 +61,23 @@ class MyPrettyTable:
         self.table.field_names = key
         for i, item in enumerate(items):
             self.table.add_row(
-                [item.uuid, item.player_1.display_in_match(),
-                 item.player_2.display_in_match(), item.winner
+                [item.uuid, item.player_1.display_without_score(),
+                 item.player_2.display_without_score(), item.winner
                  if item.winner else '']
             )
 
     def wrap_list(self, value):
         """Transform list value to string"""
         if isinstance(value, list):
-            # sort players by score
+            # sort players by score, buchholz and cumulative
             try:
-                value.sort(key=lambda obj: obj.score, reverse=True)
+                value.sort(
+                    key=lambda obj: (
+                        obj.score,
+                        obj.buchholz_score,
+                        obj.cumulative_score
+                    ), reverse=True
+                )
             except AttributeError:
                 pass
             string = ''

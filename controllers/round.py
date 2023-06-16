@@ -83,7 +83,7 @@ class RoundController:
         else:
             response = self.round_view.select(
                 'winner',
-                [player.display_in_match() for player in players]
+                [player.display_without_score() for player in players]
             )
             if response in ["1", "2", "3"]:
                 # if the response is 3, it's a draw
@@ -97,7 +97,49 @@ class RoundController:
                     self.storage.update(self.tournament)
         if all([match.winner for match in self.round.matches]):
             self.round.end()
+            self.add_cumulative_score()
+            self.cumulative_score()
+            self.buchholz_score()
             self.storage.update(self.tournament)
+
+    def cumulative_score(self):
+        """Calculate cumulative score for all players
+        Cumulative tie-breaking system :
+            sum the running score for each round
+        """
+        for player in self.tournament.players:
+            player.cumulative_score = sum(player.cumulative_list)
+
+    def add_cumulative_score(self):
+        """After each round add in a list the actual score of the players
+        to calculate the cumulative score"""
+        for match in self.round.matches:
+            match.player_1.cumulative_list.append(match.player_1.score)
+            match.player_2.cumulative_list.append(match.player_2.score)
+
+    def get_opponents(self, player):
+        """Get all opponents of a given player to calculate buchholz score"""
+        opponents = []
+        for round_ in self.tournament.rounds:
+            for match in round_.matches:
+                if player in match:
+                    if player == match.player_1:
+                        opponents.append(match.player_2)
+                    else:
+                        opponents.append(match.player_1)
+        return opponents
+
+    def buchholz_score(self):
+        """Calculate the buchholz score for all players
+        Buchholz tie-breaking system :
+            sum the score of all a player's opponents
+        """
+        for player in self.tournament.players:
+            opponents = self.get_opponents(player)
+            print([opponent.score for opponent in opponents])
+            self.views.wait.wait()
+            player.buchholz_score = sum(
+                [opponent.score for opponent in opponents])
 
     def manager(self):
         stay = True

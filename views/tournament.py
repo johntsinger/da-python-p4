@@ -29,6 +29,11 @@ class TournamentMenuView:
         print(message)
         print()
 
+    def tie_breaking_info(self):
+        message = "Tie-breaking system : Buchholz (Bu.) and Cumulative (Cu.)"
+        print(message)
+        print()
+
     def accept_delete(self, name, item):
         indent = ' ' * 4 if name == 'player' else ''
         message = (f"Delete the {name} :\n\n{indent}{item}\n\n"
