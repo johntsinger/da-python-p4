@@ -48,7 +48,7 @@ class MyPrettyTable:
                 else:
                     value = value.strftime('%d/%m/%Y')
             elif not value:
-                if key != 'score':
+                if key not in ('score', 'buchholz_score', 'cumulative_score'):
                     value = ""
             value = self.wrap_list(value)
             values.append(value)
