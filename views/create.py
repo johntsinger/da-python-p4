@@ -56,7 +56,9 @@ class CreateView:
         return False
 
     def add_player(self):
-        message = "Add players in this tournament"
+        message = ("Add players in this tournament\n\n"
+                   "You don't need to add players right away"
+                   " - that can be done later.")
         print()
         print(message)
         print()

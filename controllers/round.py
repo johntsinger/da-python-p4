@@ -11,7 +11,7 @@ class RoundController:
         self.pretty_table = pretty_table
         self.storage = Storage('tournaments')
         self.tournament = tournament
-        self.new_round = NewRound(views, tournament)
+        self.new_round = NewRound(tournament)
         self.round = self.tournament.rounds[
             -1] if self.tournament.rounds else None
 
@@ -136,8 +136,6 @@ class RoundController:
         """
         for player in self.tournament.players:
             opponents = self.get_opponents(player)
-            print([opponent.score for opponent in opponents])
-            self.views.wait.wait()
             player.buchholz_score = sum(
                 [opponent.score for opponent in opponents])
 

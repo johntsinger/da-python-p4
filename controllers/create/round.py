@@ -5,8 +5,7 @@ from models.match import Match
 
 class NewRound:
     """Controller to create a new round"""
-    def __init__(self, views, tournament):
-        self.views = views
+    def __init__(self, tournament):
         self.tournament = tournament
         self.round = None
         self.match_pool = None

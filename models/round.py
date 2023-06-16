@@ -4,10 +4,10 @@ from models.match import Match
 
 class Round:
     """Model for a round"""
-    def __init__(self, name, start_date=datetime.now(),
+    def __init__(self, name, start_date=None,
                  end_date=None, matches=None):
         self.name = name
-        self.start_date = start_date
+        self.start_date = start_date if start_date else datetime.now()
         self.end_date = end_date
         self.matches = matches if matches else []
 

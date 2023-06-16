@@ -122,6 +122,8 @@ class NewTournament(Validate):
         else:
             keep_selecting = True
             while self.players_list and keep_selecting:
+                clear_console()
+                self.title_view.new_tournament()
                 self.create_view.add_player()
                 player = self.select_player()
                 if player:
@@ -141,8 +143,6 @@ class NewTournament(Validate):
     def select_player(self):
         self.pretty_table.display(self.players_list)
         response = self.tournament_view.select('player')
-        clear_console()
-        self.title_view.new_tournament()
         if response == 'q':
             return response
         if response in [str(player.uuid)
