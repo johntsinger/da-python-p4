@@ -8,7 +8,7 @@ class ExportToHTML:
 
     def export_confirmation(self, name):
         message = ("This report has been exported !"
-                   f" You can find it in data/html/{name}.html")
+                   f" You can find it in data/html-report/{name}.html")
         print()
         print(message)
         print()
