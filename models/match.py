@@ -121,6 +121,7 @@ class Match:
         )
 
     def __contains__(self, other):
+        """Ckeck if a given PlayerInTournament instance is in a match""" 
         if not isinstance(other, PlayerInTournament):
             return NotImplemented
         return True if other in (self.player_1, self.player_2) else False
