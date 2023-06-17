@@ -1,0 +1,70 @@
+{
+    "_default": {
+        "1": {
+            "uuid": 1,
+            "last_name": "Carlsen",
+            "first_name": "Magnus",
+            "date_of_birth": "{TinyDate}:1990-11-30T00:00:00"
+        },
+        "2": {
+            "uuid": 2,
+            "last_name": "Firouzja",
+            "first_name": "Alireza",
+            "date_of_birth": "{TinyDate}:2003-06-18T00:00:00"
+        },
+        "3": {
+            "uuid": 3,
+            "last_name": "Ding",
+            "first_name": "Liren",
+            "date_of_birth": "{TinyDate}:1992-10-24T00:00:00"
+        },
+        "4": {
+            "uuid": 4,
+            "last_name": "Nepomniachtchi",
+            "first_name": "Ian",
+            "date_of_birth": "{TinyDate}:1990-07-14T00:00:00"
+        },
+        "5": {
+            "uuid": 5,
+            "last_name": "Nakamura",
+            "first_name": "Hikaru",
+            "date_of_birth": "{TinyDate}:1987-12-09T00:00:00"
+        },
+        "6": {
+            "uuid": 6,
+            "last_name": "Caruana",
+            "first_name": "Fabiano",
+            "date_of_birth": "{TinyDate}:1992-07-30T00:00:00"
+        },
+        "7": {
+            "uuid": 7,
+            "last_name": "Giri",
+            "first_name": "Anish",
+            "date_of_birth": "{TinyDate}:1994-06-28T00:00:00"
+        },
+        "8": {
+            "uuid": 8,
+            "last_name": "So",
+            "first_name": "Wesley",
+            "date_of_birth": "{TinyDate}:1993-10-09T00:00:00"
+        },
+        "9": {
+            "uuid": 9,
+            "last_name": "Viswanathan",
+            "first_name": "Anand",
+            "date_of_birth": "{TinyDate}:1969-12-11T00:00:00"
+        },
+        "10": {
+            "uuid": 10,
+            "last_name": "Rapport",
+            "first_name": "Rich\u00e1rd",
+            "date_of_birth": "{TinyDate}:1996-03-25T00:00:00"
+        },
+        "11": {
+            "uuid": 11,
+            "last_name": "Vachier-lagrave",
+            "first_name": "Maxime",
+            "date_of_birth": "{TinyDate}:1990-10-21T00:00:00"
+        }
+    }
+}

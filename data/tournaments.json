@@ -1,0 +1,1627 @@
+{
+    "_default": {
+        "1": {
+            "uuid": 1,
+            "name": "Test",
+            "location": "Paris",
+            "start_date": "{TinyDate}:2023-07-01T00:00:00",
+            "end_date": "{TinyDate}:2023-07-02T00:00:00",
+            "players": [
+                {
+                    "uuid": 1,
+                    "last_name": "Carlsen",
+                    "first_name": "Magnus",
+                    "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [],
+                    "cumulative_score": 0,
+                    "buchholz_score": 0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 2,
+                    "last_name": "Firouzja",
+                    "first_name": "Alireza",
+                    "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [],
+                    "cumulative_score": 0,
+                    "buchholz_score": 0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 3,
+                    "last_name": "Ding",
+                    "first_name": "Liren",
+                    "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [],
+                    "cumulative_score": 0,
+                    "buchholz_score": 0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 4,
+                    "last_name": "Nepomniachtchi",
+                    "first_name": "Ian",
+                    "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [],
+                    "cumulative_score": 0,
+                    "buchholz_score": 0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 5,
+                    "last_name": "Nakamura",
+                    "first_name": "Hikaru",
+                    "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [],
+                    "cumulative_score": 0,
+                    "buchholz_score": 0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 6,
+                    "last_name": "Caruana",
+                    "first_name": "Fabiano",
+                    "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [],
+                    "cumulative_score": 0,
+                    "buchholz_score": 0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 7,
+                    "last_name": "Giri",
+                    "first_name": "Anish",
+                    "date_of_birth": "{TinyDate}:1994-06-28T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [],
+                    "cumulative_score": 0,
+                    "buchholz_score": 0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 8,
+                    "last_name": "So",
+                    "first_name": "Wesley",
+                    "date_of_birth": "{TinyDate}:1993-09-10T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [],
+                    "cumulative_score": 0,
+                    "buchholz_score": 0,
+                    "withdrawal": false
+                }
+            ],
+            "number_of_rounds": 4,
+            "rounds": [
+                {
+                    "name": "Round 1",
+                    "start_date": "{TinyDate}:2023-06-16T18:47:28.558714",
+                    "end_date": null,
+                    "matches": [
+                        {
+                            "uuid": 1,
+                            "player_1": {
+                                "uuid": 6,
+                                "last_name": "Caruana",
+                                "first_name": "Fabiano",
+                                "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [],
+                                "cumulative_score": 0,
+                                "buchholz_score": 0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 7,
+                                "last_name": "Giri",
+                                "first_name": "Anish",
+                                "date_of_birth": "{TinyDate}:1994-06-28T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [],
+                                "cumulative_score": 0,
+                                "buchholz_score": 0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 0,
+                            "winner": null
+                        },
+                        {
+                            "uuid": 2,
+                            "player_1": {
+                                "uuid": 4,
+                                "last_name": "Nepomniachtchi",
+                                "first_name": "Ian",
+                                "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [],
+                                "cumulative_score": 0,
+                                "buchholz_score": 0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 1,
+                                "last_name": "Carlsen",
+                                "first_name": "Magnus",
+                                "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [],
+                                "cumulative_score": 0,
+                                "buchholz_score": 0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 0,
+                            "winner": null
+                        },
+                        {
+                            "uuid": 3,
+                            "player_1": {
+                                "uuid": 3,
+                                "last_name": "Ding",
+                                "first_name": "Liren",
+                                "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [],
+                                "cumulative_score": 0,
+                                "buchholz_score": 0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 8,
+                                "last_name": "So",
+                                "first_name": "Wesley",
+                                "date_of_birth": "{TinyDate}:1993-09-10T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [],
+                                "cumulative_score": 0,
+                                "buchholz_score": 0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 0,
+                            "winner": null
+                        },
+                        {
+                            "uuid": 4,
+                            "player_1": {
+                                "uuid": 5,
+                                "last_name": "Nakamura",
+                                "first_name": "Hikaru",
+                                "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [],
+                                "cumulative_score": 0,
+                                "buchholz_score": 0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 2,
+                                "last_name": "Firouzja",
+                                "first_name": "Alireza",
+                                "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [],
+                                "cumulative_score": 0,
+                                "buchholz_score": 0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 0,
+                            "winner": null
+                        }
+                    ]
+                }
+            ],
+            "curent_round": 1,
+            "description": "Test tournament"
+        },
+        "2": {
+            "uuid": 2,
+            "name": "Test 2",
+            "location": "Strasbourg",
+            "start_date": "{TinyDate}:2023-06-17T00:00:00",
+            "end_date": "{TinyDate}:2023-06-18T00:00:00",
+            "players": [
+                {
+                    "uuid": 9,
+                    "last_name": "Viswanathan",
+                    "first_name": "Anand",
+                    "date_of_birth": "{TinyDate}:1969-11-12T00:00:00",
+                    "score": 1.5,
+                    "cumulative_list": [
+                        0,
+                        1,
+                        1,
+                        1.5
+                    ],
+                    "cumulative_score": 3.5,
+                    "buchholz_score": 8.0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 6,
+                    "last_name": "Caruana",
+                    "first_name": "Fabiano",
+                    "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                    "score": 1.5,
+                    "cumulative_list": [
+                        0,
+                        1,
+                        1,
+                        1.5
+                    ],
+                    "cumulative_score": 3.5,
+                    "buchholz_score": 4.5,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 1,
+                    "last_name": "Carlsen",
+                    "first_name": "Magnus",
+                    "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                    "score": 3.5,
+                    "cumulative_list": [
+                        1,
+                        1.5,
+                        2.5,
+                        3.5
+                    ],
+                    "cumulative_score": 8.5,
+                    "buchholz_score": 10.0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 2,
+                    "last_name": "Firouzja",
+                    "first_name": "Alireza",
+                    "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                    "score": 3.5,
+                    "cumulative_list": [
+                        1,
+                        1.5,
+                        2.5,
+                        3.5
+                    ],
+                    "cumulative_score": 8.5,
+                    "buchholz_score": 8.5,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 3,
+                    "last_name": "Ding",
+                    "first_name": "Liren",
+                    "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                    "score": 2.5,
+                    "cumulative_list": [
+                        1,
+                        2,
+                        2.5,
+                        2.5
+                    ],
+                    "cumulative_score": 8.0,
+                    "buchholz_score": 9.0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 8,
+                    "last_name": "So",
+                    "first_name": "Wesley",
+                    "date_of_birth": "{TinyDate}:1993-09-10T00:00:00",
+                    "score": 1,
+                    "cumulative_list": [
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "cumulative_score": 4,
+                    "buchholz_score": 8.0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 10,
+                    "last_name": "Rapport",
+                    "first_name": "Rich\u00e1rd",
+                    "date_of_birth": "{TinyDate}:1996-03-25T00:00:00",
+                    "score": 1,
+                    "cumulative_list": [
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "cumulative_score": 4,
+                    "buchholz_score": 10.5,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 11,
+                    "last_name": "Vachier-lagrave",
+                    "first_name": "Maxime",
+                    "date_of_birth": "{TinyDate}:1990-10-21T00:00:00",
+                    "score": 2.5,
+                    "cumulative_list": [
+                        1,
+                        2,
+                        2.5,
+                        2.5
+                    ],
+                    "cumulative_score": 8.0,
+                    "buchholz_score": 7.0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 4,
+                    "last_name": "Nepomniachtchi",
+                    "first_name": "Ian",
+                    "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                    "score": 3,
+                    "cumulative_list": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ],
+                    "cumulative_score": 6,
+                    "buchholz_score": 8.0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 5,
+                    "last_name": "Nakamura",
+                    "first_name": "Hikaru",
+                    "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                    "score": 2,
+                    "cumulative_list": [
+                        0,
+                        0,
+                        1,
+                        2
+                    ],
+                    "cumulative_score": 3,
+                    "buchholz_score": 8.0,
+                    "withdrawal": false
+                },
+                {
+                    "uuid": 7,
+                    "last_name": "Giri",
+                    "first_name": "Anish",
+                    "date_of_birth": "{TinyDate}:1994-06-28T00:00:00",
+                    "score": 0,
+                    "cumulative_list": [
+                        0,
+                        0
+                    ],
+                    "cumulative_score": 0,
+                    "buchholz_score": 2.5,
+                    "withdrawal": true
+                }
+            ],
+            "number_of_rounds": 4,
+            "rounds": [
+                {
+                    "name": "Round 1",
+                    "start_date": "{TinyDate}:2023-06-17T12:06:12.389744",
+                    "end_date": "{TinyDate}:2023-06-17T12:06:23.978464",
+                    "matches": [
+                        {
+                            "uuid": 0,
+                            "player_1": {
+                                "uuid": 11,
+                                "last_name": "Vachier-lagrave",
+                                "first_name": "Maxime",
+                                "date_of_birth": "{TinyDate}:1990-10-21T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 7.0,
+                                "withdrawal": false
+                            },
+                            "player_2": "EXEMPT",
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 11,
+                                "last_name": "Vachier-lagrave",
+                                "first_name": "Maxime",
+                                "date_of_birth": "{TinyDate}:1990-10-21T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 7.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 1,
+                            "player_1": {
+                                "uuid": 9,
+                                "last_name": "Viswanathan",
+                                "first_name": "Anand",
+                                "date_of_birth": "{TinyDate}:1969-11-12T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 2,
+                                "last_name": "Firouzja",
+                                "first_name": "Alireza",
+                                "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 8.5,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 1,
+                            "winner": {
+                                "uuid": 2,
+                                "last_name": "Firouzja",
+                                "first_name": "Alireza",
+                                "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 8.5,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 2,
+                            "player_1": {
+                                "uuid": 5,
+                                "last_name": "Nakamura",
+                                "first_name": "Hikaru",
+                                "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                                "score": 2,
+                                "cumulative_list": [
+                                    0,
+                                    0,
+                                    1,
+                                    2
+                                ],
+                                "cumulative_score": 3,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 3,
+                                "last_name": "Ding",
+                                "first_name": "Liren",
+                                "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 9.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 1,
+                            "winner": {
+                                "uuid": 3,
+                                "last_name": "Ding",
+                                "first_name": "Liren",
+                                "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 9.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 3,
+                            "player_1": {
+                                "uuid": 7,
+                                "last_name": "Giri",
+                                "first_name": "Anish",
+                                "date_of_birth": "{TinyDate}:1994-06-28T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [
+                                    0,
+                                    0
+                                ],
+                                "cumulative_score": 0,
+                                "buchholz_score": 2.5,
+                                "withdrawal": true
+                            },
+                            "player_2": {
+                                "uuid": 8,
+                                "last_name": "So",
+                                "first_name": "Wesley",
+                                "date_of_birth": "{TinyDate}:1993-09-10T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 1,
+                            "winner": {
+                                "uuid": 8,
+                                "last_name": "So",
+                                "first_name": "Wesley",
+                                "date_of_birth": "{TinyDate}:1993-09-10T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 4,
+                            "player_1": {
+                                "uuid": 10,
+                                "last_name": "Rapport",
+                                "first_name": "Rich\u00e1rd",
+                                "date_of_birth": "{TinyDate}:1996-03-25T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 10.5,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 6,
+                                "last_name": "Caruana",
+                                "first_name": "Fabiano",
+                                "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 4.5,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 10,
+                                "last_name": "Rapport",
+                                "first_name": "Rich\u00e1rd",
+                                "date_of_birth": "{TinyDate}:1996-03-25T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 10.5,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 5,
+                            "player_1": {
+                                "uuid": 4,
+                                "last_name": "Nepomniachtchi",
+                                "first_name": "Ian",
+                                "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                                "score": 3,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    2,
+                                    3
+                                ],
+                                "cumulative_score": 6,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 1,
+                                "last_name": "Carlsen",
+                                "first_name": "Magnus",
+                                "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 10.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 1,
+                            "winner": {
+                                "uuid": 1,
+                                "last_name": "Carlsen",
+                                "first_name": "Magnus",
+                                "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 10.0,
+                                "withdrawal": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Round 2",
+                    "start_date": "{TinyDate}:2023-06-17T12:06:25.249557",
+                    "end_date": "{TinyDate}:2023-06-17T12:06:54.944095",
+                    "matches": [
+                        {
+                            "uuid": 0,
+                            "player_1": {
+                                "uuid": 9,
+                                "last_name": "Viswanathan",
+                                "first_name": "Anand",
+                                "date_of_birth": "{TinyDate}:1969-11-12T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": "EXEMPT",
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 9,
+                                "last_name": "Viswanathan",
+                                "first_name": "Anand",
+                                "date_of_birth": "{TinyDate}:1969-11-12T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 1,
+                            "player_1": {
+                                "uuid": 1,
+                                "last_name": "Carlsen",
+                                "first_name": "Magnus",
+                                "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 10.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 2,
+                                "last_name": "Firouzja",
+                                "first_name": "Alireza",
+                                "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 8.5,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0.5,
+                            "score_player_2": 0.5,
+                            "winner": [
+                                {
+                                    "uuid": 1,
+                                    "last_name": "Carlsen",
+                                    "first_name": "Magnus",
+                                    "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                    "score": 3.5,
+                                    "cumulative_list": [
+                                        1,
+                                        1.5,
+                                        2.5,
+                                        3.5
+                                    ],
+                                    "cumulative_score": 8.5,
+                                    "buchholz_score": 10.0,
+                                    "withdrawal": false
+                                },
+                                {
+                                    "uuid": 2,
+                                    "last_name": "Firouzja",
+                                    "first_name": "Alireza",
+                                    "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                    "score": 3.5,
+                                    "cumulative_list": [
+                                        1,
+                                        1.5,
+                                        2.5,
+                                        3.5
+                                    ],
+                                    "cumulative_score": 8.5,
+                                    "buchholz_score": 8.5,
+                                    "withdrawal": false
+                                }
+                            ]
+                        },
+                        {
+                            "uuid": 2,
+                            "player_1": {
+                                "uuid": 3,
+                                "last_name": "Ding",
+                                "first_name": "Liren",
+                                "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 9.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 8,
+                                "last_name": "So",
+                                "first_name": "Wesley",
+                                "date_of_birth": "{TinyDate}:1993-09-10T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 3,
+                                "last_name": "Ding",
+                                "first_name": "Liren",
+                                "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 9.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 3,
+                            "player_1": {
+                                "uuid": 10,
+                                "last_name": "Rapport",
+                                "first_name": "Rich\u00e1rd",
+                                "date_of_birth": "{TinyDate}:1996-03-25T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 10.5,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 11,
+                                "last_name": "Vachier-lagrave",
+                                "first_name": "Maxime",
+                                "date_of_birth": "{TinyDate}:1990-10-21T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 7.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 1,
+                            "winner": {
+                                "uuid": 11,
+                                "last_name": "Vachier-lagrave",
+                                "first_name": "Maxime",
+                                "date_of_birth": "{TinyDate}:1990-10-21T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 7.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 4,
+                            "player_1": {
+                                "uuid": 4,
+                                "last_name": "Nepomniachtchi",
+                                "first_name": "Ian",
+                                "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                                "score": 3,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    2,
+                                    3
+                                ],
+                                "cumulative_score": 6,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 5,
+                                "last_name": "Nakamura",
+                                "first_name": "Hikaru",
+                                "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                                "score": 2,
+                                "cumulative_list": [
+                                    0,
+                                    0,
+                                    1,
+                                    2
+                                ],
+                                "cumulative_score": 3,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 4,
+                                "last_name": "Nepomniachtchi",
+                                "first_name": "Ian",
+                                "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                                "score": 3,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    2,
+                                    3
+                                ],
+                                "cumulative_score": 6,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 5,
+                            "player_1": {
+                                "uuid": 6,
+                                "last_name": "Caruana",
+                                "first_name": "Fabiano",
+                                "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 4.5,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 7,
+                                "last_name": "Giri",
+                                "first_name": "Anish",
+                                "date_of_birth": "{TinyDate}:1994-06-28T00:00:00",
+                                "score": 0,
+                                "cumulative_list": [
+                                    0,
+                                    0
+                                ],
+                                "cumulative_score": 0,
+                                "buchholz_score": 2.5,
+                                "withdrawal": true
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 6,
+                                "last_name": "Caruana",
+                                "first_name": "Fabiano",
+                                "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 4.5,
+                                "withdrawal": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Round 3",
+                    "start_date": "{TinyDate}:2023-06-17T12:06:55.995785",
+                    "end_date": "{TinyDate}:2023-06-17T12:07:08.507004",
+                    "matches": [
+                        {
+                            "uuid": 1,
+                            "player_1": {
+                                "uuid": 3,
+                                "last_name": "Ding",
+                                "first_name": "Liren",
+                                "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 9.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 11,
+                                "last_name": "Vachier-lagrave",
+                                "first_name": "Maxime",
+                                "date_of_birth": "{TinyDate}:1990-10-21T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 7.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0.5,
+                            "score_player_2": 0.5,
+                            "winner": [
+                                {
+                                    "uuid": 3,
+                                    "last_name": "Ding",
+                                    "first_name": "Liren",
+                                    "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                                    "score": 2.5,
+                                    "cumulative_list": [
+                                        1,
+                                        2,
+                                        2.5,
+                                        2.5
+                                    ],
+                                    "cumulative_score": 8.0,
+                                    "buchholz_score": 9.0,
+                                    "withdrawal": false
+                                },
+                                {
+                                    "uuid": 11,
+                                    "last_name": "Vachier-lagrave",
+                                    "first_name": "Maxime",
+                                    "date_of_birth": "{TinyDate}:1990-10-21T00:00:00",
+                                    "score": 2.5,
+                                    "cumulative_list": [
+                                        1,
+                                        2,
+                                        2.5,
+                                        2.5
+                                    ],
+                                    "cumulative_score": 8.0,
+                                    "buchholz_score": 7.0,
+                                    "withdrawal": false
+                                }
+                            ]
+                        },
+                        {
+                            "uuid": 2,
+                            "player_1": {
+                                "uuid": 1,
+                                "last_name": "Carlsen",
+                                "first_name": "Magnus",
+                                "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 10.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 10,
+                                "last_name": "Rapport",
+                                "first_name": "Rich\u00e1rd",
+                                "date_of_birth": "{TinyDate}:1996-03-25T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 10.5,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 1,
+                                "last_name": "Carlsen",
+                                "first_name": "Magnus",
+                                "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 10.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 3,
+                            "player_1": {
+                                "uuid": 2,
+                                "last_name": "Firouzja",
+                                "first_name": "Alireza",
+                                "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 8.5,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 8,
+                                "last_name": "So",
+                                "first_name": "Wesley",
+                                "date_of_birth": "{TinyDate}:1993-09-10T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 2,
+                                "last_name": "Firouzja",
+                                "first_name": "Alireza",
+                                "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 8.5,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 4,
+                            "player_1": {
+                                "uuid": 9,
+                                "last_name": "Viswanathan",
+                                "first_name": "Anand",
+                                "date_of_birth": "{TinyDate}:1969-11-12T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 4,
+                                "last_name": "Nepomniachtchi",
+                                "first_name": "Ian",
+                                "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                                "score": 3,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    2,
+                                    3
+                                ],
+                                "cumulative_score": 6,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 1,
+                            "winner": {
+                                "uuid": 4,
+                                "last_name": "Nepomniachtchi",
+                                "first_name": "Ian",
+                                "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                                "score": 3,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    2,
+                                    3
+                                ],
+                                "cumulative_score": 6,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 5,
+                            "player_1": {
+                                "uuid": 6,
+                                "last_name": "Caruana",
+                                "first_name": "Fabiano",
+                                "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 4.5,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 5,
+                                "last_name": "Nakamura",
+                                "first_name": "Hikaru",
+                                "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                                "score": 2,
+                                "cumulative_list": [
+                                    0,
+                                    0,
+                                    1,
+                                    2
+                                ],
+                                "cumulative_score": 3,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0,
+                            "score_player_2": 1,
+                            "winner": {
+                                "uuid": 5,
+                                "last_name": "Nakamura",
+                                "first_name": "Hikaru",
+                                "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                                "score": 2,
+                                "cumulative_list": [
+                                    0,
+                                    0,
+                                    1,
+                                    2
+                                ],
+                                "cumulative_score": 3,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Round 4",
+                    "start_date": "{TinyDate}:2023-06-17T12:07:09.465512",
+                    "end_date": "{TinyDate}:2023-06-17T12:07:18.367876",
+                    "matches": [
+                        {
+                            "uuid": 1,
+                            "player_1": {
+                                "uuid": 1,
+                                "last_name": "Carlsen",
+                                "first_name": "Magnus",
+                                "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 10.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 3,
+                                "last_name": "Ding",
+                                "first_name": "Liren",
+                                "date_of_birth": "{TinyDate}:1992-10-24T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 9.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 1,
+                                "last_name": "Carlsen",
+                                "first_name": "Magnus",
+                                "date_of_birth": "{TinyDate}:1990-11-30T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 10.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 2,
+                            "player_1": {
+                                "uuid": 2,
+                                "last_name": "Firouzja",
+                                "first_name": "Alireza",
+                                "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 8.5,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 11,
+                                "last_name": "Vachier-lagrave",
+                                "first_name": "Maxime",
+                                "date_of_birth": "{TinyDate}:1990-10-21T00:00:00",
+                                "score": 2.5,
+                                "cumulative_list": [
+                                    1,
+                                    2,
+                                    2.5,
+                                    2.5
+                                ],
+                                "cumulative_score": 8.0,
+                                "buchholz_score": 7.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 2,
+                                "last_name": "Firouzja",
+                                "first_name": "Alireza",
+                                "date_of_birth": "{TinyDate}:2003-06-18T00:00:00",
+                                "score": 3.5,
+                                "cumulative_list": [
+                                    1,
+                                    1.5,
+                                    2.5,
+                                    3.5
+                                ],
+                                "cumulative_score": 8.5,
+                                "buchholz_score": 8.5,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 3,
+                            "player_1": {
+                                "uuid": 4,
+                                "last_name": "Nepomniachtchi",
+                                "first_name": "Ian",
+                                "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                                "score": 3,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    2,
+                                    3
+                                ],
+                                "cumulative_score": 6,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 10,
+                                "last_name": "Rapport",
+                                "first_name": "Rich\u00e1rd",
+                                "date_of_birth": "{TinyDate}:1996-03-25T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 10.5,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 4,
+                                "last_name": "Nepomniachtchi",
+                                "first_name": "Ian",
+                                "date_of_birth": "{TinyDate}:1990-07-14T00:00:00",
+                                "score": 3,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    2,
+                                    3
+                                ],
+                                "cumulative_score": 6,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 4,
+                            "player_1": {
+                                "uuid": 5,
+                                "last_name": "Nakamura",
+                                "first_name": "Hikaru",
+                                "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                                "score": 2,
+                                "cumulative_list": [
+                                    0,
+                                    0,
+                                    1,
+                                    2
+                                ],
+                                "cumulative_score": 3,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 8,
+                                "last_name": "So",
+                                "first_name": "Wesley",
+                                "date_of_birth": "{TinyDate}:1993-09-10T00:00:00",
+                                "score": 1,
+                                "cumulative_list": [
+                                    1,
+                                    1,
+                                    1,
+                                    1
+                                ],
+                                "cumulative_score": 4,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 1,
+                            "score_player_2": 0,
+                            "winner": {
+                                "uuid": 5,
+                                "last_name": "Nakamura",
+                                "first_name": "Hikaru",
+                                "date_of_birth": "{TinyDate}:1987-09-12T00:00:00",
+                                "score": 2,
+                                "cumulative_list": [
+                                    0,
+                                    0,
+                                    1,
+                                    2
+                                ],
+                                "cumulative_score": 3,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            }
+                        },
+                        {
+                            "uuid": 5,
+                            "player_1": {
+                                "uuid": 9,
+                                "last_name": "Viswanathan",
+                                "first_name": "Anand",
+                                "date_of_birth": "{TinyDate}:1969-11-12T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 8.0,
+                                "withdrawal": false
+                            },
+                            "player_2": {
+                                "uuid": 6,
+                                "last_name": "Caruana",
+                                "first_name": "Fabiano",
+                                "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                                "score": 1.5,
+                                "cumulative_list": [
+                                    0,
+                                    1,
+                                    1,
+                                    1.5
+                                ],
+                                "cumulative_score": 3.5,
+                                "buchholz_score": 4.5,
+                                "withdrawal": false
+                            },
+                            "score_player_1": 0.5,
+                            "score_player_2": 0.5,
+                            "winner": [
+                                {
+                                    "uuid": 9,
+                                    "last_name": "Viswanathan",
+                                    "first_name": "Anand",
+                                    "date_of_birth": "{TinyDate}:1969-11-12T00:00:00",
+                                    "score": 1.5,
+                                    "cumulative_list": [
+                                        0,
+                                        1,
+                                        1,
+                                        1.5
+                                    ],
+                                    "cumulative_score": 3.5,
+                                    "buchholz_score": 8.0,
+                                    "withdrawal": false
+                                },
+                                {
+                                    "uuid": 6,
+                                    "last_name": "Caruana",
+                                    "first_name": "Fabiano",
+                                    "date_of_birth": "{TinyDate}:1992-07-30T00:00:00",
+                                    "score": 1.5,
+                                    "cumulative_list": [
+                                        0,
+                                        1,
+                                        1,
+                                        1.5
+                                    ],
+                                    "cumulative_score": 3.5,
+                                    "buchholz_score": 4.5,
+                                    "withdrawal": false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "curent_round": 4,
+            "description": "Test tournament 2"
+        }
+    }
+}
