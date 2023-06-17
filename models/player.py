@@ -67,7 +67,8 @@ class PlayerInTournament(Player):
         return str(self)
 
     def __str__(self):
+        tie_breaking_display = (f" (Bu. : {self.buchholz_score},"
+                                f" Cu. : {self.cumulative_score})")
         return (f"{self.first_name} {self.last_name}"
                 f" {self.score if not self.withdrawal else '(withdrawal)'}"
-                f" (Bu. : {self.buchholz_score},"
-                f" Cu. : {self.cumulative_score})")
+                f"{tie_breaking_display if not self.withdrawal else ''}")
