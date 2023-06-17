@@ -66,6 +66,8 @@ You can find the report in the `flake-report/` folder in the `index.html` file
 
 ### Menus :
 
+All exported reports can be found in the root folder in `html-report/` folder
+
 #### Main menu :
 
 The main menu ! You can access other menus from there.
