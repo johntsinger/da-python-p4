@@ -39,7 +39,7 @@ class CreateView:
         print()
         message = f"Save this {name} ? (y/n)"
         response = input(message)
-        if response.lower() == "y" or not response:
+        if response.lower() != "n" or not response:
             return True
         return False
 
