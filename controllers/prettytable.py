@@ -72,11 +72,11 @@ class MyPrettyTable:
         add a divider, then add tournaments that have ended
         """
         tournaments = [
-            item for item in items 
+            item for item in items
             if item.curent_round != item.number_of_rounds
         ]
         tournaments_over = [
-            item for item in items 
+            item for item in items
             if item.curent_round == item.number_of_rounds
         ]
         for i, tournament in enumerate(tournaments):
