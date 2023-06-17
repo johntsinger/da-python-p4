@@ -21,3 +21,9 @@ class PlayerMenuView:
         if response.lower() == "y":
             return True
         return False
+
+    def players_sort_info(self):
+        message = "This rapport is sorted in alphabetical order"
+        print()
+        print(message)
+        print()

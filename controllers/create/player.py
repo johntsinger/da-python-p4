@@ -20,6 +20,8 @@ class NewPlayer(Validate):
         params:
             - data (dict) : a dictionary with temporary data to continue
                             an older creation if one exists
+        return:
+            - player (Player)
         """
         try:
             data['last_name'] = self._input('str', 'Last name') \

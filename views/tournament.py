@@ -47,3 +47,9 @@ class TournamentMenuView:
             return True
         else:
             return False
+
+    def players_sort_info(self):
+        message = "This rapport is sorted in alphabetical order"
+        print()
+        print(message)
+        print()

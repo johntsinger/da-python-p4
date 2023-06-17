@@ -335,6 +335,7 @@ class TournamentController:
         Return:
             - a player (Player or PlayerInTournament)
         """
+        players_list.sort(key=lambda obj: (obj.last_name, obj.first_name))
         self.pretty_table.display(players_list)
         response = self.tournament_view.select('player', to_stop=add_player)
         clear_console()
@@ -370,6 +371,7 @@ class TournamentController:
 
     def export_players(self):
         self.title_view.export_players()
+        self.tournament_view.players_sort_info()
         players = self.tournament.players
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))

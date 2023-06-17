@@ -30,10 +30,6 @@ class PlayerMenu:
         return self.views.player
 
     @property
-    def export_view(self):
-        return self.views.export
-
-    @property
     def error_view(self):
         return self.views.error
 
@@ -54,6 +50,7 @@ class PlayerMenu:
         players = self.storage.all()
         if players:
             players.sort(key=lambda obj: (obj.last_name, obj.first_name))
+            self.player_view.players_sort_info()
             self.pretty_table.display(players)
             self.pretty_table.export_html('players', players)
         else:
@@ -63,6 +60,7 @@ class PlayerMenu:
     def select_player(self):
         players = self.storage.all()
         if players:
+            players.sort(key=lambda obj: (obj.last_name, obj.first_name))
             self.pretty_table.display(players)
             response = self.player_view.select('player')
             if response in [str(player.uuid)

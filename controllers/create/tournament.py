@@ -32,6 +32,8 @@ class NewTournament(Validate):
         params:
             - data (dict) : a dictionary with temporary data to continue
                             an older creation if one exists
+        return:
+            - Tournament object
         """
         try:
             data['name'] = self._input('str', 'Name') \
@@ -58,6 +60,8 @@ class NewTournament(Validate):
         params:
             - data (dict) : a dictionary with temporary data to continue
                             an older creation if one exists
+        return:
+            - data (dict)
         """
         try:
             if 'number_of_rounds' not in data:
@@ -120,17 +124,20 @@ class NewTournament(Validate):
             self.error_view.nothing_to_display('player')
             self.views.wait.wait()
         else:
+            clear_console()
+            self.title_view.new_tournament()
+            self.create_view.add_player()
             keep_selecting = True
             while self.players_list and keep_selecting:
-                clear_console()
-                self.title_view.new_tournament()
-                self.create_view.add_player()
                 player = self.select_player()
                 if player:
                     if player == 'q':
                         keep_selecting = False
                     else:
-                        tournament.add_player(player)
+                        self.tournament_view.display_player(player)
+                        player_in_tournament = self.to_player_in_tournament(
+                            player)
+                        tournament.add_player(player_in_tournament)
             if not self.players_list:
                 self.error_view.all_players_added()
                 self.views.wait.wait()
@@ -141,19 +148,32 @@ class NewTournament(Validate):
         self.players_list = storage
 
     def select_player(self):
+        """Select a player in a list of players
+
+        Return:
+            - a player (Player)
+        """
+        self.players_list.sort(
+            key=lambda obj: (obj.last_name, obj.first_name))
         self.pretty_table.display(self.players_list)
         response = self.tournament_view.select('player')
+        clear_console()
+        self.title_view.new_tournament()
+        self.create_view.add_player()
         if response == 'q':
             return response
-        if response in [str(player.uuid)
-                        for player in self.players_list]:
+        elif response in [str(player.uuid)
+                          for player in self.players_list]:
             for player in self.players_list:
                 if player.uuid == int(response):
-                    self.tournament_view.display_player(player)
-                    self.players_list.remove(player)
-                    return PlayerInTournament(player.last_name,
-                                              player.first_name,
-                                              player.date_of_birth,
-                                              player.uuid)
+                    return player
         self.error_view.not_exist('player', response)
         return None
+
+    def to_player_in_tournament(self, player):
+        """Transform Player to PlayerInTournament"""
+        self.players_list.remove(player)
+        return PlayerInTournament(player.last_name,
+                                  player.first_name,
+                                  player.date_of_birth,
+                                  player.uuid)
