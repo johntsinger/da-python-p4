@@ -115,7 +115,8 @@ class RoundController:
         to calculate the cumulative score"""
         for match in self.round.matches:
             match.player_1.cumulative_list.append(match.player_1.score)
-            match.player_2.cumulative_list.append(match.player_2.score)
+            if not isinstance(match.player_2, str):
+                match.player_2.cumulative_list.append(match.player_2.score)
 
     def get_opponents(self, player):
         """Get all opponents of a given player to calculate buchholz score"""
@@ -124,7 +125,8 @@ class RoundController:
             for match in round_.matches:
                 if player in match:
                     if player == match.player_1:
-                        opponents.append(match.player_2)
+                        if not isinstance(match.player_2, str):
+                            opponents.append(match.player_2)
                     else:
                         opponents.append(match.player_1)
         return opponents
