@@ -4,6 +4,7 @@ from prettytable import PrettyTable
 from prettytable import ALL
 from datetime import datetime
 from models.match import Match
+from models.tournament import Tournament
 from utils.ansi_colors import BL, N
 
 
@@ -66,6 +67,30 @@ class MyPrettyTable:
                  if item.winner else '']
             )
 
+    def tournament(self, items):
+        """Add rows for a tournament : first add tournaments in progress,
+        add a divider, then add tournaments that have ended
+        """
+        tournaments = [
+            item for item in items 
+            if item.curent_round != item.number_of_rounds
+        ]
+        tournaments_over = [
+            item for item in items 
+            if item.curent_round == item.number_of_rounds
+        ]
+        for i, tournament in enumerate(tournaments):
+            # add a divider for the last tournament in progress
+            if i == len(tournaments) - 1:
+                self.table.add_row(
+                    self.get_value(tournament),
+                    divider=True
+                )
+            else:
+                self.table.add_row(self.get_value(tournament))
+        for tournament in tournaments_over:
+            self.table.add_row(self.get_value(tournament))
+
     def wrap_list(self, value):
         """Transform list value to string"""
         if isinstance(value, list):
@@ -98,8 +123,13 @@ class MyPrettyTable:
             self.match(items)
         else:
             self.table.field_names = (self.get_key(items[0]))
-            for item in items:
-                self.table.add_row(self.get_value(item))
+            # If the item is a tournament, first add tournaments in progress,
+            # then tournaments that have ended.
+            if isinstance(items[0], Tournament):
+                self.tournament(items)
+            else:
+                for item in items:
+                    self.table.add_row(self.get_value(item))
 
         self.table.field_names = [
             BL+key+N for key in self.table.field_names
