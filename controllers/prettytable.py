@@ -1,3 +1,4 @@
+from textwrap import fill
 from pathlib import Path
 from ansi2html import Ansi2HTMLConverter
 from prettytable import PrettyTable
@@ -53,6 +54,10 @@ class MyPrettyTable:
                 if key not in ('score', 'buchholz_score', 'cumulative_score'):
                     value = ""
             value = self.wrap_list(value)
+            # wraps description value, so every line is at
+            # most width characters long
+            if key == 'description':
+                value = fill(value, width=20)
             values.append(value)
         return values
 
