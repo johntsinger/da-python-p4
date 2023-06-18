@@ -64,6 +64,8 @@ You can find the report in the `flake-report/` folder in the `index.html` file
 
     python main.py
 
+For best viewing, set the window to full screen
+
 ### Menus :
 
 All exported reports can be found in the root folder in `html-report/` folder
