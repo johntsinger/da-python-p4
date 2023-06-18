@@ -108,7 +108,11 @@ class RoundController:
             sum the running score for each round
         """
         for player in self.tournament.players:
-            player.cumulative_score = sum(player.cumulative_list)
+            cumulative_score = sum(player.cumulative_list)
+            if isinstance(cumulative_score, float):
+                if cumulative_score.is_integer():
+                    cumulative_score = int(cumulative_score)
+            player.cumulative_score = cumulative_score
 
     def add_cumulative_score(self):
         """After each round add in a list the actual score of the players
@@ -138,8 +142,12 @@ class RoundController:
         """
         for player in self.tournament.players:
             opponents = self.get_opponents(player)
-            player.buchholz_score = sum(
+            buchholz_score = sum(
                 [opponent.score for opponent in opponents])
+            if isinstance(buchholz_score, float):
+                if buchholz_score.is_integer():
+                    buchholz_score = int(buchholz_score)
+            player.buchholz_score = buchholz_score
 
     def manager(self):
         stay = True
