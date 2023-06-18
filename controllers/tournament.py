@@ -56,6 +56,7 @@ class TournamentsMenu:
     def select_tournament(self):
         tournaments = self.storage.all()
         if tournaments:
+            self.tournament_view.short_form_info()
             self.pretty_table.display(tournaments)
             response = self.tournament_view.select('tournament')
             if response not in [str(tournament.uuid)
@@ -130,6 +131,7 @@ class TournamentsMenu:
         self.title_view.export_all_tournaments()
         tournaments = self.storage.all()
         if tournaments:
+            self.tournament_view.short_form_info()
             self.pretty_table.display(tournaments)
             self.pretty_table.export_html('tournaments', tournaments)
         else:
@@ -402,6 +404,7 @@ class TournamentController:
 
     def export_this_tournament(self):
         self.title_view.export_tournament()
+        self.tournament_view.short_form_info()
         self.pretty_table.display([self.tournament])
         date_iso = self.date_isoformat()
         self.pretty_table.export_html(
@@ -416,6 +419,7 @@ class TournamentController:
         while stay:
             clear_console()
             self.title_view.tournament_menu()
+            self.tournament_view.short_form_info()
             self.tournament_view.tie_breaking_info()
             self.pretty_table.display([self.tournament])
             response = self.interface_view.display_interface('tournament_menu')

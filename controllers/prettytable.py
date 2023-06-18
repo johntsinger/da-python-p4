@@ -25,12 +25,17 @@ class MyPrettyTable:
     def export_view(self):
         return self.views.export
 
-    def get_key(self, item):
+    def get_key(self, item, to_html):
         """Extract attributes names of the item to create headers"""
         keys = []
         for key in vars(item).keys():
             if key == 'uuid':
                 key = 'Id'
+            if not to_html:
+                if key == 'curent_round':
+                    key = 'CR'
+                if key == 'number_of_rounds':
+                    key = 'NR'
             # don't display cumulative list
             elif key == 'cumulative_list':
                 continue
@@ -152,19 +157,20 @@ class MyPrettyTable:
             return index + 1  # to keep counting after a draw (i.e. 1, 1, 3)
         return rank
 
-    def get_table(self, items):
+    def get_table(self, items, to_html=False):
         """Add headers and rows in PrettyTable
         Ïf items are matches set a custom PrettyTable for matches
 
         params:
             - items : a list of instances to add in the PrettyTable
+            - to_html (bool) : flag to check if it is to html report or not
         """
         self.table.clear()
         # If the item is a match set custom display
         if isinstance(items[0], Match):
             self.match(items)
         else:
-            self.table.field_names = (self.get_key(items[0]))
+            self.table.field_names = (self.get_key(items[0], to_html))
             # If the item is a tournament, first add tournaments in progress,
             # then tournaments that have ended.
             if isinstance(items[0], Tournament):
@@ -187,7 +193,7 @@ class MyPrettyTable:
         params:
             - items : a list of instances to add in the PrettyTable
         """
-        self.get_table(items)
+        self.get_table(items, to_html=True)
         html_string = self.table.get_html_string(
             format=True, border=True)
         return html_string

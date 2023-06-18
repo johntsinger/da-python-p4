@@ -61,3 +61,8 @@ class TournamentMenuView:
         print()
         print(message)
         print()
+
+    def short_form_info(self):
+        message = "Nuber of rounds (NR), Curent round (CR)"
+        print(message)
+        print()
