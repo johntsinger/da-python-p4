@@ -144,7 +144,7 @@ class MyPrettyTable:
                     previous_player.buchholz_score,
                     previous_player.cumulative_score)):
                 return rank
-            return index + 1
+            return index + 1  # to keep counting after a draw (i.e. 1, 1, 3)
         return rank
 
     def get_table(self, items):
