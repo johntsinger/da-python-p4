@@ -110,7 +110,7 @@ class TournamentsMenu:
             if result:
                 return result
             else:
-                self.error_view.no_tournament_found(name, date)
+                self.error_view.no_tournament_found(name.capitalize(), date)
                 self.views.wait.wait()
         else:
             self.error_view.nothing_to_display('tournament')

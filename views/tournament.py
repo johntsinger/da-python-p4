@@ -21,6 +21,14 @@ class TournamentMenuView:
         print(f"\nPlayer : {player} has been added to the tournament\n")
 
     def prompt_for(self, label):
+        if label == 'Start date':
+            print()
+            print("Date format allowed (hours and minutes can be omited):\n\n"
+                  f"{' ' * 4}DDMMYY hhmm without separator\n"
+                  f"{' ' * 4}or with separator DD/MM/YYYY hh:mm "
+                  " or DD/MM/YY hh:mm\n"
+                  f"{' ' * 4}Use DD/MM/YY hh if minutes not needed")
+            print()
         result = input(f"{label} : ")
         return result
 
