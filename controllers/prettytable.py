@@ -5,6 +5,7 @@ from prettytable import ALL
 from datetime import datetime
 from models.match import Match
 from models.tournament import Tournament
+from models.player import PlayerInTournament
 from utils.ansi_colors import BL, N
 
 
@@ -106,10 +107,45 @@ class MyPrettyTable:
             except AttributeError:
                 pass
             string = ''
-            for elt in value:
-                string += f"{elt}\n"
+            rank = 1
+            for i, elt in enumerate(value):
+                if value:
+                    # set rank if value is a list of player in tournament
+                    # this list can only be found in a tournament
+                    if isinstance(value[0], PlayerInTournament):
+                        rank = self.get_rank(value, i, rank)
+                        # add a space if rank < 10 to maintain alignment
+                        if rank < 10:
+                            string += f"{rank}.  {elt}\n"
+                        else:
+                            string += f"{rank}. {elt}\n"
+                    else:
+                        string += f"{elt}\n"
             return string
         return value
+
+    def get_rank(self, value, index, rank):
+        """Get the rank to display it in a tournament
+
+        params:
+            - value (list) : list of PlayerInTournament instance
+            - index (int) : the index of the list
+            - rank (int) : the rank of the previous player
+        return:
+            - rank (int) : the rank of the player tested
+        """
+        if index:
+            player = value[index]
+            previous_player = value[index - 1] 
+            if ((player.score,
+                player.buchholz_score,
+                player.cumulative_score) 
+                == (previous_player.score,
+                    previous_player.buchholz_score,
+                    previous_player.cumulative_score)):
+                return rank
+            return index + 1
+        return rank
 
     def get_table(self, items):
         """Add headers and rows in PrettyTable
