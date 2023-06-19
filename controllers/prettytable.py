@@ -31,14 +31,14 @@ class MyPrettyTable:
         for key in vars(item).keys():
             if key == 'uuid':
                 key = 'Id'
+            # don't display cumulative list
+            elif key == 'cumulative_list':
+                continue
             if not to_html:
                 if key == 'curent_round':
                     key = 'CR'
                 if key == 'number_of_rounds':
                     key = 'NR'
-            # don't display cumulative list
-            elif key == 'cumulative_list':
-                continue
             key = key.lstrip("_").capitalize().replace('_', ' ')
             keys.append(key.upper())
         return keys
