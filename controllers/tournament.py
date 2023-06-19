@@ -339,7 +339,7 @@ class TournamentController:
         """
         players_list.sort(key=lambda obj: (obj.last_name, obj.first_name))
         self.pretty_table.display(players_list)
-        response = self.tournament_view.select('player', to_stop=True)
+        response = self.tournament_view.select('player', to_stop=add_player)
         clear_console()
         # needed to display error under the title in add_player
         if add_player:
