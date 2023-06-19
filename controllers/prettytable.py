@@ -146,10 +146,10 @@ class MyPrettyTable:
         """
         if index:
             player = value[index]
-            previous_player = value[index - 1] 
+            previous_player = value[index - 1]
             if ((player.score,
                 player.buchholz_score,
-                player.cumulative_score) 
+                player.cumulative_score)
                 == (previous_player.score,
                     previous_player.buchholz_score,
                     previous_player.cumulative_score)):
