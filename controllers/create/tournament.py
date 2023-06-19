@@ -156,7 +156,7 @@ class NewTournament(Validate):
         self.players_list.sort(
             key=lambda obj: (obj.last_name, obj.first_name))
         self.pretty_table.display(self.players_list)
-        response = self.tournament_view.select('player')
+        response = self.tournament_view.select('player', to_stop=True)
         clear_console()
         self.title_view.new_tournament()
         self.create_view.add_player()
